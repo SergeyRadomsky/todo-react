@@ -7,33 +7,44 @@ import { useState } from 'react';
 import { v4 as uuidv4} from "uuid";
 
 const App = (props) => {
-const [todos, SetTodos] = useState([])
+const [todos, setTodos] = useState([])
 
 const addTodo = (title) => {
-  if (title.trim() !== "") {
+  if (title.trim() !== "" && title.length < 150) {
     const newTodo = {
       text: title,
       id: uuidv4(),
-      comleted: false,
+      completed: false,
     };
-    SetTodos([newTodo, ...todos]);
+    setTodos([newTodo, ...todos]);
     
   }
 };
-console.log(todos);
 
+const completedTodo = (id) => {
+  const newTodos = todos.map((todo) => {
+    if (todo.id === id) {
+      return {
+        ...todo,
+        completed: !todo.completed,
+      };
+    }
+
+    return todo;
+  });
+
+  setTodos(newTodos);
+};
 
   return (
     <div className={styles.App}>
       {/* <div className=''></div> */}
       <Header/>
-      <button
-        onClick={() => props.object2.t(todos)}
-      >
-        call
-      </button>
       <TodoForm addTodo={addTodo}/>
-      <TodoList />
+      <TodoList completedTodo={completedTodo} todos={todos}/>
+      {/* <button onClick={() => call2.allTasks(todos)}>
+        call
+      </button> */}
     </div>
   );
 }

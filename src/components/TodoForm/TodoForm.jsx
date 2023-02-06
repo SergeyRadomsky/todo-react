@@ -1,20 +1,6 @@
 import { useState } from 'react'
 import styles from './TodoForm.module.css'
 
-
-
-// const todoList = () => {
-
-// }
-
-
-
-
-
-
-
-
-
 export const TodoForm = (props) => {
 const [text, setText] = useState("")
 
