@@ -13,7 +13,7 @@ const handleAddTodo = (e) => {
 
 const handleInputSubmit = (e) => {
   setText(e.target.value)
-  console.log(e.target.value);
+  // console.log(e.target.value);
   // return false
 }
 

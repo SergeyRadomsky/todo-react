@@ -11,14 +11,23 @@ export const Task = (props) => {
   // todo.find(item => item.id === id)
 
   const handleChange = (id) => {
-    props.completedTodo(id);
+    props.completeTodo(id);
   }
 
   return (
+    <>
     <div className={styles.Task}>
-      <input type="checkbox" onChange={() => handleChange(props.id)} className={styles.checkbox} checked={props.completed}></input>
+      <input 
+        type="checkbox" 
+        onChange={() => handleChange(props.id)} 
+        className={styles.checkbox} 
+        checked={props.completed}>
+      </input>
       <p className={styles.taskText}>{props.text}</p>
-      <button className={styles.delete}>X</button>
+      <button 
+        className={styles.delete} 
+        onClick={() => props.removeTodo(props.id)}>X</button>
     </div>
+    </>
   )
 }
