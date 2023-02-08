@@ -20,16 +20,16 @@ const App = () => {
 
 const visibleList = () => {
   if (tab === "all") {
-     const a = React.memo(visibleTodos.all)
-    console.log("all ", a);
+    React.memo(visibleTodos.all.type)
+    console.log("all ");
   }
   if (tab === "active") {
-    const b = React.memo(visibleTodos.active)
-    console.log("active ", b);
+    React.memo(visibleTodos.active.type)
+    console.log("active ");
   }
   if (tab === "completed") {
-    const c = React.memo(visibleTodos.completed)
-    console.log("completed", c);
+    React.memo(visibleTodos.completed.type)
+    console.log("completed");
   }
 }
 
