@@ -18,18 +18,18 @@ const App = () => {
   // const  [savetodos, setSaveTodos] = useState(todos)
   const [tab, setTab] = useState('all')
 
-const visibleList = (tab) => {
+const visibleList = () => {
   if (tab === "all") {
-    setTodos(visibleTodos.all)
-    console.log("all");
+     const a = React.memo(visibleTodos.all)
+    console.log("all ", a);
   }
   if (tab === "active") {
-    setTodos(visibleTodos.active)
-    console.log("active");
+    const b = React.memo(visibleTodos.active)
+    console.log("active ", b);
   }
   if (tab === "completed") {
-    setTodos(visibleTodos.completed)
-    console.log("completed");
+    const c = React.memo(visibleTodos.completed)
+    console.log("completed", c);
   }
 }
 
@@ -44,6 +44,7 @@ const visibleTodos = useMemo(
   );
   // setTodos(todos)
   console.log(tab);
+  // console.log(todos, "  TOOODDDDDDDDDDDOOOOOOOOOS");
 console.log(visibleTodos);
 
 // ИЛИ СНОСИТЬ ИЛИ УДАЛИТЬ
@@ -225,7 +226,7 @@ console.log(visibleTodos);
         call
       </button> */}
       <Footer
-      // visibleList={visibleList}
+      visibleList={visibleList}
       visibleTodos={visibleTodos}
         // showAll={showAll}
         // showActive={showActive}

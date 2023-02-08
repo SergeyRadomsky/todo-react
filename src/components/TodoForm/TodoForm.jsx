@@ -13,8 +13,6 @@ const handleAddTodo = (e) => {
 
 const handleInputSubmit = (e) => {
   setText(e.target.value)
-  // console.log(e.target.value);
-  // return false
 }
 
 
@@ -26,7 +24,6 @@ const handleInputSubmit = (e) => {
         type="text"
         onChange={handleInputSubmit}
         value={text}
-        // onChange={}
       />
       <button 
         className={styles.btnInput}>
