@@ -1,5 +1,4 @@
 import React from 'react'
-import { Footer } from '../Footer/Footer';
 import { Task } from './Task'
 import styles from './TodoList.module.css'
 
@@ -26,7 +25,6 @@ export const TodoList = (props) => {
           )
         )
       }
-    {/* <Footer /> */}
     </div>
   )
 }

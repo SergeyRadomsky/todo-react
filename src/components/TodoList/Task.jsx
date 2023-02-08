@@ -23,7 +23,9 @@ export const Task = (props) => {
         className={styles.checkbox} 
         checked={props.completed}>
       </input>
-      <p className={styles.taskText}>{props.text}</p>
+      {!props.completed ? <p className={styles.taskText}>{props.text}</p> : 
+        <p className={`${styles.taskText} ${styles.TaskComplete}`}>{props.text}</p>
+      }
       <button 
         className={styles.delete} 
         onClick={() => props.removeTodo(props.id)}>X</button>

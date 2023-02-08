@@ -32,11 +32,14 @@
 
 .checkbox {
   border-radius: 15px;
-
   width: 25px;
   height: 25px;
 }
 
+/* .checkbox:checked + .taskText {
+  text-decoration: line-through;
+}
+ */
 
 .taskText {
   display: flex;
@@ -56,6 +59,12 @@
   /* border-bottom-left-radius: 15px; */
   border: 0px;
 }
+.TaskComplete {
+  text-decoration: line-through;
+  color: #407ff3;
+}
+
+
 
 .btnInput {
   display: flex;
