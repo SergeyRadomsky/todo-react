@@ -1,11 +1,15 @@
 import React from 'react'
 
 export const Footer = (props) => {
-  // console.log(props.todos);
   
-  const qwe = () => {
+  const all = () => {
     props.setTab('all');
-    props.visibleList()
+  }
+  const active = () => {
+    props.setTab('active');
+  }
+  const completed = () => {
+    props.setTab('completed');
   }
 
   return (
@@ -14,9 +18,9 @@ export const Footer = (props) => {
         true : (
           <div>
           <button onClick={() => props.doAll(props.todos)}>Done All</button>
-          <button onClick={qwe}>All</button> 
-          <button onClick={() => {props.setTab('active')}}>Active</button>
-          <button onClick={() => {props.setTab('completed')}}>Completed</button>
+          <button onClick={() => all()}>All</button> 
+          <button onClick={() => active()}>Active</button>
+          <button onClick={() => completed()}>Completed</button>
           <button onClick={() => props.removeCompleted()}>Clear completed</button> 
         </div>
         )

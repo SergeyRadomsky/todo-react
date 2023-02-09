@@ -5,16 +5,15 @@ import styles from './TodoList.module.css'
 
 export const TodoList = (props) => {
 
-// console.log(props);
 
 
   return (
     <div>
-      {props.todos.length > 0 ? 
-        <div className={styles.TaskCounterFrase}>{props.todos.length} tasks for tooday</div> : true
+      {props.counterActive() > 0 ? 
+        <div className={styles.TaskCounterFrase}>{props.counterActive()} tasks for tooday</div> : null
       }
       {
-        props.todos.length === 0 ? <p className={styles.TaskCounterFrase}>No tasks for you today</p> : (
+        (props.todos.length === 0) ? <p className={styles.TaskCounterFrase}>No tasks for you today</p> : (
         props.todos.map(( todo ) => 
           <Task 
             completeTodo={props.completeTodo} 

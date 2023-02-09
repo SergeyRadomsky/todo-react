@@ -3,7 +3,7 @@ import { Header } from './components/Header/Header.jsx';
 import { TodoForm } from './components/TodoForm/TodoForm';
 import styles from './App.module.css';
 import { TodoList } from './components/TodoList/TodoList.jsx';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { Footer } from './components/Footer/Footer.jsx';
 
@@ -15,107 +15,27 @@ import { Footer } from './components/Footer/Footer.jsx';
 
 const App = () => {
   const [todos, setTodos] = useState([])
-  // const  [savetodos, setSaveTodos] = useState(todos)
   const [tab, setTab] = useState('all')
 
-const visibleList = () => {
-  if (tab === "all") {
-    React.memo(visibleTodos.all.type)
-    console.log("all ");
+const visibleTodos = (tab) => {
+  if (tab === 'all') {
+    const all = todos
+    return all
   }
-  if (tab === "active") {
-    React.memo(visibleTodos.active.type)
-    console.log("active ");
+  else if (tab === 'active') {
+    const active = todos.filter((todo) => !todo.completed)
+    return active
   }
-  if (tab === "completed") {
-    React.memo(visibleTodos.completed.type)
-    console.log("completed");
+  else if (tab === 'completed') {
+    const completed = todos.filter((todo) => todo.completed)
+    return completed
   }
 }
 
-const visibleTodos = useMemo(
-  () => ({
-    // tab: tab,
-    all: todos,
-    active: todos.filter((todo) => !todo.completed),
-    completed: todos.filter((todo) => todo.completed),
-  }),
-  [todos]
-  );
-  // setTodos(todos)
-  console.log(tab);
-  // console.log(todos, "  TOOODDDDDDDDDDDOOOOOOOOOS");
-console.log(visibleTodos);
-
-// ИЛИ СНОСИТЬ ИЛИ УДАЛИТЬ
-  // const filterTodos = (todos, tab) => {
-  //   return todos.filter(todo => {
-  //     if (tab === 'All') {
-  //       console.log(tab);
-  //       return true
-  //     }
-  //     else if ( tab === 'active') {
-  //       console.log(tab);
-  //       return todo.completed
-  //     }
-  //     else if ( tab === 'completed') {
-  //       console.log(tab);
-  //       return !todo.completed
-  //     }
-  //   });
-  // }
-
-
-
-  // const showActive = () => {
-  //   console.log(savetodos);
-  //   setSaveTodos(todos)
-  //   if (1) {
-  //     setTodos(todos.filter((todo) => !todo.completed === true))
-  //   }
-  //   setSaveTodos( todos)
-  //   console.log(savetodos);
-  // }
-
-  // const showAll = () => {
-  //   console.log(savetodos);
-  //   setSaveTodos(todos)
-  //   if (1) {
-  //     setTodos(todos.filter((todo) => todo))
-  //   }
-  //   setTodos(todos)
-  //   setSaveTodos( savetodos)
-
-  //   console.log(savetodos);
-  // }
-
-  // const showCompleted = () => {
-  //   console.log(savetodos);
-  //   setSaveTodos(todos)
-  //   // setSaveTodos(todos)
-  //   if (1) {
-  //     setTodos(todos.filter((todo) => !todo.completed === false))
-  //   }
-  //   setSaveTodos( todos)
-  //   console.log(savetodos);
-  // }
-
-  // console.log(tab);
-  // let timeTodo = todos
-  // console.log(timeTodo);
-
-
-  // const changeTab = (e) => {
-  //   setTab("Active")
-  //   todos = todos
-  //   let a = todos
-  //   setTodos(todos.filter((todo) => !todo.completed))
-  //   console.log(tab);
-  // }
-
-  // const [filterTodos, setFilterTodos] = useState([])
-
-
+const counterActive = () => {
+  // console.log(todos);
+  return todos.filter((todo) => !todo.completed).length 
+}
 
   const addTodo = (title) => {
     if (title.trim() !== "" && title.length < 150) {
@@ -125,7 +45,6 @@ console.log(visibleTodos);
         completed: false,
       };
       setTodos([newTodo, ...todos]);
-
     }
   };
 
@@ -143,12 +62,6 @@ console.log(visibleTodos);
 
     setTodos(newTodos);
   };
-
-
-
-
-  // (todos.every((todo) => todo.completed === false))
-  // console.log([1,1,1,1,1].every(item => item === 1))
 
   const doAll = () => {
     // const activeTask = todos.find((todo) => !todo.completed);
@@ -187,22 +100,6 @@ console.log(visibleTodos);
     setTodos (newTodos);
   }
 
-
-  // const checkCompleted = (todos) => {
-  //   const checkArr = todos.filter((todo) => {
-  //     if (todo.completed) {
-  //       console.log(checkArr);
-  //       return {
-  //         ...todo,
-  //         completed: !todo.completed,
-  //       };
-  //     }
-  //     return todo
-  //   })
-  //   setTodos(checkArr)
-  // }
-
-
   const removeTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos)
@@ -215,29 +112,23 @@ console.log(visibleTodos);
 
   return (
     <div className={styles.App}>
-      {/* <div className=''></div> */}
       <Header />
       <TodoForm addTodo={addTodo} />
       <TodoList
+        counterActive={counterActive}
         completeTodo={completeTodo}
-        todos={todos}
-        removeTodo={removeTodo} />
-      {/* <button onClick={() => call2.allTasks(todos)}>
-        call
-      </button> */}
+        todos={visibleTodos(tab)}
+        removeTodo={removeTodo} 
+        visibleTodos={visibleTodos} 
+        todosLength={visibleTodos('active')}
+      />
       <Footer
-      visibleList={visibleList}
-      visibleTodos={visibleTodos}
-        // showAll={showAll}
-        // showActive={showActive}
-        // showCompleted={showCompleted}
         doAll={doAll} 
         todos={todos} 
         removeCompleted={removeCompleted} 
-        // changeTab={changeTab}
         setTab={setTab}
         tab={tab}
-        />
+      />
     </div>
   );
 }

@@ -1,14 +1,7 @@
 import React from 'react'
-// import { TodoForm } from '../TodoForm/TodoForm'
-// import styles from './Task.module.css'
 import styles from './Task.module.css'
-import { TodoList } from './TodoList'
-// import { useState } from 'react'
 
 export const Task = (props) => {
-//  const []
-
-  // todo.find(item => item.id === id)
 
   const handleChange = (id) => {
     props.completeTodo(id);
