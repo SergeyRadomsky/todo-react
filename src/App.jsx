@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Header } from './components/Header/Header.jsx';
 import { TodoForm } from './components/TodoForm/TodoForm';
 import styles from './App.module.css';
@@ -7,38 +7,31 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { Footer } from './components/Footer/Footer.jsx';
 
-
-
-
-
-
-
 const App = () => {
   const [todos, setTodos] = useState([])
   const [tab, setTab] = useState('all')
+  const [updateTodo, setUpdateTodo] = useState(null)
 
-const visibleTodos = (tab) => {
-  if (tab === 'all') {
-    const all = todos
-    return all
-  }
-  else if (tab === 'active') {
-    const active = todos.filter((todo) => !todo.completed)
-    return active
-  }
-  else if (tab === 'completed') {
-    const completed = todos.filter((todo) => todo.completed)
-    return completed
-  }
-}
 
-const counterActive = () => {
-  // console.log(todos);
-  return todos.filter((todo) => !todo.completed).length 
-}
+
+  const visibleTodos = useMemo(() => {
+    if (tab === 'all') {
+      return todos
+    }
+    else if (tab === 'active') {
+      return  todos.filter((todo) => !todo.completed)
+    }
+    else if (tab === 'completed') {
+     return todos.filter((todo) => todo.completed)
+    }
+  }, [tab, todos])
+
+  const counterActive = useMemo(() => {
+    return todos.filter((todo) => !todo.completed).length
+  }, [todos])
 
   const addTodo = (title) => {
-    if (title.trim() !== "" && title.length < 150) {
+    if (title.trim() && title.length < 150) {
       const newTodo = {
         text: title,
         id: uuidv4(),
@@ -48,63 +41,59 @@ const counterActive = () => {
     }
   };
 
+  const changeValueInTodo = (nextValue, id) => {
+    const changedValueInTodo = () => todos.map((todo) => {
+      if (todo.id !== id) {
+        return todo;
+      }
+      return {
+        ...todo,
+        text: nextValue,
+      }
+    })
+    setTodos(changedValueInTodo())
+    console.log(nextValue);
+    return nextValue
+  }
+
+  // const ChangeValueInTodo = (id, newText) => {
+  //   const changedTodo = todos.map((todo) => {
+  //     if ( id !== todo.id) {
+  //       return todo
+  //     }
+  //   })
+  // }
+
+
   const completeTodo = (id) => {
     const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
+      if (todo.id !== id) {
+        return todo;
       }
-
-      return todo;
+      return {
+        ...todo,
+        completed: !todo.completed,
+      };
     });
-
     setTodos(newTodos);
   };
 
   const doAll = () => {
-    // const activeTask = todos.find((todo) => !todo.completed);
-    // const targetCompletedValue = Boolean(activeTask);
-
-    // const newTodos = todos.map((todo) => ({
-    //   ...todo,
-    //   completed: targetCompletedValue,
-    // }));
-
-    // setTodos(newTodos);
-
+    const isAllCompleted = todos.every(elem => elem.completed)
     const newTodos = todos.map((todo) => {
-      if (todo.completed === false) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-      return todo;
+      return {
+        ...todo,
+        completed: !isAllCompleted,
+      };
     })
-
-    if (todos.every(elem => elem.completed === true)) {
-      const newTodos2 = todos.map((todo) => {
-        if (todo.completed) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        };
-        return todo;
-      })
-      setTodos (newTodos2);
-      return newTodos;
-    }
-    setTodos (newTodos);
+    setTodos(newTodos);
   }
 
   const removeTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos)
   }
-  
+
   const removeCompleted = () => {
     const newTodos = todos.filter((todo) => todo.completed !== true);
     setTodos(newTodos)
@@ -116,18 +105,20 @@ const counterActive = () => {
       <TodoForm addTodo={addTodo} />
       <TodoList
         counterActive={counterActive}
+        visibleTodos={visibleTodos}
+        todos={visibleTodos}
+        tab={tab}
+        setTodos={setTodos}
+        changeValueInTodo={changeValueInTodo}
+        removeTodo={removeTodo}
         completeTodo={completeTodo}
-        todos={visibleTodos(tab)}
-        removeTodo={removeTodo} 
-        visibleTodos={visibleTodos} 
-        todosLength={visibleTodos('active')}
       />
       <Footer
-        doAll={doAll} 
-        todos={todos} 
-        removeCompleted={removeCompleted} 
-        setTab={setTab}
+        todos={todos}
         tab={tab}
+        doAll={doAll}
+        setTab={setTab}
+        removeCompleted={removeCompleted}
       />
     </div>
   );

@@ -18,6 +18,7 @@
 }
 
 .delete {
+  margin-left: 4px;
   border: 0px;
   border-radius: 7px;
   outline: none;
@@ -64,8 +65,6 @@
   color: #407ff3;
 }
 
-
-
 .btnInput {
   display: flex;
   align-items: center;
@@ -83,4 +82,11 @@
 .btnInput:hover {
   background-color: rgb(80, 80, 253);
   color: white;
+}
+
+.inputInTask {
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 4px;
 }

@@ -5,25 +5,28 @@ import styles from './TodoList.module.css'
 
 export const TodoList = (props) => {
 
-
-
   return (
     <div>
-      {props.counterActive() > 0 ? 
-        <div className={styles.TaskCounterFrase}>{props.counterActive()} tasks for tooday</div> : null
+      {props.counterActive > 0 ? 
+        (<div className={styles.TaskCounterFrase}>{props.counterActive} tasks for tooday</div>) : 
+        (<div className={styles.TaskCounterFrase2}></div>)
       }
-      {
-        (props.todos.length === 0) ? <p className={styles.TaskCounterFrase}>No tasks for you today</p> : (
-        props.todos.map(( todo ) => 
-          <Task 
-            completeTodo={props.completeTodo} 
-            key={todo.id} id={todo.id} 
-            text={todo.text} 
-            completed={todo.completed} 
-            removeTodo={props.removeTodo}/>
-          )
+      {(props.todos.length === 0) ? (
+        <p className={styles.TaskCounterFrase} >
+          No {props.tab} tasks for you today
+        </p>
+      ) : (
+        props.todos.map((todo) =>
+          <Task
+          changeValueInTodo={props.changeValueInTodo}
+          todo={todo}
+          key={todo.id}
+          setTodos={props.setTodos}
+          removeTodo={props.removeTodo}
+          completeTodo={props.completeTodo}
+          />
         )
-      }
+      )}
     </div>
   )
 }
