@@ -8,7 +8,7 @@ export const TodoList = (props) => {
   return (
     <div>
       {props.counterActive > 0 ? 
-        (<div className={styles.TaskCounterFrase}>{props.counterActive} tasks for tooday</div>) : 
+        (<div className={styles.TaskCounterFrase}>{props.counterActive} tasks for today</div>) : 
         (<div className={styles.TaskCounterFrase2}></div>)
       }
       {(props.todos.length === 0) ? (

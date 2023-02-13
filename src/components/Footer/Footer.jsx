@@ -19,9 +19,9 @@ export const Footer = (props) => {
         true : (
           <div>
           <button className={styles.btnFooter} onClick={props.doAll}>Done All</button>
-          <button className={styles.btnFooter} onClick={all}>All</button> 
-          <button className={styles.btnFooter} onClick={active}>Active</button>
-          <button className={styles.btnFooter} onClick={completed}>Completed</button>
+          <button className={props.tab === "all" ? styles.btnFooterActive : styles.btnFooter} onClick={all}>All</button> 
+          <button className={props.tab === "active" ? styles.btnFooterActive : styles.btnFooter} onClick={active}>Active</button>
+          <button className={props.tab === "completed" ? styles.btnFooterActive : styles.btnFooter} onClick={completed}>Completed</button>
           <button className={styles.btnFooter} onClick={props.removeCompleted}>Clear completed</button> 
         </div>
         )
