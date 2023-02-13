@@ -16,10 +16,10 @@ const App = () => {
       return todos
     }
     else if (tab === 'active') {
-      return  todos.filter((todo) => !todo.completed)
+      return todos.filter((todo) => !todo.completed)
     }
     else if (tab === 'completed') {
-     return todos.filter((todo) => todo.completed)
+      return todos.filter((todo) => todo.completed)
     }
   }, [tab, todos])
 

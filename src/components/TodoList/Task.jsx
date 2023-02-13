@@ -17,7 +17,7 @@ export const Task = (props) => {
     if (nextValue.trim() !== "") {
       props.changeValueInTodo(nextValue, props.todo.id)
     }
-    else {setNextValue(props.todo.text) }
+    else { setNextValue(props.todo.text) }
     setIsChange(false)
   }
 
@@ -40,47 +40,47 @@ export const Task = (props) => {
 
   return (
     <>
-    <div className={styles.Task}>
-      <input 
-        type="checkbox" 
-        onChange={handleChange} 
-        className={styles.checkbox} 
-        checked={props.todo.completed}>
-      </input>
-      {isChange ? 
-        (<form 
-          onChange={changeTaskForm}
-          onSubmit={submitTaskForm}
+      <div className={styles.Task}>
+        <input
+          type="checkbox"
+          onChange={handleChange}
+          className={styles.checkbox}
+          checked={props.todo.completed}>
+        </input>
+        {isChange ?
+          (<form
+            onChange={changeTaskForm}
+            onSubmit={submitTaskForm}
           >
-          <input 
-            onKeyUp={escFunc}
-            autoFocus
-            type="text"
-            key={props.id}
-            value={nextValue}
-            className={styles.inputInTask} 
-          >
-          </input>
-        </form>) : 
-        (!props.todo.completed ? 
-          (<div 
-            className={styles.taskText} 
-            onDoubleClick={handleChangeText}>
+            <input
+              onKeyUp={escFunc}
+              autoFocus
+              type="text"
+              key={props.id}
+              value={nextValue}
+              className={styles.inputInTask}
+            >
+            </input>
+          </form>) :
+          (!props.todo.completed ?
+            (<div
+              className={styles.taskText}
+              onDoubleClick={handleChangeText}>
               {nextValue}
-          </div>) 
-          : 
-          (<div  
-            className={`${styles.taskText} ${styles.TaskComplete}`} 
-            onClick={handleChangeText}>
+            </div>)
+            :
+            (<div
+              className={`${styles.taskText} ${styles.TaskComplete}`}
+              onClick={handleChangeText}>
               {nextValue}
-          </div>)
+            </div>)
           )
-      }
-      <button 
-        className={styles.delete} 
-        onClick={() => props.removeTodo(props.todo.id)}>X
-      </button>
-    </div>
+        }
+        <button
+          className={styles.delete}
+          onClick={() => props.removeTodo(props.todo.id)}>X
+        </button>
+      </div>
     </>
   )
 }
