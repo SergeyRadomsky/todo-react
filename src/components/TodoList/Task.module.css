@@ -1,17 +1,13 @@
-
 .Task {
   padding: 10px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  /* width: 100%; */
   background-color: #333a47;
-  /* height: 45px; */
   margin-left: 10px;
   margin-right: 10px;
   max-width: 400px;
-  /* min-width: 300px; */
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 15px;
@@ -37,29 +33,20 @@
   height: 25px;
 }
 
-/* .checkbox:checked + .taskText {
-  text-decoration: line-through;
-}
- */
-
 .taskText {
   display: flex;
   flex-direction: column;
   word-wrap: break-word;
-  /* display: block; */
   width: 100%;
   min-width: 110px;
   min-width: 180px;
   outline: none;
   margin-left: 10px;
   margin-right: 10px;
-  /* padding-top: 15px; */
   padding-bottom: 3px;
-  /* padding-left: 15px; */
-  /* border-top-left-radius: 15px; */
-  /* border-bottom-left-radius: 15px; */
   border: 0px;
 }
+
 .TaskComplete {
   text-decoration: line-through;
   color: #407ff3;

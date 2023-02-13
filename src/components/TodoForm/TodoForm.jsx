@@ -10,11 +10,9 @@ const handleAddTodo = (e) => {
   setText("")
 }
 
-
 const handleInputSubmit = (e) => {
   setText(e.target.value)
 }
-
 
   return (
     <form className={styles.TodoForm} onSubmit={handleAddTodo}>

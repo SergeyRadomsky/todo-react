@@ -18,12 +18,12 @@ export const TodoList = (props) => {
       ) : (
         props.todos.map((todo) =>
           <Task
-          changeValueInTodo={props.changeValueInTodo}
           todo={todo}
           key={todo.id}
           setTodos={props.setTodos}
           removeTodo={props.removeTodo}
           completeTodo={props.completeTodo}
+          changeValueInTodo={props.changeValueInTodo}
           />
         )
       )}

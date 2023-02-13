@@ -10,9 +10,6 @@ import { Footer } from './components/Footer/Footer.jsx';
 const App = () => {
   const [todos, setTodos] = useState([])
   const [tab, setTab] = useState('all')
-  const [updateTodo, setUpdateTodo] = useState(null)
-
-
 
   const visibleTodos = useMemo(() => {
     if (tab === 'all') {
@@ -51,19 +48,8 @@ const App = () => {
         text: nextValue,
       }
     })
-    setTodos(changedValueInTodo())
-    console.log(nextValue);
-    return nextValue
+    setTodos(changedValueInTodo)
   }
-
-  // const ChangeValueInTodo = (id, newText) => {
-  //   const changedTodo = todos.map((todo) => {
-  //     if ( id !== todo.id) {
-  //       return todo
-  //     }
-  //   })
-  // }
-
 
   const completeTodo = (id) => {
     const newTodos = todos.map((todo) => {

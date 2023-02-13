@@ -6,40 +6,33 @@ export const Task = (props) => {
   const [isChange, setIsChange] = useState(false)
 
 
-const fuck = (e) => {
-  e.preventDefault()
-  // console.log(nextValue);
-  setNextValue(e.target.value)
-}
+  const changeTaskForm = (e) => {
+    e.preventDefault()
+    setNextValue(e.target.value)
+  }
 
-const fuck2 = (e) => {
- e.preventDefault()
- console.log(nextValue);
- console.log(e.target);
-}
+  const submitTaskForm = (e) => {
+    e.preventDefault()
+    setIsChange(true)
+    if (nextValue.trim() !== "") {
+      props.changeValueInTodo(nextValue, props.todo.id)
+    }
+    else {setNextValue(props.todo.text) }
+    setIsChange(false)
+  }
 
-
-
-
+  const escFunc = (e) => {
+    e.preventDefault()
+    if (e.code === "Escape") {
+      setNextValue(props.todo.text)
+      setIsChange(false)
+    }
+  }
 
   const handleChangeText = (e) => {
     e.preventDefault()
     setIsChange(true)
-    // setNextValue(e.target.value)
-    // if (nextValue.trim() !== "") {
-    //   props.changeValueInTodo(nextValue , props.todo.id)
-    // } else {
-    //   props.changeValueInTodo(props.todo.text, props.todo.id)
-    // }
   }
-
-  const noChangeText = (e) => {
-    e.preventDefault()
-    setNextValue(props.todo.text)
-    setIsChange(false)
-  }
-
-
 
   const handleChange = () => {
     props.completeTodo(props.todo.id);
@@ -55,18 +48,20 @@ const fuck2 = (e) => {
         checked={props.todo.completed}>
       </input>
       {isChange ? 
-
-        (<form onChange={fuck} onSubmit={fuck2}>
+        (<form 
+          onChange={changeTaskForm}
+          onSubmit={submitTaskForm}
+          >
           <input 
+            onKeyUp={escFunc}
+            autoFocus
             type="text"
             key={props.id}
             value={nextValue}
             className={styles.inputInTask} 
-            onBlur={noChangeText}
-            >
+          >
           </input>
         </form>) : 
-
         (!props.todo.completed ? 
           (<div 
             className={styles.taskText} 
@@ -81,10 +76,10 @@ const fuck2 = (e) => {
           </div>)
           )
       }
-
       <button 
         className={styles.delete} 
-        onClick={() => props.removeTodo(props.todo.id)}>X</button>
+        onClick={() => props.removeTodo(props.todo.id)}>X
+      </button>
     </div>
     </>
   )

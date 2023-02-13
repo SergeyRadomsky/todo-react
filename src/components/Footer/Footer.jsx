@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styles from './Footer.module.css'
 export const Footer = (props) => {
   
   const all = () => {
@@ -18,11 +18,11 @@ export const Footer = (props) => {
       {props.todos.length === 0 ? 
         true : (
           <div>
-          <button onClick={props.doAll}>Done All</button>
-          <button onClick={all}>All</button> 
-          <button onClick={active}>Active</button>
-          <button onClick={completed}>Completed</button>
-          <button onClick={props.removeCompleted}>Clear completed</button> 
+          <button className={styles.btnFooter} onClick={props.doAll}>Done All</button>
+          <button className={styles.btnFooter} onClick={all}>All</button> 
+          <button className={styles.btnFooter} onClick={active}>Active</button>
+          <button className={styles.btnFooter} onClick={completed}>Completed</button>
+          <button className={styles.btnFooter} onClick={props.removeCompleted}>Clear completed</button> 
         </div>
         )
       }
