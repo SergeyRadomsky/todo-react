@@ -5,9 +5,15 @@ import styles from './TodoList.module.css'
 
 export const TodoList = (props) => {
 
+  const counterActive = useMemo(() => {
+    return todos.filter((todo) => !todo.completed).length
+  }, [todos])
+// 
+// 
+
   return (
     <div>
-      {props.counterActive > 0 ?
+      {counterActive > 0 ?
         (<div className={styles.TaskCounterFrase}>{props.counterActive} tasks for today</div>) :
         (<div className={styles.TaskCounterFrase2}></div>)
       }
