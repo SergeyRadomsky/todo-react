@@ -1,43 +1,35 @@
-import { useState } from 'react'
-import React from 'react'
-import styles from './TodoForm.module.css'
-import { useDispatch } from 'react-redux'
-import { addTodo } from '../../store/TDSlice'
-// import {useSelector} from 'react-redux'
-
-
-
+import { useState } from 'react';
+import React from 'react';
+import s from './TodoForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addTodoAction } from '../../store/todos/reducer';
 
 export const TodoForm = () => {
-  const [text, setText] = useState("")
-  const dispatch = useDispatch()
-  // const todos = useSelector(state => state.todos.todosState)
-  
-  const handleAddTodo = (e) => {
-    e.preventDefault()
-    dispatch(addTodo(text))
-    // console.log({text});
-    // console.log({todos});
-    setText("")
-}
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
 
-const handleInputSubmit = (e) => {
-  setText(e.target.value)
-}
+  const addTodo = (e) => {
+    e.preventDefault();
+    if (!!value.trim()) {
+      dispatch(addTodoAction(value));
+      setValue('');
+    }
+  };
+
+  const onInputChange = (e) => {
+    setValue(e.target.value);
+  };
 
   return (
-    <form className={styles.TodoForm} onSubmit={handleAddTodo}>
-      <input 
-        className={styles.inputArea}
+    <form className={s.TodoForm} onSubmit={addTodo}>
+      <input
+        className={s.inputArea}
         placeholder="What needs to be done?"
         type="text"
-        onChange={handleInputSubmit}
-        value={text}
+        onChange={onInputChange}
+        value={value}
       />
-      <button 
-        className={styles.btnInput}>
-          New To do
-      </button>
+      <button className={s.btnInput}>New To do</button>
     </form>
-  )
-}
+  );
+};

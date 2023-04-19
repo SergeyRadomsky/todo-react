@@ -1,95 +1,69 @@
-import React, { useState } from 'react'
-import styles from './Task.module.css'
-import { useDispatch} from 'react-redux'
-import { changeValueInTodo, completeTodo, removeTodo} from '../../store/TDSlice'
+import React, { useState } from 'react';
+import s from './Task.module.css';
+import { useDispatch } from 'react-redux';
+import {
+  removeTodoAction,
+  updateTodoTextAction,
+} from '../../store/todos/reducer';
 
-export const Task = (props) => {
-  const dispatch = useDispatch()
-  // const todos = useSelector(state => state.todos.todosState)
-  // console.log(todos);
-  const [nextValue, setNextValue] = useState(props.todo.text)
-  console.log(nextValue);
-  const [isChange, setIsChange] = useState(false)
-
+export const Task = ({ completed, text, id }) => {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [isEditable, setIsEditable] = useState(false);
 
   const changeTaskForm = (e) => {
-    e.preventDefault()
-    setNextValue(e.target.value)
-  }
+    e.preventDefault();
+    setValue(e.target.value);
+  };
 
   const submitTaskForm = (e) => {
-    e.preventDefault()
-    setIsChange(true)
-    if (nextValue.trim() !== "") {
-      dispatch(changeValueInTodo(nextValue, props.todo.id))
+    e.preventDefault();
+    if (!!value.trim()) {
+      dispatch(updateTodoTextAction({ value, id }));
     }
-    else { 
-      setNextValue(props.todo.text) 
-      dispatch(changeValueInTodo(nextValue, props.todo.id))
+    setIsEditable(false);
+  };
+
+  const onCancel = (e) => {
+    e.preventDefault();
+    if (e.code === 'Escape') {
+      setIsEditable(false);
     }
-    setIsChange(false)
-  }
+  };
 
-  const escFunc = (e) => {
-    e.preventDefault()
-    if (e.code === "Escape") {
-      setNextValue(props.todo.text)
-      setIsChange(false)
-    }
-  }
+  const setTodoEditable = (e) => {
+    e.preventDefault();
+    setIsEditable(true);
+    setValue(text);
+  };
 
-  const handleChangeText = (e) => {
-    e.preventDefault()
-    setIsChange(true)
-  }
-
-  const handleChange = () => {
-    dispatch(completeTodo(props.todo.id))
-  }
+  const removeTodo = () => {
+    dispatch(removeTodoAction(id));
+  };
 
   return (
     <>
-      <div className={styles.Task}>
-        <input
-          type="checkbox"
-          onChange={handleChange}
-          className={styles.checkbox}
-          checked={props.todo.completed}>
-        </input>
-        {isChange ?
-          (<form
-            onChange={changeTaskForm}
-            onSubmit={submitTaskForm}
-          >
+      <div className={s.Task}>
+        {isEditable ? (
+          <form onSubmit={submitTaskForm}>
             <input
-              onKeyUp={escFunc}
+              onKeyUp={onCancel}
               autoFocus
+              onChange={changeTaskForm}
               type="text"
-              key={props.id}
-              value={nextValue}
-              className={styles.inputInTask}
-            >
-            </input>
-          </form>) :
-          (!props.todo.completed ?
-            (<div
-              className={styles.taskText}
-              onDoubleClick={handleChangeText}>
-              {nextValue}
-            </div>)
-            :
-            (<div
-              className={`${styles.taskText} ${styles.TaskComplete}`}
-              onClick={handleChangeText}>
-              {nextValue}
-            </div>)
-          )
-        }
-        <button
-          className={styles.delete}
-          onClick={() => dispatch.removeTodo(props.todo.id)}>X
+              value={value}
+              className={s.inputInTask}
+            />
+          </form>
+        ) : (
+          <div className={s.taskText} onDoubleClick={setTodoEditable}>
+            {text}
+          </div>
+        )}
+        <button className={s.delete} onClick={removeTodo}>
+          X
         </button>
       </div>
     </>
-  )
-}
+  );
+};
