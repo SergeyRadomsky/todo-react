@@ -25,6 +25,7 @@ export const Task = (props) => {
     }
     else { 
       setNextValue(props.todo.text) 
+      dispatch(changeValueInTodo(nextValue, props.todo.id))
     }
     setIsChange(false)
   }
@@ -86,7 +87,7 @@ export const Task = (props) => {
         }
         <button
           className={styles.delete}
-          onClick={() => props.removeTodo(props.todo.id)}>X
+          onClick={() => dispatch.removeTodo(props.todo.id)}>X
         </button>
       </div>
     </>
