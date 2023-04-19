@@ -1,13 +1,24 @@
 import { useState } from 'react'
+import React from 'react'
 import styles from './TodoForm.module.css'
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../../store/TDSlice'
+// import {useSelector} from 'react-redux'
 
-export const TodoForm = (props) => {
-const [text, setText] = useState("")
 
-const handleAddTodo = (e) => {
-  e.preventDefault()
-  props.addTodo(text)
-  setText("")
+
+
+export const TodoForm = () => {
+  const [text, setText] = useState("")
+  const dispatch = useDispatch()
+  // const todos = useSelector(state => state.todos.todosState)
+  
+  const handleAddTodo = (e) => {
+    e.preventDefault()
+    dispatch(addTodo(text))
+    // console.log({text});
+    // console.log({todos});
+    setText("")
 }
 
 const handleInputSubmit = (e) => {

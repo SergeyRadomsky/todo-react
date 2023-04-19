@@ -1,35 +1,54 @@
 import React from 'react'
 import { Task } from './Task'
 import styles from './TodoList.module.css'
+import {useSelector} from 'react-redux'
+import { visibleTodos } from '../../store/TDSlice'
+// import { useMemo } from 'react'
+// import { useDispatch } from 'react-redux'
 
 
-export const TodoList = (props) => {
+export const TodoList = () => {
+  // const dispatch = useDispatch()
+  // const visibleTodos = useDispatch(state => state.todos)
+  const todos = useSelector(state => state.todos.todosState)
+  // const visibleTodo = useSelector(visibleTodos)
+  console.log(todos);
 
-  const counterActive = useMemo(() => {
+  const counterActive = () => {
+    // console.log(todos.filter((todo) => !todo.completed).length);
     return todos.filter((todo) => !todo.completed).length
-  }, [todos])
+  }
+  // console.log( counterActive())
+
+  // const counterActive = useMemo(() => {
+  //   return todos.filter((todo) => !todo.completed).length
+  // }, [todos])
 // 
 // 
 
   return (
+    // <div>
+    //   {() => counterActive}
+    // </div>
     <div>
-      {counterActive > 0 ?
-        (<div className={styles.TaskCounterFrase}>{props.counterActive} tasks for today</div>) :
-        (<div className={styles.TaskCounterFrase2}></div>)
+      {counterActive() <= 0 ?
+        (<div className={styles.TaskCounterFrase}>{"No "} task for today</div>) :
+        (<div className={styles.TaskCounterFrase2}>You have to do {counterActive()} {(counterActive() === 1 ? " task" : " tasks")}</div>)
       }
-      {(props.todos.length === 0) ? (
-        <p className={styles.TaskCounterFrase} >
-          No {props.tab} tasks for you today
+      {(todos.length <= 0) ? 
+      (
+        <p className={styles.TaskCounterFrase}>
+          {(counterActive() === 0) ? "" : (counterActive())} 
         </p>
       ) : (
-        props.todos.map((todo) =>
+        todos.map((todo) =>
           <Task
             todo={todo}
             key={todo.id}
-            setTodos={props.setTodos}
-            removeTodo={props.removeTodo}
-            completeTodo={props.completeTodo}
-            changeValueInTodo={props.changeValueInTodo}
+            setTodos={todo.setTodos}
+            removeTodo={todo.removeTodo}
+            completeTodo={todo.completeTodo}
+            changeValueInTodo={todo.changeValueInTodo}
           />
         )
       )}

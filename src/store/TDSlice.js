@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 
 export const todoSlice = createSlice ({
-  name: "todosName",
+  name: "todos",
   initialState: {
     todosState: [],
     filter: 'all',
@@ -21,7 +21,11 @@ export const todoSlice = createSlice ({
             id: uuidv4(),
             completed: false,
         }
-        state.todos.unshift(newTask)
+        // console.log(newTask);
+        state.todosState.unshift(newTask)
+        // console.log(state.todosState);
+        // console.log(state.initialState);
+        // return
     },
 //////////////////////////
     doAll: (state) => {
@@ -36,6 +40,7 @@ export const todoSlice = createSlice ({
 //////////////////////////////
     changeValueInTodo: (state, action) => {
         state.todosState = state.todosState.map(todo => {
+            console.log(action.payload);
             if (action.payload.id !== todo.id) {
                 return todo
             }
@@ -72,22 +77,30 @@ export const todoSlice = createSlice ({
     // }
     // }
 
-  const visibleTodos = createSelector(
-    ({todos, initialState}) => todos,
+ export const visibleTodos = createSelector(
+    ({todos}) => todos,
     (todos) => {
       if (todos.filter === "all") 
-        return todos.todos
+        return todos.todosState
 
       if (todos.filter === "active") 
-        return todos.filter((todo) => !todo.completed)
+        return todos.todosState.filter((todo) => !todo.completed)
 
       if (todos.filter === "completed") 
-        return todos.filter((todo) => todo.completed)
+        return todos.todosState.filter((todo) => todo.completed)
     }
-  )
+ )
 
+  export const {
+    addTodo,
+    doAll,
+    changeValueInTodo,
+    completeTodo,
+    removeTodo,
+    removeCompleted,
+  } = todoSlice.actions
 
-
+export default todoSlice.reducer
     // counterActive: (state) => {useMemo(() => {
     //     return state.todos.filter((todo) => !todo.completed).length
     //   }, [todos])},

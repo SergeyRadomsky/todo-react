@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import styles from './Task.module.css'
+import { useDispatch} from 'react-redux'
+import { changeValueInTodo, completeTodo, removeTodo} from '../../store/TDSlice'
 
 export const Task = (props) => {
+  const dispatch = useDispatch()
+  // const todos = useSelector(state => state.todos.todosState)
+  // console.log(todos);
   const [nextValue, setNextValue] = useState(props.todo.text)
+  console.log(nextValue);
   const [isChange, setIsChange] = useState(false)
 
 
@@ -15,9 +21,11 @@ export const Task = (props) => {
     e.preventDefault()
     setIsChange(true)
     if (nextValue.trim() !== "") {
-      props.changeValueInTodo(nextValue, props.todo.id)
+      dispatch(changeValueInTodo(nextValue, props.todo.id))
     }
-    else { setNextValue(props.todo.text) }
+    else { 
+      setNextValue(props.todo.text) 
+    }
     setIsChange(false)
   }
 
@@ -35,7 +43,7 @@ export const Task = (props) => {
   }
 
   const handleChange = () => {
-    props.completeTodo(props.todo.id);
+    dispatch(completeTodo(props.todo.id))
   }
 
   return (
