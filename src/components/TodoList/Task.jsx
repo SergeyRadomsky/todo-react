@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import styles from './Task.module.css'
+import { useDispatch } from 'react-redux'
+// import { useSelector } from 'react-redux'
+import { changeValueInTodo, completeTodo, removeTodo} from '../../store/TDSlice'
 
 export const Task = (props) => {
+  // const todos = useSelector(state => state.todos.todosState)
+  // console.log(todos);
   const [nextValue, setNextValue] = useState(props.todo.text)
+  console.log(nextValue);
   const [isChange, setIsChange] = useState(false)
+  
+  const dispatch = useDispatch()
 
 
   const changeTaskForm = (e) => {
@@ -11,32 +19,42 @@ export const Task = (props) => {
     setNextValue(e.target.value)
   }
 
+
   const submitTaskForm = (e) => {
     e.preventDefault()
     setIsChange(true)
     if (nextValue.trim() !== "") {
-      props.changeValueInTodo(nextValue, props.todo.id)
+      dispatch(changeValueInTodo(nextValue, props.todo.id))
     }
-    else { setNextValue(props.todo.text) }
+    else { 
+      setNextValue(props.todo.text) 
+      // dispatch(changeValueInTodo(nextValue, props.todo.id))
+    }
     setIsChange(false)
   }
+
+
 
   const escFunc = (e) => {
     e.preventDefault()
     if (e.code === "Escape") {
       setNextValue(props.todo.text)
       setIsChange(false)
+      dispatch.changeValueInTodo(nextValue, props.todo.id)
     }
   }
+
 
   const handleChangeText = (e) => {
     e.preventDefault()
     setIsChange(true)
   }
 
+
   const handleChange = () => {
-    props.completeTodo(props.todo.id);
+    dispatch(completeTodo(props.todo.id))
   }
+
 
   return (
     <>
@@ -78,7 +96,7 @@ export const Task = (props) => {
         }
         <button
           className={styles.delete}
-          onClick={() => props.removeTodo(props.todo.id)}>X
+          onClick={() => dispatch.removeTodo(props.todo.id)}>X
         </button>
       </div>
     </>
