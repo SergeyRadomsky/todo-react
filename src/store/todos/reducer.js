@@ -34,9 +34,11 @@ export const todos = createSlice({
       state.todosState = state.todosState.filter((todo) => payload !== todo.id);
     },
 
-    changeStatusOfTaskAction: ( state, { payload: { id } }) => {
+    changeStatusOfTaskAction: ( state, { payload:  id  }) => {
       state.todosState = state.todosState.map((todo) => {
-        if (id !== todo.id) return todo
+        if (id !== todo.id)  {
+          return todo;
+        }
         return {
           ...todo,
           completed: !todo.completed,

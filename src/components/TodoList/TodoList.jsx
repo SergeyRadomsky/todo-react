@@ -9,7 +9,7 @@ export const TodoList = () => {
   return (
     <div>
       {todos.map(({ text, id, completed }) => (
-        <Task text={text} completed={completed} id={id} key={id} />
+        <Task text={text} completed={completed} id={id} key={id}  todos={todos}/>
       ))}
     </div>
   );

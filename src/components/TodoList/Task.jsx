@@ -7,11 +7,12 @@ import {
   changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
-export const Task = ({ completed, text, id }) => {
+export const Task = ({ completed, text, id, todos}) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
+  // const [isCompleted, setIsCompleted] = useState(false);
+  console.log(completed);
 
   const changeTaskForm = (e) => {
     e.preventDefault();
@@ -41,20 +42,22 @@ export const Task = ({ completed, text, id }) => {
     dispatch(removeTodoAction(id));
   };
 
-  const handleChange = () => {
-    // e.preventDefault();
-    dispatch(changeStatusOfTaskAction(id))
-    setIsCompleted(!isCompleted)
-  }
+  // const handleChange = (e) => {
+  //   // setIsCompleted(true)
+  //   setIsCompleted(e.target.checked)
+  //   dispatch(changeStatusOfTaskAction(id))
+  //   return e.target.checked = !completed;
+  // }
 
   return (
     <>
       <div className={s.Task}>
         <input 
-          type='checkbox' 
           className={s.checkbox}
-          onChange={() => handleChange(id)}   
-          checked={completed}>
+          checked={completed}
+          type="checkbox" 
+          onChange={() => dispatch(changeStatusOfTaskAction(id))}
+        >  
         </input>
         {isEditable ? (
           <form onSubmit={submitTaskForm}>
@@ -67,10 +70,14 @@ export const Task = ({ completed, text, id }) => {
               className={s.inputInTask}
             />
           </form>
-        ) : (
-          <div className={s.taskText} onDoubleClick={setTodoEditable}>
+        ) : (!completed ?
+              (<div className={s.taskText} onDoubleClick={setTodoEditable}>
+                {text}
+               </div>
+              ) : (
+          <div className={`${s.taskText} ${s.TaskComplete}`} onDoubleClick={setTodoEditable}>
             {text}
-          </div>
+          </div>)
         )}
         <button className={s.delete} onClick={removeTodo}>
           X
