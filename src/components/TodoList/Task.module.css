@@ -1,7 +1,7 @@
 .Task {
   padding: 10px 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   background-color: #333a47;
@@ -72,6 +72,9 @@
 }
 
 .inputInTask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   outline: none;
   border-radius: 4px;
   border: none;
