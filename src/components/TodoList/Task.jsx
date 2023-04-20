@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux';
 import {
   removeTodoAction,
   updateTodoTextAction,
+  changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
 export const Task = ({ completed, text, id }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const changeTaskForm = (e) => {
     e.preventDefault();
@@ -25,14 +27,12 @@ export const Task = ({ completed, text, id }) => {
   };
 
   const onCancel = (e) => {
-    e.preventDefault();
     if (e.code === 'Escape') {
       setIsEditable(false);
     }
   };
 
   const setTodoEditable = (e) => {
-    e.preventDefault();
     setIsEditable(true);
     setValue(text);
   };
@@ -41,9 +41,21 @@ export const Task = ({ completed, text, id }) => {
     dispatch(removeTodoAction(id));
   };
 
+  const handleChange = () => {
+    // e.preventDefault();
+    dispatch(changeStatusOfTaskAction(id))
+    setIsCompleted(!isCompleted)
+  }
+
   return (
     <>
       <div className={s.Task}>
+        <input 
+          type='checkbox' 
+          className={s.checkbox}
+          onChange={() => handleChange(id)}   
+          checked={completed}>
+        </input>
         {isEditable ? (
           <form onSubmit={submitTaskForm}>
             <input
