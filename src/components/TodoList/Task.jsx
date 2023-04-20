@@ -7,7 +7,7 @@ import {
   changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
-export const Task = ({ completed, text, id, todos}) => {
+export const Task = ({ completed, text, id}) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
@@ -42,12 +42,9 @@ export const Task = ({ completed, text, id, todos}) => {
     dispatch(removeTodoAction(id));
   };
 
-  // const handleChange = (e) => {
-  //   // setIsCompleted(true)
-  //   setIsCompleted(e.target.checked)
-  //   dispatch(changeStatusOfTaskAction(id))
-  //   return e.target.checked = !completed;
-  // }
+  const handleChange = (id) => {
+    dispatch(changeStatusOfTaskAction(id))
+  }
 
   return (
     <>
@@ -56,7 +53,8 @@ export const Task = ({ completed, text, id, todos}) => {
           className={s.checkbox}
           checked={completed}
           type="checkbox" 
-          onChange={() => dispatch(changeStatusOfTaskAction(id))}
+          onChange={() => handleChange(id)}
+          // onChange={() => dispatch(changeStatusOfTaskAction(id))}
         >  
         </input>
         {isEditable ? (
