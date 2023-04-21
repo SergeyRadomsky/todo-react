@@ -34,9 +34,15 @@
   border: 0px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+
+  :hover {
+    background-color: rgb(80, 80, 253);
+    color: white;
+  }
 }
 
-.btnInput:hover {
-  background-color: rgb(80, 80, 253);
-  color: white;
+.btn {
+  &.active {
+    background-color: red;
+  }
 }

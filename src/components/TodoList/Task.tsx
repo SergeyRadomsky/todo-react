@@ -1,39 +1,45 @@
-import React, { useState } from 'react';
-import s from './Task.module.css';
-import { useDispatch } from 'react-redux';
+import React, { useState , FC } from 'react';
+import s from './Task.module.scss';
 import {
   removeTodoAction,
   updateTodoTextAction,
   changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
-export const Task = ({ completed, text, id}) => {
-  const dispatch = useDispatch();
+import { useAppDispatch } from '../../store/store';
+
+interface TaskProps {
+  completed: boolean;
+  text: string;
+  id: string;
+}
+
+export const Task: FC<TaskProps> = ({ completed, text, id }) => {
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
-  // const [isCompleted, setIsCompleted] = useState(false);
-  console.log(completed);
-
-  const changeTaskForm = (e) => {
+  
+  const changeTaskForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValue(e.target.value);
   };
 
-  const submitTaskForm = (e) => {
+  const submitTaskForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!!value.trim()) {
       dispatch(updateTodoTextAction({ value, id }));
     }
     setIsEditable(false);
   };
 
-  const onCancel = (e) => {
+  const onCancel = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Escape') {
       setIsEditable(false);
     }
   };
 
-  const setTodoEditable = (e) => {
+  const setTodoEditable = () => {
     setIsEditable(true);
     setValue(text);
   };
@@ -42,40 +48,40 @@ export const Task = ({ completed, text, id}) => {
     dispatch(removeTodoAction(id));
   };
 
-  const handleChange = (id) => {
-    dispatch(changeStatusOfTaskAction(id))
-  }
+  const handleChange = (id: string) => {
+    dispatch(changeStatusOfTaskAction(id));
+  };
 
   return (
     <>
       <div className={s.Task}>
-        <input 
+        <input
           className={s.checkbox}
           checked={completed}
-          type="checkbox" 
+          type="checkbox"
           onChange={() => handleChange(id)}
-          // onChange={() => dispatch(changeStatusOfTaskAction(id))}
-        >  
-        </input>
+        />
         {isEditable ? (
           <form onSubmit={submitTaskForm}>
             <input
               onKeyUp={onCancel}
               autoFocus
               onChange={changeTaskForm}
-              type="text"
               value={value}
               className={s.inputInTask}
             />
           </form>
-        ) : (!completed ?
-              (<div className={s.taskText} onDoubleClick={setTodoEditable}>
-                {text}
-               </div>
-              ) : (
-          <div className={`${s.taskText} ${s.TaskComplete}`} onDoubleClick={setTodoEditable}>
+        ) : completed ? (
+          <div
+            className={`${s.taskText} ${s.TaskComplete}`}
+            onDoubleClick={setTodoEditable}
+          >
             {text}
-          </div>)
+          </div>
+        ) : (
+          <div className={s.taskText} onDoubleClick={setTodoEditable}>
+            {text}
+          </div>
         )}
         <button className={s.delete} onClick={removeTodo}>
           X

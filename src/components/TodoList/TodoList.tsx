@@ -1,15 +1,14 @@
-import React from 'react';
 import { Task } from './Task';
-import { useSelector } from 'react-redux';
 import { todosSelector } from '../../store/todos/selectors';
+import { useAppSelector } from '../../store/store';
 
 export const TodoList = () => {
-  const todos = useSelector(todosSelector);
+  const todos = useAppSelector(todosSelector);
 
   return (
     <div>
       {todos.map(({ text, id, completed }) => (
-        <Task text={text} completed={completed} id={id} key={id}  todos={todos}/>
+        <Task completed={completed} id={id} key={id} text={text} />
       ))}
     </div>
   );
