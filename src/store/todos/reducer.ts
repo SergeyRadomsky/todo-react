@@ -1,12 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
+export type TTodo = {
+  text: string,
+  id: string,
+  completed: boolean,
+}
+
+export type TTodoState = {
+  todosState: TTodo[],
+  filter: string,
+  counterActive: number,
+}
+
+const initialState: TTodoState = {
+  todosState: [],
+  filter: 'all',
+  counterActive: 0,
+}
+
+
+
 export const todos = createSlice({
   name: 'todos',
-  initialState: {
-    todosState: [],
-    filter: 'all',
-    counterActive: 0,
-  },
+  initialState,
+
+  // initialState: {
+  //   todosState: [],
+  //   filter: 'all',
+  //   counterActive: 0,
+  // },
 
   reducers: {
     addTodoAction: ( state, { payload: text }) => {
