@@ -8,7 +8,7 @@ export const TodoForm: FC = () => {
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
 
-  const [sortType, setSortType] = useState<SortTypes>(SortTypes.completed); //тут у нас состояние отслеживающее цвет кнопки
+  const [sortType, setSortType] = useState<SortTypes>(SortTypes.completed);
 
   const changeSort = (type: SortTypes) => {
     switch (type) {
