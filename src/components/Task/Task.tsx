@@ -1,5 +1,5 @@
-import React, { useState , FC } from 'react';
-import s from './Task.module.scss';
+import React, { useState, FC } from 'react';
+import s from '../Task/Task.module.scss';
 import {
   removeTodoAction,
   updateTodoTextAction,
@@ -18,7 +18,7 @@ export const Task: FC<TaskProps> = ({ completed, text, id }) => {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
-  
+
   const changeTaskForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValue(e.target.value);

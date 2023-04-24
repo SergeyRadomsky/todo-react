@@ -1,8 +1,6 @@
-import { Task } from './Task';
 import { todosSelector } from '../../store/todos/selectors';
 import { useAppSelector } from '../../store/store';
-// import { SortTypes, TodoFormContent } from './constants';
-
+import { Task } from '../Task/Task';
 
 export const TodoList = () => {
   const todos = useAppSelector(todosSelector);

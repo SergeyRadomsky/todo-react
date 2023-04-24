@@ -7,19 +7,15 @@ export type Todo = {
   completed: boolean;
 };
 
-export type Filter = {
-  completed: 'completed',
-  all: 'all',
-  active: 'active',
-}
-
 export type TodoState = {
   todosState: Todo[];
+  filteredTodosState: Todo[];
   filter: string;
   counterActive: number;
 };
 
 const initialState: TodoState = {
+  filteredTodosState: [],
   todosState: [],
   filter: 'all',
   counterActive: 0,
@@ -34,16 +30,6 @@ export const todos = createSlice({
       state: TodoState,
       { payload: text }: PayloadAction<string>
     ) => {
-      // const newTask = {
-      //   id: Date.now().toString(),
-      //   text,
-      //   completed: false,
-      //   // index: state.todosState.length // сохраняем индекс элемента
-      // };
-
-      // state.todosState = [newTask, ...state.todosState].sort((a, b) => {
-      //   return b.id - a.id; // сортируем по индексу
-      // });
       const newTask = {
         text,
         id: new Date().toISOString(),
@@ -53,6 +39,11 @@ export const todos = createSlice({
       state.todosState = [newTask, ...state.todosState].sort((a, b) => {
         return new Date(b.id).getTime() - new Date(a.id).getTime();
       });
+      state.filteredTodosState = [newTask, ...state.filteredTodosState].sort(
+        (a, b) => {
+          return new Date(b.id).getTime() - new Date(a.id).getTime();
+        }
+      );
     },
 
     updateTodoTextAction: (
@@ -76,6 +67,9 @@ export const todos = createSlice({
       { payload }: PayloadAction<string>
     ) => {
       state.todosState = state.todosState.filter((todo) => payload !== todo.id);
+      state.filteredTodosState = state.filteredTodosState.filter(
+        (todo) => payload !== todo.id
+      );
     },
 
     sortTodosAction: (
@@ -83,55 +77,62 @@ export const todos = createSlice({
       { payload: type }: PayloadAction<SortTypes>
     ) => {
       if (type === SortTypes.dateAsc) {
-        state.todosState = state.todosState.sort((a, b) => {
+        state.filteredTodosState = state.todosState.sort((a, b) => {
           return new Date(a.id).getTime() - new Date(b.id).getTime();
         });
       }
 
       if (type === SortTypes.dateDesk) {
-        state.todosState = state.todosState.sort((a, b) => {
+        state.filteredTodosState = state.todosState.sort((a, b) => {
           return new Date(b.id).getTime() - new Date(a.id).getTime();
         });
       }
 
       if (type === SortTypes.lenghtAsc) {
-        state.todosState = state.todosState.sort((a, b) => {
+        state.filteredTodosState = state.todosState.sort((a, b) => {
           return a.text.length - b.text.length;
         });
       }
 
       if (type === SortTypes.lenghtDesk) {
-        state.todosState = state.todosState.sort((a, b) => {
+        state.filteredTodosState = state.todosState.sort((a, b) => {
           return b.text.length - a.text.length;
         });
       }
 
-      // if (type === SortTypes.completed) {
-      //   state.todosState = state.todosState.filter((todo) => {
-      //   return (todo.completed === true);
-      //   });
-      // }
+      if (type === SortTypes.all) {
+        state.filteredTodosState = state.todosState.sort((a, b) => {
+          return new Date(a.id).getTime() - new Date(b.id).getTime();
+        });
+      }
 
-      // if (type === SortTypes.all) {
-      //   state.todosState = state.todosState.sort((a, b) => {
-      //     return new Date(a.id).getTime() - new Date(b.id).getTime();
-      //   });
-      // }
+      if (type === SortTypes.completed) {
+        state.filteredTodosState = state.todosState.filter((todo) => {
+          return todo.completed === true;
+        });
+      }
 
-      // if (type === SortTypes.active) {
-      //   state.todosState = state.todosState.filter((todo) => {
-      //    return (todo.completed === false);
-      //   }
-      //   );
-      // }
-
-
+      if (type === SortTypes.active) {
+        state.filteredTodosState = state.todosState.filter((todo) => {
+          return todo.completed === false;
+        });
+      }
     },
 
     changeStatusOfTaskAction: (
       state: TodoState,
       { payload: id }: PayloadAction<string>
     ) => {
+      state.filteredTodosState = state.todosState.map((todo) => {
+        if (id !== todo.id) {
+          return todo;
+        }
+
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      });
       state.todosState = state.todosState.map((todo) => {
         if (id !== todo.id) {
           return todo;
