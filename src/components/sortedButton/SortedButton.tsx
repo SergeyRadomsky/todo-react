@@ -3,18 +3,13 @@ import { FC } from 'react';
 import { SortTypes } from '../TodoForm/constants';
 import s from './SortedButton.module.scss';
 import { useAppDispatch } from '../../store/store';
-// import useSortTodos from '../TodoForm/hooks/useSortTodos';
+import useSortTodos from './hooks/useSortTodos';
 
-export const sortedButton: FC = () => {
+export const SortedButton: FC = () => {
   const dispatch = useAppDispatch();
 
-  const {
-    changeSortByLenght,
-    changeSortByData,
-    changeSortByStatus,
-    sortType,
-    setSortType,
-  } = UseSortTodos(dispatch);
+  const { changeSortByLenght, changeSortByData, changeSortByStatus, sortType } =
+    useSortTodos(dispatch);
 
   return (
     <div className={s.btnContainer}>

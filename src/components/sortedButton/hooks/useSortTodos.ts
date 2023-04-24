@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SortTypes } from '../constants';
+import { SortTypes } from '../../TodoForm/constants';
 import { sortTodosAction } from '../../../store/todos/reducer';
 import { ThunkAppDispath } from '../../../store/store';
 
