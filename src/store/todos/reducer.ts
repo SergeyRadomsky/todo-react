@@ -10,17 +10,15 @@ export type Todo = {
 export type TodoState = {
   todosState: Todo[];
   filteredTodosState: Todo[];
-  filter: string;
   counterActive: number;
-  viewTodos: string;
+  viewTodos: ViewOfLists;
 };
 
 const initialState: TodoState = {
   filteredTodosState: [],
   todosState: [],
-  filter: 'all',
   counterActive: 0,
-  viewTodos: 'list',
+  viewTodos: ViewOfLists.list,
 };
 
 export const todos = createSlice({
@@ -74,11 +72,11 @@ export const todos = createSlice({
       );
     },
 
-    changeViewTodosAction: (
-      state: TodoState,
-      { payload: type }: PayloadAction<ViewOfLists>
-    ) => {
-      state.viewTodos = type;
+    toggleViewTodosAction: (state: TodoState) => {
+      state.viewTodos =
+        state.viewTodos === ViewOfLists.list
+          ? ViewOfLists.table
+          : ViewOfLists.list;
     },
 
     sortTodosAction: (
@@ -162,7 +160,7 @@ export const {
   removeTodoAction,
   changeStatusOfTaskAction,
   sortTodosAction,
-  changeViewTodosAction,
+  toggleViewTodosAction,
 } = todos.actions;
 
 export default todos.reducer;

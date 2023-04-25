@@ -1,3 +1,5 @@
 import { RootState } from '../store';
 
-export const todosSelector = (state: RootState) => state.todos.filteredTodosState;
+export const todosSelector = (state: RootState) =>
+  state.todos.filteredTodosState;
+export const viewSelector = (state: RootState) => state.todos.viewTodos;

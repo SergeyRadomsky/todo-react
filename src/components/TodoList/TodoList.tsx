@@ -1,21 +1,18 @@
-import { todosSelector } from '../../store/todos/selectors';
+import { todosSelector, viewSelector } from '../../store/todos/selectors';
 import { Task } from '../Task/Task';
 import s from '../TodoList/TodoList.module.scss';
 
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../store/store';
 import { ViewOfLists } from '../TodoForm/constants';
-import useSortTodos from '../sortedButton/hooks/useSortTodos';
 
 export const TodoList = () => {
-  const dispatch = useAppDispatch();
-  const { ViewOfList } = useSortTodos(dispatch);
+  const view = useAppSelector(viewSelector);
   const todos = useAppSelector(todosSelector);
 
   return (
     <div
       className={`
-        ${ViewOfList === ViewOfLists.table && s.viewTable}
-        ${ViewOfList === ViewOfLists.list && s.viewList}
+        ${view === ViewOfLists.table ? s.viewTable : s.viewList}
       }`}
     >
       {todos.map(({ text, id, completed }) => (

@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { SortTypes, ViewOfLists } from '../../TodoForm/constants';
+import { SortTypes } from '../../TodoForm/constants';
 import {
-  changeViewTodosAction,
+  toggleViewTodosAction,
   sortTodosAction,
 } from '../../../store/todos/reducer';
 import { ThunkAppDispath } from '../../../store/store';
-// import { type } from '@testing-library/user-event/dist/type';
 
 const useSortTodos = (dispatch: ThunkAppDispath) => {
-  const [ViewOfList, setViewOfList] = useState<ViewOfLists>(ViewOfLists.list);
   const [sortType, setSortType] = useState<SortTypes>(SortTypes.all);
 
   const getNextStatus = () => {
@@ -27,37 +25,8 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
     return SortTypes.all;
   };
 
-  const getNewView = () => {
-    if (ViewOfList === ViewOfLists.list) {
-      return ViewOfLists.table;
-    }
-
-    if (ViewOfList === ViewOfLists.table) {
-      return ViewOfLists.list;
-    }
-
-    return ViewOfLists.list;
-  };
-
-  const changeViewOfList = () => {
-    const type = getNewView();
-
-    if (type === ViewOfLists.list) {
-      setViewOfList(type);
-      dispatch(changeViewTodosAction(ViewOfLists.list));
-
-      return;
-    }
-    // ПОЧЕМУ НЕ РАБОТАЛО??
-    // if (type === ViewOfLists.list) {
-    //   setViewOfList(type);
-    //   dispatch(changeViewTodosAction(ViewOfLists.table));
-
-    //   return;
-    // }
-
-    setViewOfList(type);
-    dispatch(changeViewTodosAction(ViewOfLists.table));
+  const toggleViewOfList = () => {
+    dispatch(toggleViewTodosAction());
   };
 
   const changeSortByStatus = () => {
@@ -108,20 +77,6 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
     }
   };
 
-  // const changeViewOfList = (type: ViewOfLists) => {
-  //   if (type === ViewOfLists.table) {
-  //     setViewOfList(ViewOfLists.table);
-  //     dispatch(changeViewTodosAction(type));
-
-  //     return;
-  //   }
-
-  //   if (type === ViewOfLists.list) {
-  //     setViewOfList(ViewOfLists.list);
-  //     dispatch(changeViewTodosAction(type));
-  //   }
-  // };
-
   return {
     changeSortByLenght,
     getNextStatus,
@@ -129,9 +84,7 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
     changeSortByStatus,
     sortType,
     setSortType,
-    changeViewOfList,
-    setViewOfList,
-    ViewOfList,
+    toggleViewOfList,
   };
 };
 

@@ -1,31 +1,31 @@
 import { FC } from 'react';
 import { SortTypes, ViewOfLists } from '../TodoForm/constants';
 import s from './SortedButton.module.scss';
-import { useAppDispatch } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import useSortTodos from './hooks/useSortTodos';
+import { viewSelector } from '../../store/todos/selectors';
 
 export const SortedButton: FC = () => {
   const dispatch = useAppDispatch();
-
-  //   const { setViewOfList } = useAppDispatch();
+  const view = useAppSelector(viewSelector);
 
   const {
     changeSortByLenght,
     changeSortByData,
     changeSortByStatus,
     sortType,
-    changeViewOfList,
-    ViewOfList,
+    toggleViewOfList,
   } = useSortTodos(dispatch);
 
   return (
     <div className={s.btnContainer}>
       <button
-        className={`${s.btn} 
-      ${sortType === SortTypes.all && s.active} 
-      ${sortType === SortTypes.completed && s.activeAnother}
-      ${sortType === SortTypes.active && s.activeActiveTask}
-      `}
+        className={`
+          ${s.btn} 
+          ${sortType === SortTypes.all && s.active} 
+          ${sortType === SortTypes.completed && s.activeAnother}
+          ${sortType === SortTypes.active && s.activeActiveTask}
+        `}
         onClick={changeSortByStatus}
       >
         sort by
@@ -59,12 +59,12 @@ export const SortedButton: FC = () => {
       </button>
 
       <button
-        onClick={changeViewOfList}
+        onClick={toggleViewOfList}
         className={`${s.btn} ${
-          ViewOfList === ViewOfLists.list && s.activeActiveTask
-        } ${ViewOfList === ViewOfLists.table && s.activeAnother}`}
+          view === ViewOfLists.list && s.activeActiveTask
+        } ${view === ViewOfLists.table && s.activeAnother}`}
       >
-        {ViewOfList}
+        {view}
       </button>
     </div>
   );

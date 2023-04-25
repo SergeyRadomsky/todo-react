@@ -7,8 +7,6 @@ import {
 } from '../../store/todos/reducer';
 
 import { useAppDispatch } from '../../store/store';
-import { ViewOfLists } from '../TodoForm/constants';
-import useSortTodos from '../sortedButton/hooks/useSortTodos';
 
 interface TaskProps {
   completed: boolean;
@@ -18,7 +16,6 @@ interface TaskProps {
 
 export const Task: FC<TaskProps> = ({ completed, text, id }) => {
   const dispatch = useAppDispatch();
-  const { ViewOfList } = useSortTodos(dispatch);
 
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
@@ -57,44 +54,38 @@ export const Task: FC<TaskProps> = ({ completed, text, id }) => {
   };
 
   return (
-    <div
-      className={`${
-        ViewOfList === ViewOfLists.list && s.activeActiveTask && s.list
-      }`}
-    >
-      <div className={s.Task}>
-        <input
-          className={s.checkbox}
-          checked={completed}
-          type="checkbox"
-          onChange={() => handleChange(id)}
-        />
-        {isEditable ? (
-          <form onSubmit={submitTaskForm}>
-            <input
-              onKeyUp={onCancel}
-              autoFocus
-              onChange={changeTaskForm}
-              value={value}
-              className={s.inputInTask}
-            />
-          </form>
-        ) : completed ? (
-          <div
-            className={`${s.taskText} ${s.TaskComplete}`}
-            onDoubleClick={setTodoEditable}
-          >
-            {text}
-          </div>
-        ) : (
-          <div className={s.taskText} onDoubleClick={setTodoEditable}>
-            {text}
-          </div>
-        )}
-        <button className={s.delete} onClick={removeTodo}>
-          X
-        </button>
-      </div>
+    <div className={s.Task}>
+      <input
+        className={s.checkbox}
+        checked={completed}
+        type="checkbox"
+        onChange={() => handleChange(id)}
+      />
+      {isEditable ? (
+        <form onSubmit={submitTaskForm}>
+          <input
+            onKeyUp={onCancel}
+            autoFocus
+            onChange={changeTaskForm}
+            value={value}
+            className={s.inputInTask}
+          />
+        </form>
+      ) : completed ? (
+        <div
+          className={`${s.taskText} ${s.TaskComplete}`}
+          onDoubleClick={setTodoEditable}
+        >
+          {text}
+        </div>
+      ) : (
+        <div className={s.taskText} onDoubleClick={setTodoEditable}>
+          {text}
+        </div>
+      )}
+      <button className={s.delete} onClick={removeTodo}>
+        X
+      </button>
     </div>
   );
 };
