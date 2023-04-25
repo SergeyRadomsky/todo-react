@@ -1,8 +1,9 @@
-.TaskCounterFrase {
-  margin-bottom: 20px;
-  font-size: 16px;
+.viewList {
+  border-color: greenyellow;
 
 }
-.TaskCounterFrase2 {
-  margin-bottom: 38px;
+.viewTable {
+  min-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

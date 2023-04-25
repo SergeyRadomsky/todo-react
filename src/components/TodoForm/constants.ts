@@ -11,3 +11,7 @@ export enum SortTypes {
 export enum TodoFormContent {
   textholder = 'What needs to be done',
 }
+export enum ViewOfLists {
+  table = 'table',
+  list = 'list',
+}

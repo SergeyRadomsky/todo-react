@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SortTypes } from '../../components/TodoForm/constants';
+import { SortTypes, ViewOfLists } from '../../components/TodoForm/constants';
 
 export type Todo = {
   text: string;
@@ -12,6 +12,7 @@ export type TodoState = {
   filteredTodosState: Todo[];
   filter: string;
   counterActive: number;
+  viewTodos: string;
 };
 
 const initialState: TodoState = {
@@ -19,6 +20,7 @@ const initialState: TodoState = {
   todosState: [],
   filter: 'all',
   counterActive: 0,
+  viewTodos: 'list',
 };
 
 export const todos = createSlice({
@@ -70,6 +72,13 @@ export const todos = createSlice({
       state.filteredTodosState = state.filteredTodosState.filter(
         (todo) => payload !== todo.id
       );
+    },
+
+    changeViewTodosAction: (
+      state: TodoState,
+      { payload: type }: PayloadAction<ViewOfLists>
+    ) => {
+      state.viewTodos = type;
     },
 
     sortTodosAction: (
@@ -153,6 +162,7 @@ export const {
   removeTodoAction,
   changeStatusOfTaskAction,
   sortTodosAction,
+  changeViewTodosAction,
 } = todos.actions;
 
 export default todos.reducer;

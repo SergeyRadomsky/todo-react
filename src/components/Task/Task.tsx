@@ -7,6 +7,8 @@ import {
 } from '../../store/todos/reducer';
 
 import { useAppDispatch } from '../../store/store';
+import { ViewOfLists } from '../TodoForm/constants';
+import useSortTodos from '../sortedButton/hooks/useSortTodos';
 
 interface TaskProps {
   completed: boolean;
@@ -16,6 +18,8 @@ interface TaskProps {
 
 export const Task: FC<TaskProps> = ({ completed, text, id }) => {
   const dispatch = useAppDispatch();
+  const { ViewOfList } = useSortTodos(dispatch);
+
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
 
@@ -53,7 +57,11 @@ export const Task: FC<TaskProps> = ({ completed, text, id }) => {
   };
 
   return (
-    <>
+    <div
+      className={`${
+        ViewOfList === ViewOfLists.list && s.activeActiveTask && s.list
+      }`}
+    >
       <div className={s.Task}>
         <input
           className={s.checkbox}
@@ -87,6 +95,6 @@ export const Task: FC<TaskProps> = ({ completed, text, id }) => {
           X
         </button>
       </div>
-    </>
+    </div>
   );
 };

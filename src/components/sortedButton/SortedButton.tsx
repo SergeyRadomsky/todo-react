@@ -1,6 +1,5 @@
-// import React from 'react'
 import { FC } from 'react';
-import { SortTypes } from '../TodoForm/constants';
+import { SortTypes, ViewOfLists } from '../TodoForm/constants';
 import s from './SortedButton.module.scss';
 import { useAppDispatch } from '../../store/store';
 import useSortTodos from './hooks/useSortTodos';
@@ -8,8 +7,16 @@ import useSortTodos from './hooks/useSortTodos';
 export const SortedButton: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { changeSortByLenght, changeSortByData, changeSortByStatus, sortType } =
-    useSortTodos(dispatch);
+  //   const { setViewOfList } = useAppDispatch();
+
+  const {
+    changeSortByLenght,
+    changeSortByData,
+    changeSortByStatus,
+    sortType,
+    changeViewOfList,
+    ViewOfList,
+  } = useSortTodos(dispatch);
 
   return (
     <div className={s.btnContainer}>
@@ -49,6 +56,15 @@ export const SortedButton: FC = () => {
         }`}
       >
         sort lenght: {sortType === SortTypes.lenghtAsc ? 'asc' : 'desk'}
+      </button>
+
+      <button
+        onClick={changeViewOfList}
+        className={`${s.btn} ${
+          ViewOfList === ViewOfLists.list && s.activeActiveTask
+        } ${ViewOfList === ViewOfLists.table && s.activeAnother}`}
+      >
+        {ViewOfList}
       </button>
     </div>
   );
