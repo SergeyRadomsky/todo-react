@@ -1,5 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SortTypes, ViewOfLists } from '../../components/TodoForm/constants';
+import {
+  SortTypes,
+  ViewOfLists,
+  ThemeVariants,
+} from '../../components/TodoForm/constants';
 
 export type Todo = {
   text: string;
@@ -10,18 +14,21 @@ export type Todo = {
 export type TodoState = {
   todosState: Todo[];
   filteredTodosState: Todo[];
-  counterActive: number;
   viewTodos: string;
+  ThemeApp: string;
 };
 
 const initialViewTodos =
   localStorage.getItem('viewTodosLS') || ViewOfLists.list;
 
+const initialThemeApp =
+  localStorage.getItem('ActualThemeLS') || ThemeVariants.dark;
+
 const initialState: TodoState = {
   filteredTodosState: [],
   todosState: [],
-  counterActive: 0,
-  viewTodos: initialViewTodos /* наайс */,
+  viewTodos: initialViewTodos,
+  ThemeApp: initialThemeApp,
 };
 
 export const todos = createSlice({
@@ -75,10 +82,26 @@ export const todos = createSlice({
       );
     },
 
-    toggleViewTodosAction: (state: TodoState) => {
-      // const {viewTodosLS} = state.viewTodos;
-      // localStorage.setItem('viewTodosLS',viewTodosLS);
+    toggleThemeAction: (state: ThemeVariants) => {
+      localStorage.setItem(
+        'ActualThemeLS',
+        state.ThemeAp === ThemeVariants.dark
+          ? ThemeVariants.light
+          : ThemeVariants.dark
+      );
+      state.viewTodos =
+        state.viewTodos === ViewOfLists.list
+          ? ViewOfLists.table
+          : ViewOfLists.list;
+    },
 
+    toggleViewTodosAction: (state: TodoState) => {
+      localStorage.setItem(
+        'viewTodosLS',
+        state.viewTodos === ViewOfLists.list
+          ? ViewOfLists.table
+          : ViewOfLists.list
+      );
       state.viewTodos =
         state.viewTodos === ViewOfLists.list
           ? ViewOfLists.table

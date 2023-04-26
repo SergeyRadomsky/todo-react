@@ -25,8 +25,8 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
     return SortTypes.all;
   };
 
-
   const toggleViewOfList = () => {
+    // localStorage.setItem('viewTodosLS', view);
 
     // const {viewTodosLS} = ;
     // localStorage.setItem('viewTodosLS',viewTodosLS);
@@ -82,7 +82,33 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
     }
   };
 
+  const sortByStatusText = (sortType: SortTypes) => {
+    if (sortType === SortTypes.all) return ' all';
+    if (sortType === SortTypes.active) return ' active';
+    if (sortType === SortTypes.completed) return ' completed';
+
+    return ' all';
+  };
+
+  const sortByDateText = (sortType: SortTypes) => {
+    if (sortType === SortTypes.dateAsc) return 'asc';
+    if (sortType === SortTypes.dateDesk) return 'desk';
+
+    return '';
+  };
+
+  const sortByLengthText = (sortType: SortTypes) => {
+    if (sortType === SortTypes.lenghtAsc) return 'asc';
+    if (sortType === SortTypes.lenghtDesk) return 'desk';
+
+    return '';
+  };
+
   return {
+    sortByLengthText,
+    sortByDateText,
+    sortByStatusText,
+
     changeSortByLenght,
     getNextStatus,
     changeSortByData,

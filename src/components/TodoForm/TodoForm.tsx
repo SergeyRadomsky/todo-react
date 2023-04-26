@@ -4,7 +4,7 @@ import { TodoFormContent } from './constants';
 import useSortTodos from '../sortedButton/hooks/useSortTodos';
 import useForm from './hooks/useForm';
 import { useAppDispatch } from '../../store/store';
-import { SortedButton } from '../sortedButton/SortedButton';
+import { SortedButtons } from '../sortedButton/SortedButtons';
 
 export const TodoForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export const TodoForm: FC = () => {
         />
         <button className={s.btnInput}>New To do</button>
       </form>
-      <SortedButton />
+      <SortedButtons />
     </>
   );
 };

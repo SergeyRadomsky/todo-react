@@ -15,3 +15,8 @@ export enum ViewOfLists {
   table = 'table',
   list = 'list',
 }
+
+export enum ThemeVariants {
+  dark = 'dark',
+  light = 'light',
+}
