@@ -11,14 +11,17 @@ export type TodoState = {
   todosState: Todo[];
   filteredTodosState: Todo[];
   counterActive: number;
-  viewTodos: ViewOfLists;
+  viewTodos: string;
 };
+
+const initialViewTodos =
+  localStorage.getItem('viewTodosLS') || ViewOfLists.list;
 
 const initialState: TodoState = {
   filteredTodosState: [],
   todosState: [],
   counterActive: 0,
-  viewTodos: ViewOfLists.list,
+  viewTodos: initialViewTodos /* наайс */,
 };
 
 export const todos = createSlice({
@@ -73,6 +76,9 @@ export const todos = createSlice({
     },
 
     toggleViewTodosAction: (state: TodoState) => {
+      // const {viewTodosLS} = state.viewTodos;
+      // localStorage.setItem('viewTodosLS',viewTodosLS);
+
       state.viewTodos =
         state.viewTodos === ViewOfLists.list
           ? ViewOfLists.table

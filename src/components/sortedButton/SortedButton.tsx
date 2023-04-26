@@ -8,7 +8,9 @@ import { viewSelector } from '../../store/todos/selectors';
 export const SortedButton: FC = () => {
   const dispatch = useAppDispatch();
   const view = useAppSelector(viewSelector);
+  localStorage.setItem('viewTodosLS', view);
 
+  // localStorage.setItem()
   const {
     changeSortByLenght,
     changeSortByData,
