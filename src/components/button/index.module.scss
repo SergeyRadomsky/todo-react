@@ -54,4 +54,42 @@
     &:active {
     }
   }
+
+  &.defaultTheme {
+    padding-bottom: -10px;
+
+    &.activeClassForThemeLight {
+      margin-left: 55px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f7d514;
+      &:hover {
+        margin-left: 45px;
+        background-color: #a09139;
+        box-shadow: -2px 0 0 0 #d8fffe;
+      }
+    }
+
+    &.activeClassForThemeDark {
+      z-index: 1;
+      margin-left: -55px;
+      background-color: #131518;
+      color: #ffffff;
+      background-color: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: -10px 0px 0 0 #608685;
+
+      &:hover {
+        // width: 53px;
+        // height: 53px;
+        box-shadow: 2px 0 0 0 #f7d514;
+      }
+    }
+
+    &:active {
+    }
+  }
 }

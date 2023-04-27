@@ -8,7 +8,10 @@
   align-items: center;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
-  .dark {
+  &.dark {
     background-color: #131518;
+  }
+  &.light {
+    background-color: #6594f0;
   }
 }

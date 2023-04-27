@@ -26,11 +26,6 @@ const useSortTodos = (dispatch: ThunkAppDispath) => {
   };
 
   const toggleViewOfList = () => {
-    // localStorage.setItem('viewTodosLS', view);
-
-    // const {viewTodosLS} = ;
-    // localStorage.setItem('viewTodosLS',viewTodosLS);
-
     dispatch(toggleViewTodosAction());
   };
 

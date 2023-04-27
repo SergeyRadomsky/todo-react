@@ -6,12 +6,16 @@ export enum ButtonVariants {
   green = 'green',
   red = 'red',
   blue = 'blue',
+  light = 'lignht',
+  dark = 'dark',
   default = 'default',
+  defaultTheme = 'defaultTheme',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof ButtonVariants;
   active?: boolean;
+  activeTheme?: boolean;
   children?: ReactNode;
 }
 
@@ -19,12 +23,15 @@ const Button: FC<ButtonProps> = ({
   variant = ButtonVariants.default,
   children,
   active,
+  activeTheme,
   ...props
 }) => {
   const containerCN = classNames(
     s.container,
     s[variant],
     { [s.activeClass]: active },
+    { [s.activeClassForThemeLight]: !activeTheme },
+    { [s.activeClassForThemeDark]: activeTheme },
     props.className
   );
 

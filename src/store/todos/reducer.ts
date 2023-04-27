@@ -82,17 +82,37 @@ export const todos = createSlice({
       );
     },
 
-    toggleThemeAction: (state: ThemeVariants) => {
+    // chooseThemeAction: (state: TodoState) => {
+    //   if (localStorage.getItem('ActualThemeLS') == ThemeVariants.dark) {
+    //     state.ThemeApp === ThemeVariants.dark;
+
+    //     return 's.darkTheme';
+    //   }
+
+    //   if (localStorage.getItem('ActualThemeLS') == ThemeVariants.light) {
+    //     state.ThemeApp === ThemeVariants.light;
+
+    //     return 's.lightTheme';
+    //   }
+
+    //   if (localStorage.getItem('ActualThemeLS') == undefined || null) {
+    //     return 's.none';
+    //   }
+
+    //   return 's.none';
+    // },
+
+    toggleThemeAction: (state: TodoState) => {
       localStorage.setItem(
         'ActualThemeLS',
-        state.ThemeAp === ThemeVariants.dark
+        state.ThemeApp === ThemeVariants.dark
           ? ThemeVariants.light
           : ThemeVariants.dark
       );
-      state.viewTodos =
-        state.viewTodos === ViewOfLists.list
-          ? ViewOfLists.table
-          : ViewOfLists.list;
+      state.ThemeApp =
+        state.ThemeApp === ThemeVariants.light
+          ? ThemeVariants.dark
+          : ThemeVariants.light;
     },
 
     toggleViewTodosAction: (state: TodoState) => {
@@ -190,6 +210,8 @@ export const {
   changeStatusOfTaskAction,
   sortTodosAction,
   toggleViewTodosAction,
+  toggleThemeAction,
+  // chooseThemeAction,
 } = todos.actions;
 
 export default todos.reducer;
