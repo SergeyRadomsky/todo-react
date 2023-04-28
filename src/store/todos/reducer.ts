@@ -24,9 +24,12 @@ const initialViewTodos =
 const initialThemeApp =
   localStorage.getItem('ActualThemeLS') || ThemeVariants.dark;
 
+const initialTodosList =
+  JSON.parse(localStorage.getItem('todosLS') || '[]');
+
 const initialState: TodoState = {
-  filteredTodosState: [],
-  todosState: [],
+  filteredTodosState: initialTodosList,
+  todosState: initialTodosList,
   viewTodos: initialViewTodos,
   ThemeApp: initialThemeApp,
 };
@@ -45,17 +48,21 @@ export const todos = createSlice({
         id: new Date().toISOString(),
         completed: false,
       };
-
+            
       state.todosState = [newTask, ...state.todosState].sort((a, b) => {
-        return new Date(b.id).getTime() - new Date(a.id).getTime();
+        return new Date(a.id).getTime() - new Date(b.id).getTime();
       });
-      state.filteredTodosState = [newTask, ...state.filteredTodosState].sort(
-        (a, b) => {
-          return new Date(b.id).getTime() - new Date(a.id).getTime();
-        }
-      );
+
+      state.filteredTodosState = [newTask, ...state.filteredTodosState].sort((a, b) => {
+          return new Date(a.id).getTime() - new Date(b.id).getTime();
+        });
+
+      localStorage.setItem('todosLS', JSON.stringify(state.todosState));
     },
 
+    /* где-то здесь ошибка 
+    при изменении текста, action просходит, локал-сторейдж перезаписывается,
+     но изменения не отображаются пока не произойдет какая-нибудь сортировка или checkbox*/
     updateTodoTextAction: (
       state: TodoState,
       { payload: { value, id } }: PayloadAction<{ value: string; id: string }>
@@ -70,6 +77,28 @@ export const todos = createSlice({
           text: value,
         };
       });
+      
+      state.filteredTodosState = state.todosState.map((todo) => {
+        if (id !== todo.id) {
+          return todo;
+        }
+    
+        return {
+          ...todo,
+          text: value,
+        };
+      });
+      
+      localStorage.setItem('todosLS', JSON.stringify(state.todosState.map((todo) => {
+        if (id !== todo.id) {
+          return todo;
+        }
+
+        return {
+          ...todo,
+          text: value,
+        };
+      })));
     },
 
     removeTodoAction: (
@@ -80,27 +109,9 @@ export const todos = createSlice({
       state.filteredTodosState = state.filteredTodosState.filter(
         (todo) => payload !== todo.id
       );
+
+      localStorage.setItem('todosLS', JSON.stringify(state.filteredTodosState));
     },
-
-    // chooseThemeAction: (state: TodoState) => {
-    //   if (localStorage.getItem('ActualThemeLS') == ThemeVariants.dark) {
-    //     state.ThemeApp === ThemeVariants.dark;
-
-    //     return 's.darkTheme';
-    //   }
-
-    //   if (localStorage.getItem('ActualThemeLS') == ThemeVariants.light) {
-    //     state.ThemeApp === ThemeVariants.light;
-
-    //     return 's.lightTheme';
-    //   }
-
-    //   if (localStorage.getItem('ActualThemeLS') == undefined || null) {
-    //     return 's.none';
-    //   }
-
-    //   return 's.none';
-    // },
 
     toggleThemeAction: (state: TodoState) => {
       localStorage.setItem(
@@ -131,7 +142,7 @@ export const todos = createSlice({
     sortTodosAction: (
       state: TodoState,
       { payload: type }: PayloadAction<SortTypes>
-    ) => {
+      ) => {
       if (type === SortTypes.dateAsc) {
         state.filteredTodosState = state.todosState.sort((a, b) => {
           return new Date(a.id).getTime() - new Date(b.id).getTime();
@@ -173,6 +184,8 @@ export const todos = createSlice({
           return todo.completed === false;
         });
       }
+      // Сохранение отсортированного списка задач в localStorage
+      localStorage.setItem('todosLS', JSON.stringify(state.todosState));
     },
 
     changeStatusOfTaskAction: (
@@ -183,12 +196,13 @@ export const todos = createSlice({
         if (id !== todo.id) {
           return todo;
         }
-
+        
         return {
           ...todo,
           completed: !todo.completed,
         };
       });
+
       state.todosState = state.todosState.map((todo) => {
         if (id !== todo.id) {
           return todo;
@@ -199,6 +213,7 @@ export const todos = createSlice({
           completed: !todo.completed,
         };
       });
+      localStorage.setItem('todosLS', JSON.stringify(state.filteredTodosState));
     },
   },
 });
@@ -211,7 +226,6 @@ export const {
   sortTodosAction,
   toggleViewTodosAction,
   toggleThemeAction,
-  // chooseThemeAction,
 } = todos.actions;
 
 export default todos.reducer;

@@ -1,7 +1,7 @@
 import { Header } from './components/Header/Header';
 import { TodoForm } from './components/TodoForm/TodoForm';
 import s from './App.module.scss';
-import { TodoList } from './components/TodoList/TodoList';
+import TodoList from './components/TodoList/TodoList';
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from './store/store';
 import { themeSelector } from './store/todos/selectors';

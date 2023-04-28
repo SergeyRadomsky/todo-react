@@ -1,11 +1,10 @@
 import { todosSelector, viewSelector } from '../../store/todos/selectors';
 import { Task } from '../Task/Task';
 import s from '../TodoList/TodoList.module.scss';
-
 import { useAppSelector } from '../../store/store';
 import { ViewOfLists } from '../TodoForm/constants';
 
-export const TodoList = () => {
+const TodoList = () => {
   const view = useAppSelector(viewSelector);
   const todos = useAppSelector(todosSelector);
 
@@ -21,3 +20,5 @@ export const TodoList = () => {
     </div>
   );
 };
+
+export default TodoList; 

@@ -65,7 +65,7 @@
       border-radius: 50%;
       background-color: #f7d514;
       &:hover {
-        margin-left: 45px;
+        margin-left: 35px;
         background-color: #a09139;
         box-shadow: -2px 0 0 0 #d8fffe;
       }
@@ -84,9 +84,10 @@
       &:hover {
         box-shadow: 2px 0 0 0 #f7d514;
       }
+
+      &:active {
+      }
     }
 
-    &:active {
-    }
   }
 }
