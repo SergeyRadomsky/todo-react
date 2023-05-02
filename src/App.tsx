@@ -9,6 +9,7 @@ import { toggleThemeAction } from '../src/store/todos/reducer';
 import { ThemeVariants } from './components/TodoForm/constants';
 import Button, { ButtonVariants } from './components/button';
 import classNames from 'classnames';
+import UnderList from './components/UnderList/UnderList';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const App: FC = () => {
       <Header />
       <TodoForm />
       <TodoList />
+      <UnderList />
     </div>
   );
 };
