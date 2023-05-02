@@ -17,15 +17,21 @@ export type TodoState = {
   viewTodos: string;
   ThemeApp: string;
 };
+export enum peremLS {
+  todosLS = 'todosLS',
+  viewTodosLS = 'viewTodosLS',
+  ActualThemeLS = 'ActualThemeLS',
+}
 
 const initialViewTodos =
-  localStorage.getItem('viewTodosLS') || ViewOfLists.list;
+  localStorage.getItem(peremLS.viewTodosLS) || ViewOfLists.list;
 
 const initialThemeApp =
-  localStorage.getItem('ActualThemeLS') || ThemeVariants.dark;
+  localStorage.getItem(peremLS.ActualThemeLS) || ThemeVariants.dark;
 
-const initialTodosList =
-  JSON.parse(localStorage.getItem('todosLS') || '[]');
+const initialTodosList = JSON.parse(
+  localStorage.getItem(peremLS.todosLS) || '[]'
+);
 
 const initialState: TodoState = {
   filteredTodosState: initialTodosList,
@@ -48,21 +54,20 @@ export const todos = createSlice({
         id: new Date().toISOString(),
         completed: false,
       };
-            
+
       state.todosState = [newTask, ...state.todosState].sort((a, b) => {
         return new Date(a.id).getTime() - new Date(b.id).getTime();
       });
 
-      state.filteredTodosState = [newTask, ...state.filteredTodosState].sort((a, b) => {
+      state.filteredTodosState = [newTask, ...state.filteredTodosState].sort(
+        (a, b) => {
           return new Date(a.id).getTime() - new Date(b.id).getTime();
-        });
+        }
+      );
 
-      localStorage.setItem('todosLS', JSON.stringify(state.todosState));
+      localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     },
 
-    /* где-то здесь ошибка 
-    при изменении текста, action просходит, локал-сторейдж перезаписывается,
-     но изменения не отображаются пока не произойдет какая-нибудь сортировка или checkbox*/
     updateTodoTextAction: (
       state: TodoState,
       { payload: { value, id } }: PayloadAction<{ value: string; id: string }>
@@ -77,19 +82,8 @@ export const todos = createSlice({
           text: value,
         };
       });
-      
+
       state.filteredTodosState = state.todosState.map((todo) => {
-        if (id !== todo.id) {
-          return todo;
-        }
-    
-        return {
-          ...todo,
-          text: value,
-        };
-      });
-      
-      localStorage.setItem('todosLS', JSON.stringify(state.todosState.map((todo) => {
         if (id !== todo.id) {
           return todo;
         }
@@ -98,7 +92,9 @@ export const todos = createSlice({
           ...todo,
           text: value,
         };
-      })));
+      });
+
+      localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     },
 
     removeTodoAction: (
@@ -110,39 +106,32 @@ export const todos = createSlice({
         (todo) => payload !== todo.id
       );
 
-      localStorage.setItem('todosLS', JSON.stringify(state.filteredTodosState));
+      localStorage.setItem(
+        peremLS.todosLS,
+        JSON.stringify(state.filteredTodosState)
+      );
     },
 
     toggleThemeAction: (state: TodoState) => {
-      localStorage.setItem(
-        'ActualThemeLS',
-        state.ThemeApp === ThemeVariants.dark
-          ? ThemeVariants.light
-          : ThemeVariants.dark
-      );
       state.ThemeApp =
         state.ThemeApp === ThemeVariants.light
           ? ThemeVariants.dark
           : ThemeVariants.light;
+      localStorage.setItem(peremLS.ActualThemeLS, state.ThemeApp);
     },
 
     toggleViewTodosAction: (state: TodoState) => {
-      localStorage.setItem(
-        'viewTodosLS',
-        state.viewTodos === ViewOfLists.list
-          ? ViewOfLists.table
-          : ViewOfLists.list
-      );
       state.viewTodos =
         state.viewTodos === ViewOfLists.list
           ? ViewOfLists.table
           : ViewOfLists.list;
+      localStorage.setItem(peremLS.viewTodosLS, state.viewTodos);
     },
 
     sortTodosAction: (
       state: TodoState,
       { payload: type }: PayloadAction<SortTypes>
-      ) => {
+    ) => {
       if (type === SortTypes.dateAsc) {
         state.filteredTodosState = state.todosState.sort((a, b) => {
           return new Date(a.id).getTime() - new Date(b.id).getTime();
@@ -185,7 +174,7 @@ export const todos = createSlice({
         });
       }
       // Сохранение отсортированного списка задач в localStorage
-      localStorage.setItem('todosLS', JSON.stringify(state.todosState));
+      localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     },
 
     changeStatusOfTaskAction: (
@@ -196,7 +185,7 @@ export const todos = createSlice({
         if (id !== todo.id) {
           return todo;
         }
-        
+
         return {
           ...todo,
           completed: !todo.completed,
@@ -213,7 +202,10 @@ export const todos = createSlice({
           completed: !todo.completed,
         };
       });
-      localStorage.setItem('todosLS', JSON.stringify(state.filteredTodosState));
+      localStorage.setItem(
+        peremLS.todosLS,
+        JSON.stringify(state.filteredTodosState)
+      );
     },
   },
 });
