@@ -6,10 +6,17 @@ import {
   ViewOfLists,
   ThemeVariants,
 } from '../../components/TodoForm/constants';
+import { postTodosThunk } from '../../components/UnderList/thunk';
 
 export type Todo = {
   text: string;
   id: string;
+  completed: boolean;
+};
+
+export type TodoAPI = {
+  id: string;
+  text: string;
   completed: boolean;
 };
 
@@ -18,6 +25,9 @@ export type TodoState = {
   filteredTodosState: Todo[];
   viewTodos: string;
   ThemeApp: string;
+
+  isLoading: boolean;
+  error: string | null;
 };
 export enum peremLS {
   todosLS = 'todosLS',
@@ -40,6 +50,9 @@ const initialState: TodoState = {
   todosState: initialTodosList,
   viewTodos: initialViewTodos,
   ThemeApp: initialThemeApp,
+
+  isLoading: false,
+  error: null,
 };
 
 export const todos = createSlice({
@@ -210,6 +223,23 @@ export const todos = createSlice({
       );
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(postTodosThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(postTodosThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.todosState = action.payload;
+      })
+      .addCase(postTodosThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload?.toString() ?? 'unkonow error';
+      });
+  },
+
 });
 
 export const {

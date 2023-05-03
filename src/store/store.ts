@@ -4,14 +4,15 @@ import {
   ThunkAction,
   ThunkDispatch,
 } from '@reduxjs/toolkit';
-
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+
 import { todos } from './todos/reducer';
 
 export const store = configureStore({
   reducer: {
     todos: todos.reducer,
   },
+  
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });
