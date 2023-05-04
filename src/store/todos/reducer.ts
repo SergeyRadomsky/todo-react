@@ -6,7 +6,7 @@ import {
   ViewOfLists,
   ThemeVariants,
 } from '../../components/TodoForm/constants';
-import { postTodosThunk } from '../../components/UnderList/thunk';
+// import { postTodosThunk } from '../../components/UnderList/thunk';
 
 export type Todo = {
   text: string;
@@ -14,11 +14,11 @@ export type Todo = {
   completed: boolean;
 };
 
-export type TodoAPI = {
-  id: string;
-  text: string;
-  completed: boolean;
-};
+// export type TodoAPI = {
+//   id: string;
+//   text: string;
+//   completed: boolean;
+// };
 
 export type TodoState = {
   todosState: Todo[];
@@ -224,21 +224,21 @@ export const todos = createSlice({
     },
   },
 
-  extraReducers: (builder) => {
-    builder
-      .addCase(postTodosThunk.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(postTodosThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.todosState = action.payload;
-      })
-      .addCase(postTodosThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload?.toString() ?? 'unkonow error';
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(postTodosThunk.pending, (state) => {
+  //       state.isLoading = true;
+  //       state.error = null;
+  //     })
+  //     .addCase(postTodosThunk.fulfilled, (state, action) => {
+  //       state.isLoading = false;
+  //       state.todosState = action.payload;
+  //     })
+  //     .addCase(postTodosThunk.rejected, (state, action) => {
+  //       state.isLoading = false;
+  //       state.error = action.payload?.toString() ?? 'unknow error';
+  //     });
+  // },
 
 });
 

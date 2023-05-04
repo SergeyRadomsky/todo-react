@@ -7,12 +7,14 @@ import {
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { todos } from './todos/reducer';
+import { todosAPI } from './todosAPI/reducer';
 
 export const store = configureStore({
   reducer: {
     todos: todos.reducer,
+    todosAPI: todosAPI.reducer,
   },
-  
+
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });
