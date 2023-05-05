@@ -2,25 +2,35 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { TodosStateAPI } from '../../store/todosAPI/reducer';
 
-
-export const postTodosThunk = createAsyncThunk(
-  'todosAPI/fetchTodos', async () => {
-    try {
-          const response = await axios.get<TodosStateAPI[]>(
-      'https://jsonplaceholder.typicode.com/todos');
+export const getTodosThunk = createAsyncThunk(
+  'todosAPI/getTodosThunk',
+  async () => {
+      const response = await axios.get<TodosStateAPI[]>(
+        'https://jsonplaceholder.typicode.com/todos'
+      );
+      console.log(response);
       console.log(response.data);
-            console.log(response.data[1].title);
-            console.log(response.data[1].userId);
-            console.log(response.data[1].id);
+      
+      return response.data;
+  }
+);
 
+export const deleteTodosThunk = createAsyncThunk(
+  'todosAPI/deleteTodosThunk',
+  async (id: string) => {
+    try {
+      const response = await axios.delete<TodosStateAPI[]>(
+        `https://jsonplaceholder.typicode.com/todos/${id}`
+      );      
+      
       return response.data;
     }
-    catch (error) {
-      // console.log(error);
-
-    }     
-
-    });
+     catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
 
 // import axios from 'axios';
 // import { useAppDispatch } from '../../store/store';
@@ -29,16 +39,15 @@ export const postTodosThunk = createAsyncThunk(
 // export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
 // export const FETCH_TODOS_FAILURE = 'FETCH_TODOS_FAILURE';
 
-
 // export const fetchTodosRequest = () => {
 //    const dispatch = useAppDispatch();
-  
+
 //   return {
 //     type: FETCH_TODOS_REQUEST,
 //   };
 // };
 
-//  export const fetchTodosSuccess = todosAPI => {  
+//  export const fetchTodosSuccess = todosAPI => {
 //   return {
 //     type: FETCH_TODOS_SUCCESS,
 //     payload: todos,

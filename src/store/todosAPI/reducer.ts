@@ -1,27 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { postTodosThunk } from '../../components/UnderList/thunk';
+import { deleteTodosThunk, getTodosThunk } from '../../components/UnderList/thunk';
 // import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-// import { postTodosThunk } from '../../components/UnderList/thunk';
+// import { getTodosThunk } from '../../components/UnderList/thunk';
 // import axios from 'axios';
 
 export type TodoAPI = {
   id: string;
-  text: string;
+  title: string;
   completed: boolean;
 };
 
 export type TodosStateAPI = {
   todosStateAPI: TodoAPI[] | [];
-  filteredTodosStateAPI: TodoAPI[] | [];
+  // filteredTodosStateAPI: TodoAPI[] | [];
   isLoading: boolean;
   error: string | null;
 };
 
-const initialTodosListAPI = '[]';
+const initialTodosListAPI: TodosStateAPI = {
+  todosStateAPI: [],
+  isLoading: false,
+  error: 'error',
+};
 
 const initialState: TodosStateAPI = {
-  todosStateAPI: JSON.parse(initialTodosListAPI),
-  filteredTodosStateAPI: JSON.parse(initialTodosListAPI),
+  todosStateAPI: initialTodosListAPI.todosStateAPI,
+  // filteredTodosStateAPI: JSON.parse(initialTodosListAPI),
 
   isLoading: false,
   error: null,
@@ -201,19 +205,31 @@ export const todosAPI = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(postTodosThunk.pending, (state) => {
+      .addCase(getTodosThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(postTodosThunk.fulfilled, (state, action) => {
+      .addCase(getTodosThunk.fulfilled, (state, {payload}) => {
         state.isLoading = false;
-        state.todosStateAPI = action.payload;
+        state.todosStateAPI = payload;
       })
-      .addCase(postTodosThunk.rejected, (state, action) => {
+      .addCase(getTodosThunk.rejected, (state, {payload}) => {
         state.isLoading = false;
-        state.error = action.payload?.toString() ?? 'unknow error';
+        state.error = payload?.toString() ?? 'unknow error';
+      })
+      .addCase(deleteTodosThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteTodosThunk.fulfilled, (state, {payload}) => {
+        state.isLoading = false;
+        state.todosStateAPI = payload;
+      })
+      .addCase(deleteTodosThunk.rejected, (state, {payload}) => {
+        state.isLoading = false;
+        state.todosStateAPI = state.todosStateAPI.filter((todo) => todo.id !== payload);
       });
-  },
+  }
 });
 
 export const {

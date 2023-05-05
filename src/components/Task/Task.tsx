@@ -12,9 +12,14 @@ interface TaskProps {
   completed: boolean;
   text: string;
   id: string;
+  onDelete: () => void;
 }
 
-export const Task: FC<TaskProps> = ({ completed, text, id }) => {
+const onDelete = () => {
+  console.log('hello');
+};
+
+export const Task: FC<TaskProps> = ({ completed, text, id, onDelete }) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState('');
@@ -83,7 +88,7 @@ export const Task: FC<TaskProps> = ({ completed, text, id }) => {
           {text}
         </div>
       )}
-      <button className={s.delete} onClick={removeTodo}>
+      <button className={s.delete} onClick={onDelete} /* onClick={removeTodo} */>
         X
       </button>
     </div>
