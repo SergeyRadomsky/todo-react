@@ -217,6 +217,7 @@ export const todosAPI = createSlice({
         state.isLoading = false;
         state.error = payload?.toString() ?? 'unknow error';
       })
+
       .addCase(deleteTodosThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -228,7 +229,10 @@ export const todosAPI = createSlice({
       .addCase(deleteTodosThunk.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.todosStateAPI = state.todosStateAPI.filter((todo) => todo.id !== payload);
-      });
+      })
+      
+      
+      ;
   }
 });
 

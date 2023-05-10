@@ -44,7 +44,7 @@
     "react/display-name": "off",
     "react-hooks/exhaustive-deps": 0,
     "import/no-named-as-default": 0,
-    "no-console": "error",
+    // "no-console": "error",
     "padding-line-between-statements": [
       "error",
       {

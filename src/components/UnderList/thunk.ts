@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { TodosStateAPI } from '../../store/todosAPI/reducer';
+import { TodosStateAPI, todosAPI } from '../../store/todosAPI/reducer';
 
 export const getTodosThunk = createAsyncThunk(
   'todosAPI/getTodosThunk',
@@ -15,22 +15,49 @@ export const getTodosThunk = createAsyncThunk(
   }
 );
 
-export const deleteTodosThunk = createAsyncThunk(
+function removeItemFromList(idToRemove: string, list: TodosStateAPI[]): TodosStateAPI[] {
+  return list.filter((item) => item.id !== idToRemove);
+}
+ export const deleteTodosThunk = createAsyncThunk(
   'todosAPI/deleteTodosThunk',
   async (id: string) => {
     try {
-      const response = await axios.delete<TodosStateAPI[]>(
-        `https://jsonplaceholder.typicode.com/todos/${id}`
-      );      
-      
-      return response.data;
-    }
-     catch (error) {
-      console.error(error);
+      await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+       // Получаем все элементы списка, за исключением удаленного
+      const updatedList = removeItemFromList(id, todosAPI);
+
+       return updatedList;
+    } 
+    catch (error) {
+      console.log(error);
       throw error;
     }
   }
-);
+)
+
+
+;
+
+// export const deleteTodosThunk = createAsyncThunk(
+//   'todosAPI/deleteTodosThunk',
+//   async (id: string) => {
+//     try {
+//       const response = await axios.delete<TodosStateAPI[]>(
+//         `https://jsonplaceholder.typicode.com/todos/${id}`
+//       );      
+//       console.log(response);
+//       console.log(response.data);
+      
+//       return response.data;
+//     }
+//      catch (error) {
+//       console.error(error);
+//       throw error;
+//     }
+//   }
+
+
+// );
 
 // import axios from 'axios';
 // import { useAppDispatch } from '../../store/store';

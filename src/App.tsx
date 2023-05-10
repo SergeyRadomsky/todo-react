@@ -9,6 +9,7 @@ import { toggleThemeAction } from '../src/store/todos/reducer';
 import { ThemeVariants } from './components/TodoForm/constants';
 import Button, { ButtonVariants } from './components/button';
 import classNames from 'classnames';
+import { MySVGComponent } from './components/SvgComp';
 import UnderList from './components/UnderList/UnderList';
 
 const App: FC = () => {
@@ -33,6 +34,7 @@ const App: FC = () => {
       >
         {theme}
       </Button>
+      <MySVGComponent className={s.helllo}/>
       <Header />
       <TodoForm />
       <TodoList />

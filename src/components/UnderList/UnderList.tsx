@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { Task } from '../Task/Task';
-import { deleteTodosThunk, getTodosThunk } from './thunk';
+import { getTodosThunk } from './thunk';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../store/store';
 import { TodoAPI } from '../../store/todosAPI/reducer';
+import { TaskAPI } from '../TaskAPI/TaskAPI';
 
 export default function UnderList() {
   const dispatch = useAppDispatch();
@@ -21,10 +21,11 @@ export default function UnderList() {
     dispatch(getTodosThunk());
   }, [dispatch]);
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteTodosThunk(id));
-  };
-  
+
+  // const handleChangeText = (id: string) => {
+  //   dispatch(deleteTodosThunk())
+  // }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -37,12 +38,11 @@ export default function UnderList() {
     <div>
       <p>List with use API</p>
       {todosAPI.map((todo) => (
-        <Task
+        <TaskAPI
           completed={todo.completed}
           id={todo.id}
           key={todo.id}
           text={todo.title}
-          onDelete={() => handleDelete(todo.id)} // передаем функцию для удаления задачи в компонент Task
         />
       ))}
     </div>

@@ -1,12 +1,13 @@
 import React, { useState, FC } from 'react';
 import s from '../Task/Task.module.scss';
 import {
-  removeTodoAction,
+  // removeTodoAction,
   updateTodoTextAction,
   changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
 import { useAppDispatch } from '../../store/store';
+import { deleteTodosThunk } from '../UnderList/thunk';
 
 interface TaskProps {
   completed: boolean;
@@ -14,12 +15,16 @@ interface TaskProps {
   id: string;
 }
 
-export const Task: FC<TaskProps> = ({ completed, text, id}) => {
+export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState('');
   const [isEditable, setIsEditable] = useState(false);
-
+  
+  const onDelete = (id: string) => {  
+    console.log('hello');
+    dispatch(deleteTodosThunk(id));
+  };
 
   const changeTaskForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -46,9 +51,9 @@ export const Task: FC<TaskProps> = ({ completed, text, id}) => {
     setValue(text);
   };
 
-  const removeTodo = () => {
-    dispatch(removeTodoAction(id));
-  };
+  // const removeTodo = () => {
+  //   dispatch(removeTodoAction(id));
+  // };
 
   const handleChange = (id: string) => {
     dispatch(changeStatusOfTaskAction(id));
@@ -84,7 +89,7 @@ export const Task: FC<TaskProps> = ({ completed, text, id}) => {
           {text}
         </div>
       )}
-      <button className={s.delete} onClick={removeTodo}>
+      <button className={s.delete} onClick={() => onDelete(id)}>
         X
       </button>
     </div>
