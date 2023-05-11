@@ -5,38 +5,81 @@ import { TodosStateAPI, todosAPI } from '../../store/todosAPI/reducer';
 export const getTodosThunk = createAsyncThunk(
   'todosAPI/getTodosThunk',
   async () => {
-      const response = await axios.get<TodosStateAPI[]>(
-        'https://jsonplaceholder.typicode.com/todos'
-      );
-      console.log(response);
-      console.log(response.data);
-      
-      return response.data;
+    const response = await axios.get<TodosStateAPI[]>(
+      'https://jsonplaceholder.typicode.com/todos'
+    );
+    console.log(response);
+    console.log(response.data);
+
+    return response.data;
   }
 );
 
-function removeItemFromList(idToRemove: string, list: TodosStateAPI[]): TodosStateAPI[] {
+const removeItemFromList = (
+  idToRemove: string,
+  list: TodosStateAPI.TodosStateAPIarrtodos[]) => {
   return list.filter((item) => item.id !== idToRemove);
-}
- export const deleteTodosThunk = createAsyncThunk(
+};
+
+const changeStatusOfTaskAction = (
+  idToChange: string,
+  list: TodosStateAPI[]
+): TodosStateAPI[] => {
+  list = list.map((todo) => {
+    if (todo.id !== idToChange) {
+      return todo;
+    }
+
+    return {
+      ...todo,
+      completed: !todo.completed,
+    };
+  });
+
+  return list;
+};
+
+export const deleteTodosThunk = createAsyncThunk(
   'todosAPI/deleteTodosThunk',
   async (id: string) => {
     try {
       await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
-       // Получаем все элементы списка, за исключением удаленного
+      // Получаем все элементы списка, за исключением удаленного
       const updatedList = removeItemFromList(id, todosAPI);
 
-       return updatedList;
-    } 
-    catch (error) {
+      return updatedList;
+    } catch (error) {
       console.log(error);
       throw error;
     }
   }
-)
+);
 
+export const doneTodoAPIThunk = createAsyncThunk(
+  'todosApi/doneTodoAPIThunk',
+  async ({ id, completed, title }: { id: string; completed: string; title: string }) => {
+    try {
+      const updatedTodo = {
+        id,
+        title,
+        completed,
+      };
 
-;
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/todos/${id}`,
+        updatedTodo
+      );
+      console.log(response);
+
+      return response.data;
+    } catch (error) {
+      console.log(id);
+      console.log(completed);
+      console.log(error);
+      throw error;
+    }
+  }
+);
 
 // export const deleteTodosThunk = createAsyncThunk(
 //   'todosAPI/deleteTodosThunk',
@@ -44,10 +87,10 @@ function removeItemFromList(idToRemove: string, list: TodosStateAPI[]): TodosSta
 //     try {
 //       const response = await axios.delete<TodosStateAPI[]>(
 //         `https://jsonplaceholder.typicode.com/todos/${id}`
-//       );      
+//       );
 //       console.log(response);
 //       console.log(response.data);
-      
+
 //       return response.data;
 //     }
 //      catch (error) {
@@ -55,7 +98,6 @@ function removeItemFromList(idToRemove: string, list: TodosStateAPI[]): TodosSta
 //       throw error;
 //     }
 //   }
-
 
 // );
 

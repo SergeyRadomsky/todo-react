@@ -2,20 +2,20 @@ import React, { useState, FC } from 'react';
 import s from '../Task/Task.module.scss';
 import {
   // removeTodoAction,
-  updateTodoTextAction,
-  changeStatusOfTaskAction,
+  // updateTodoTextAction,
+  // changeStatusOfTaskAction,
 } from '../../store/todos/reducer';
 
 import { useAppDispatch } from '../../store/store';
-import { deleteTodosThunk } from '../UnderList/thunk';
+import { deleteTodosThunk, doneTodoAPIThunk } from '../UnderList/thunk';
 
 interface TaskProps {
   completed: boolean;
-  text: string;
+  title: string;
   id: string;
 }
 
-export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
+export const TaskAPI: FC<TaskProps> = ({ completed, title, id}) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState('');
@@ -35,7 +35,7 @@ export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
     e.preventDefault();
 
     if (!!value.trim()) {
-      dispatch(updateTodoTextAction({ value, id }));
+      // dispatch(updateTodoTextAction({ value, id }));
     }
     setIsEditable(false);
   };
@@ -48,15 +48,15 @@ export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
 
   const setTodoEditable = () => {
     setIsEditable(true);
-    setValue(text);
+    setValue(title);
   };
 
   // const removeTodo = () => {
   //   dispatch(removeTodoAction(id));
   // };
 
-  const handleChange = (id: string) => {
-    dispatch(changeStatusOfTaskAction(id));
+  const handleChange = (id: string, completed: boolean) => {
+    dispatch(doneTodoAPIThunk({id, title: title, completed: !completed}));
   };
 
   return (
@@ -65,7 +65,7 @@ export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
         className={s.checkbox}
         checked={completed}
         type="checkbox"
-        onChange={() => handleChange(id)}
+        onChange={() => handleChange(id, completed)}
       />
       {isEditable ? (
         <form onSubmit={submitTaskForm}>
@@ -82,11 +82,11 @@ export const TaskAPI: FC<TaskProps> = ({ completed, text, id}) => {
           className={`${s.taskText} ${s.TaskComplete}`}
           onDoubleClick={setTodoEditable}
         >
-          {text}
+          {title}
         </div>
       ) : (
         <div className={s.taskText} onDoubleClick={setTodoEditable}>
-          {text}
+          {title}
         </div>
       )}
       <button className={s.delete} onClick={() => onDelete(id)}>

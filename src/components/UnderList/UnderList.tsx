@@ -8,7 +8,7 @@ import { TaskAPI } from '../TaskAPI/TaskAPI';
 export default function UnderList() {
   const dispatch = useAppDispatch();
   const todosAPI = useSelector<RootState, TodoAPI[]>(
-    (state) => state.todosAPI.todosStateAPI
+    (state) => state.todosAPI.TodosStateAPIarrtodos
   );
   const isLoading = useSelector<RootState, boolean>(
     (state) => state.todosAPI.isLoading
@@ -37,12 +37,12 @@ export default function UnderList() {
   return (
     <div>
       <p>List with use API</p>
-      {todosAPI.map((todo) => (
+      {todosAPI?.map((todo) => (
         <TaskAPI
           completed={todo.completed}
           id={todo.id}
           key={todo.id}
-          text={todo.title}
+          title={todo.title}
         />
       ))}
     </div>

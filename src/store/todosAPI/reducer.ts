@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteTodosThunk, getTodosThunk } from '../../components/UnderList/thunk';
+import { deleteTodosThunk, doneTodoAPIThunk, getTodosThunk } from '../../components/UnderList/thunk';
 // import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 // import { getTodosThunk } from '../../components/UnderList/thunk';
 // import axios from 'axios';
@@ -11,26 +11,28 @@ export type TodoAPI = {
 };
 
 export type TodosStateAPI = {
-  todosStateAPI: TodoAPI[] | [];
+  TodosStateAPIarrtodos: TodoAPI[];
   // filteredTodosStateAPI: TodoAPI[] | [];
   isLoading: boolean;
   error: string | null;
 };
 
 const initialTodosListAPI: TodosStateAPI = {
-  todosStateAPI: [],
+  TodosStateAPIarrtodos: [],
   isLoading: false,
   error: 'error',
 };
 
 const initialState: TodosStateAPI = {
-  todosStateAPI: initialTodosListAPI.todosStateAPI,
+  TodosStateAPIarrtodos: initialTodosListAPI.TodosStateAPIarrtodos,
   // filteredTodosStateAPI: JSON.parse(initialTodosListAPI),
 
   isLoading: false,
   error: null,
 };
 
+
+/* ИМЯ СЕЛЕКТОРА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 export const todosAPI = createSlice({
   name: 'todosAPI',
   initialState,
@@ -39,73 +41,62 @@ export const todosAPI = createSlice({
     // addTodoAction: (
     //   state: TodosStateAPI,
     //   { payload: PayloadAction<string>
-      // { payload: text }: PayloadAction<string>
+    // { payload: text }: PayloadAction<string>
     // ) => {
     //   const newTask = {
     //     text,
     //     id: new Date().toISOString(),
     //     completed: false,
     //   };
-
     //   state.todosStateAPI = [newTask, ...state.todosStateAPI].sort((a, b) => {
     //     return new Date(a.id).getTime() - new Date(b.id).getTime();
     //   });
-
     //   state.filteredTodosState = [newTask, ...state.filteredTodosState].sort(
     //     (a, b) => {
     //       return new Date(a.id).getTime() - new Date(b.id).getTime();
     //     }
     //   );
-
     //   // localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     // },
-
     // updateTodoTextAction: (
     //   state: TodosStateAPI,
     //   { payload: { value, id PayloadAction<{ value: string; id: string }>
-      // { payload: { value, id } }: PayloadAction<{ value: string; id: string }>
+    // { payload: { value, id } }: PayloadAction<{ value: string; id: string }>
     // ) => {
     //   state.todosStateAPI = state.todosStateAPI.map((todo) => {
     //     if (id !== todo.id) {
     //       return todo;
     //     }
-
     //     return {
     //       ...todo,
     //       text: value,
     //     };
     //   });
-
     //   state.filtered.todosStateAPI = state.todosStateAPI.map((todo) => {
     //     if (id !== todo.id) {
     //       return todo;
     //     }
-
     //     return {
     //       ...todo,
     //       text: value,
     //     };
     //   });
-
     //   localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     // },
-
     // removeTodoAction: (
     //   state: TodoState,
     //   { PayloadAction<string>
-      // { payload }: PayloadAction<string>
+    // { payload }: PayloadAction<string>
     // ) => {
     //   state.todosState = state.todosState.filter((todo) => payload !== todo.id);
     //   state.filteredTodosState = state.filteredTodosState.filter(
     //     (todo) => payload !== todo.id
     //   );
-
     //   localStorage.setItem(
     //     peremLS.todosLS,
     //     JSON.stringify(state.filteredTodosState)
     //   );
     // },
-
     // toggleThemeAction: (state: TodoState) => {
     //   state.ThemeApp =
     //     state.ThemeApp === ThemeVariants.light
@@ -113,7 +104,6 @@ export const todosAPI = createSlice({
     //       : ThemeVariants.light;
     //   localStorage.setItem(peremLS.ActualThemeLS, state.ThemeApp);
     // },
-
     // toggleViewTodosAction: (state: TodoState) => {
     //   state.viewTodos =
     //     state.viewTodos === ViewOfLists.list
@@ -121,7 +111,6 @@ export const todosAPI = createSlice({
     //       : ViewOfLists.list;
     //   localStorage.setItem(peremLS.viewTodosLS, state.viewTodos);
     // },
-
     // sortTodosAction: (
     //   state: TodoState,
     //   { payload: type }: PayloadAction<SortTypes>
@@ -131,37 +120,31 @@ export const todosAPI = createSlice({
     //       return new Date(a.id).getTime() - new Date(b.id).getTime();
     //     });
     //   }
-
     //   if (type === SortTypes.dateDesk) {
     //     state.filteredTodosState = state.todosState.sort((a, b) => {
     //       return new Date(b.id).getTime() - new Date(a.id).getTime();
     //     });
     //   }
-
     //   if (type === SortTypes.lenghtAsc) {
     //     state.filteredTodosState = state.todosState.sort((a, b) => {
     //       return a.text.length - b.text.length;
     //     });
     //   }
-
     //   if (type === SortTypes.lenghtDesk) {
     //     state.filteredTodosState = state.todosState.sort((a, b) => {
     //       return b.text.length - a.text.length;
     //     });
     //   }
-
     //   if (type === SortTypes.all) {
     //     state.filteredTodosState = state.todosState.sort((a, b) => {
     //       return new Date(a.id).getTime() - new Date(b.id).getTime();
     //     });
     //   }
-
     //   if (type === SortTypes.completed) {
     //     state.filteredTodosState = state.todosState.filter((todo) => {
     //       return todo.completed === true;
     //     });
     //   }
-
     //   if (type === SortTypes.active) {
     //     state.filteredTodosState = state.todosState.filter((todo) => {
     //       return todo.completed === false;
@@ -170,7 +153,6 @@ export const todosAPI = createSlice({
     //   // Сохранение отсортированного списка задач в localStorage
     //   localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     // },
-
     // changeStatusOfTaskAction: (
     //   state: TodoState,
     //   { payload: id }: PayloadAction<string>
@@ -179,18 +161,15 @@ export const todosAPI = createSlice({
     //     if (id !== todo.id) {
     //       return todo;
     //     }
-
     //     return {
     //       ...todo,
     //       completed: !todo.completed,
     //     };
     //   });
-
     //   state.todosState = state.todosState.map((todo) => {
     //     if (id !== todo.id) {
     //       return todo;
     //     }
-
     //     return {
     //       ...todo,
     //       completed: !todo.completed,
@@ -209,11 +188,11 @@ export const todosAPI = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getTodosThunk.fulfilled, (state, {payload}) => {
+      .addCase(getTodosThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.todosStateAPI = payload;
+        state.TodosStateAPIarrtodos = payload;
       })
-      .addCase(getTodosThunk.rejected, (state, {payload}) => {
+      .addCase(getTodosThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload?.toString() ?? 'unknow error';
       })
@@ -222,18 +201,33 @@ export const todosAPI = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(deleteTodosThunk.fulfilled, (state, {payload}) => {
+      .addCase(deleteTodosThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.todosStateAPI = payload;
+        state.TodosStateAPIarrtodos = payload;
       })
-      .addCase(deleteTodosThunk.rejected, (state, {payload}) => {
+      .addCase(deleteTodosThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
-        state.todosStateAPI = state.todosStateAPI.filter((todo) => todo.id !== payload);
+        state.TodosStateAPIarrtodos = state.TodosStateAPIarrtodos.filter(
+          (todo) => todo.id !== payload
+        );
       })
-      
-      
-      ;
-  }
+
+      .addCase(doneTodoAPIThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(doneTodoAPIThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        // const updatedTodo = payload;
+        // console.log(updatedTodo);
+        // const index = state.TodosStateAPIarrtodos.findIndex(todo => todo.id === updatedTodo.id);
+        // state.TodosStateAPIarrtodos[index] = payload;
+      })
+      .addCase(doneTodoAPIThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.TodosStateAPIarrtodos = payload;
+      });
+  },
 });
 
 export const {
