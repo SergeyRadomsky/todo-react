@@ -218,10 +218,10 @@ export const todosAPI = createSlice({
       })
       .addCase(doneTodoAPIThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        // const updatedTodo = payload;
-        // console.log(updatedTodo);
-        // const index = state.TodosStateAPIarrtodos.findIndex(todo => todo.id === updatedTodo.id);
-        // state.TodosStateAPIarrtodos[index] = payload;
+        const updatedTodo = payload;
+        console.log(updatedTodo);
+        const index = state.TodosStateAPIarrtodos.findIndex(todo => todo.id === updatedTodo.id);
+        state.TodosStateAPIarrtodos[index] = payload;
       })
       .addCase(doneTodoAPIThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

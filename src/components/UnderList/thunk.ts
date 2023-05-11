@@ -61,8 +61,8 @@ export const doneTodoAPIThunk = createAsyncThunk(
     try {
       const updatedTodo = {
         id,
-        title,
         completed,
+        title,
       };
 
       const response = await axios.put(
