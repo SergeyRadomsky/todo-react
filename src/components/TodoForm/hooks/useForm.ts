@@ -14,7 +14,7 @@ const useForm = (
     setValue(e.target.value);
   };
 
-  const addTodo = (e: React.FormEvent<HTMLFormElement>) => {
+  const addTodo = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (!!value.trim()) {

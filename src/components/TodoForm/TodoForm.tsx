@@ -9,16 +9,20 @@ import { SubForm } from '../SubForm/SubForm';
 
 export const TodoForm: FC = () => {
   const dispatch = useAppDispatch();
-  
+
   const { setSortType } = useSortTodos(dispatch);
 
-  const { addTodo, value, onInputChange, activeForm, setActiveForm } = useForm(setSortType, dispatch);
+  const { addTodo, value, onInputChange, activeForm, setActiveForm } = useForm(
+    setSortType,
+    dispatch
+  );
 
   return (
     <>
-      <form className={s.TodoForm} 
-      onSubmit={addTodo}
-      onBlur={() => setActiveForm(false)}
+      <form
+        className={s.TodoForm}
+        onSubmit={addTodo}
+        onBlur={() => setActiveForm(false)}
       >
         <input
           onFocus={() => setActiveForm(true)}
@@ -28,11 +32,19 @@ export const TodoForm: FC = () => {
           onChange={onInputChange}
           value={value}
         />
-        <button className={s.btnInput}
-        onClick={() => {addTodo; setActiveForm(false);}}
-        >New To do</button>
+        <button
+          className={s.btnInput}
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            // e.stopPropagation();
+            e.preventDefault();
+            addTodo(e);
+            setActiveForm(false);
+          }}
+        >
+          New To do
+        </button>
       </form>
-      {(activeForm) ? <SubForm /> : null}
+      {activeForm ? <SubForm /> : null}
       <SortedButtons />
     </>
   );
