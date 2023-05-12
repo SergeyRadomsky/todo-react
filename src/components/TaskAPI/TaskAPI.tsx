@@ -56,7 +56,7 @@ export const TaskAPI: FC<TaskProps> = ({ completed, title, id}) => {
   // };
 
   const handleChange = (id: string, completed: boolean) => {
-    dispatch(doneTodoAPIThunk({id, title: title, completed: !completed}));
+    dispatch(doneTodoAPIThunk({id, completed: !completed, title: title}));
   };
 
   return (

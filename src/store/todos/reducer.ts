@@ -71,7 +71,7 @@ export const todos = createSlice({
       };
 
       state.todosState = [newTask, ...state.todosState].sort((a, b) => {
-        return new Date(a.id).getTime() - new Date(b.id).getTime();
+        return new Date(b.id).getTime() - new Date(a.id).getTime();
       });
 
       state.filteredTodosState = [newTask, ...state.filteredTodosState].sort(

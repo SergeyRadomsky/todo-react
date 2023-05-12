@@ -203,13 +203,15 @@ export const todosAPI = createSlice({
       })
       .addCase(deleteTodosThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.TodosStateAPIarrtodos = payload;
+        console.log(payload);
+        // state.TodosStateAPIarrtodos = payload;
+        state.TodosStateAPIarrtodos = payload.updatedList.filter(
+          (item: { id: string; }) => item.id !== payload.idDeleted);
+        
       })
       .addCase(deleteTodosThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
-        state.TodosStateAPIarrtodos = state.TodosStateAPIarrtodos.filter(
-          (todo) => todo.id !== payload
-        );
+        console.log(payload);
       })
 
       .addCase(doneTodoAPIThunk.pending, (state) => {
@@ -223,9 +225,8 @@ export const todosAPI = createSlice({
         const index = state.TodosStateAPIarrtodos.findIndex(todo => todo.id === updatedTodo.id);
         state.TodosStateAPIarrtodos[index] = payload;
       })
-      .addCase(doneTodoAPIThunk.rejected, (state, { payload }) => {
+      .addCase(doneTodoAPIThunk.rejected, (state) => {
         state.isLoading = false;
-        state.TodosStateAPIarrtodos = payload;
       });
   },
 });
