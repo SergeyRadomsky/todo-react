@@ -8,10 +8,11 @@ const useForm = (
   dispatch: ThunkAppDispath
 ) => {
   const [value, setValue] = useState('');
-  const [activeForm, setActiveForm] = useState(true);
+  const [activeForm, setActiveForm] = useState(false);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    setActiveForm(true);
   };
 
   const addTodo = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -24,6 +25,8 @@ const useForm = (
       setActiveForm(true);
       dispatch(sortTodosAction(SortTypes.all));
     }
+
+    setActiveForm(true);
   };
 
   return {

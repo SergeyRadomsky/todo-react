@@ -16,7 +16,7 @@ export const TodoForm: FC = () => {
     setSortType,
     dispatch
   );
-
+  
   return (
     <>
       <form
@@ -26,6 +26,7 @@ export const TodoForm: FC = () => {
       >
         <input
           onFocus={() => setActiveForm(true)}
+          onClick={() => setActiveForm(true)}
           className={s.inputArea}
           placeholder={TodoFormContent.textholder}
           type="text"
@@ -44,7 +45,8 @@ export const TodoForm: FC = () => {
           New To do
         </button>
       </form>
-      {activeForm ? <SubForm /> : null}
+      {/* <SubForm /> */}
+      {<SubForm activeForm={activeForm} setActiveForm={setActiveForm} value={value}/>}
       <SortedButtons />
     </>
   );
