@@ -12,41 +12,43 @@ export const TodoForm: FC = () => {
 
   const { setSortType } = useSortTodos(dispatch);
 
-  const { addTodo, value, onInputChange, activeForm, setActiveForm } = useForm(
+  const { addTodo, value, onInputChange, activeForm, onActiveChange } = useForm(
     setSortType,
     dispatch
   );
-  
+
   return (
     <>
       <form
         className={s.TodoForm}
         onSubmit={addTodo}
-        onBlur={() => setActiveForm(false)}
+        onBlur={() => onActiveChange(false)}
       >
         <input
-          onFocus={() => setActiveForm(true)}
-          onClick={() => setActiveForm(true)}
+          onFocus={() => onActiveChange(true)}
+          onClick={() => onActiveChange(true)}
           className={s.inputArea}
           placeholder={TodoFormContent.textholder}
           type="text"
           onChange={onInputChange}
           value={value}
         />
-        <button
-          className={s.btnInput}
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            // e.stopPropagation();
-            e.preventDefault();
-            addTodo(e);
-            setActiveForm(false);
-          }}
-        >
-          New To do
-        </button>
       </form>
-      {/* <SubForm /> */}
-      {<SubForm activeForm={activeForm} setActiveForm={setActiveForm} value={value}/>}
+      <button
+        className={s.btnInput}
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+          addTodo(e)
+        }
+      >
+        New To do
+      </button>
+      {
+        <SubForm
+          activeForm={activeForm}
+          onActiveChange={onActiveChange}
+          value={value}
+        />
+      }
       <SortedButtons />
     </>
   );

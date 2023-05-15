@@ -21,11 +21,6 @@ export default function UnderList() {
     dispatch(getTodosThunk());
   }, [dispatch]);
 
-
-  // const handleChangeText = (id: string) => {
-  //   dispatch(deleteTodosThunk())
-  // }
-
   if (isLoading) {
     return <div>Loading...</div>;
   }

@@ -1,44 +1,19 @@
-
-// .SubForm {
-//   opacity: 1;
-//   transition: opacity 0.1s ease-out, visibility 0s linear 1s;
-//   visibility: visible;
-// }
-
-.SubFormActive {
+.SubForm {
   overflow-y: scroll;
   background-color: #0f48f3;
   opacity: 1;
-  border-radius: 7px;
   display: flex;
   flex-direction: column;
   word-wrap: break-word;
-  max-width: 200px;
   max-height: 150px;
-  outline: none;
-  // margin-bottom: 10px;
-  padding: 3px 10px;
-  visibility: visible;
-  transform: translateY(0%);
-  transition: opacity 0.8s ease-out, visibility 0s linear 0.5s, transform 0.5s ease-out;
+  max-width: 200px;
+  transition: 0.5s;
+}
+
+.SubFormActive {
+  max-height: 200px;
 }
 
 .SubFormClose {
-  overflow-y: scroll;
-  background-color: #0f48f3;
-  opacity: 1;
-  border-radius: 7px;
-  display: flex;
-  flex-direction: column;
-  word-wrap: break-word;
-  max-width: 200px;
-  max-height: 150px;
-  outline: none;
-  // margin-bottom: 10px;
-  padding: 3px 10px;
-  height: 30px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-100%);
-  transition: opacity 0.8s ease-out, visibility 0s linear 0.8s, transform 0.5s ease-out;
+  max-height: 0;
 }

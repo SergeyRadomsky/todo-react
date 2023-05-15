@@ -15,18 +15,23 @@ const useForm = (
     setActiveForm(true);
   };
 
-  const addTodo = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addTodo = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     if (!!value.trim()) {
       dispatch(addTodoAction(value));
       setValue('');
       setSortType(SortTypes.all);
-      setActiveForm(true);
       dispatch(sortTodosAction(SortTypes.all));
     }
+  };
 
-    setActiveForm(true);
+  const onActiveChange = (value: boolean) => {
+    setActiveForm(value);
   };
 
   return {
@@ -34,7 +39,7 @@ const useForm = (
     addTodo,
     value,
     activeForm,
-    setActiveForm,
+    onActiveChange,
   };
 };
 

@@ -188,7 +188,7 @@ export const todos = createSlice({
           return todo.completed === false;
         });
       }
-      // Сохранение отсортированного списка задач в localStorage
+      
       localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     },
 
@@ -223,22 +223,6 @@ export const todos = createSlice({
       );
     },
   },
-
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(postTodosThunk.pending, (state) => {
-  //       state.isLoading = true;
-  //       state.error = null;
-  //     })
-  //     .addCase(postTodosThunk.fulfilled, (state, action) => {
-  //       state.isLoading = false;
-  //       state.todosState = action.payload;
-  //     })
-  //     .addCase(postTodosThunk.rejected, (state, action) => {
-  //       state.isLoading = false;
-  //       state.error = action.payload?.toString() ?? 'unknow error';
-  //     });
-  // },
 
 });
 
