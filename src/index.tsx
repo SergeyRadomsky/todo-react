@@ -1,18 +1,30 @@
-import { createRoot } from 'react-dom/client';
 import React from 'react';
-import './index.scss';
+import { createRoot } from 'react-dom/client';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import App from './App';
+import './index.scss';
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App /> 
+  },
+]);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      {/* <App themeT={} /> */}
-      {/* <App variant={ThemeForApp.dark}/> */}
-      {/* <App isActive={isActive}/> */}
+    <RouterProvider router={router} />
+      {/* <App /> */}
     </Provider>
   </React.StrictMode>
 );

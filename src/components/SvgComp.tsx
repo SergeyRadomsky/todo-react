@@ -2,7 +2,7 @@ interface SVGProps {
   className?: string;
 }
 
-export const MySVGComponent: React.FC<SVGProps> = ({ className }: SVGProps) => {
+export const SVGComponent: React.FC<SVGProps> = ({ className }: SVGProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
