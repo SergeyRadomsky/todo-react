@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SortTypes } from '../TodoForm/constants';
+import { SortTypes } from '../DropDownInput/constants';
 import s from './SortedButtons.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import useSortTodos from './hooks/useSortTodos';

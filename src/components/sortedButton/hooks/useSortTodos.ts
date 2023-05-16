@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SortTypes } from '../../TodoForm/constants';
+import { SortTypes } from '../../DropDownInput/constants';
 import {
   toggleViewTodosAction,
   sortTodosAction,

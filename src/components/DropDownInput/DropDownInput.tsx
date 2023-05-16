@@ -1,26 +1,26 @@
 import { FC } from 'react';
-import s from './TodoForm.module.scss';
-import { TodoFormContent } from './constants';
+import s from './DropDownInput.module.scss';
+import { DropDownInputContent } from './constants';
 import useSortTodos from '../sortedButton/hooks/useSortTodos';
-import useForm from './hooks/useForm';
 import { useAppDispatch } from '../../store/store';
 import { SortedButtons } from '../sortedButton/SortedButtons';
-import { SubForm } from '../SubForm/SubForm';
+import { MenuDropInput } from '../MenuDropInput/MenuDropInput';
+import useDropDownInput from './hooks/useDropDownInput';
 
-export const TodoForm: FC = () => {
+export const DropDownInput: FC = () => {
   const dispatch = useAppDispatch();
 
   const { setSortType } = useSortTodos(dispatch);
 
-  const { addTodo, value, onInputChange, activeForm, onActiveChange } = useForm(
+  const { addTodo, value, onInputChange, activeForm, onActiveChange, takeValueToInput } = useDropDownInput(
     setSortType,
     dispatch
   );
-
+  
   return (
     <>
+    <div className={s.DropDownInput}>
       <form
-        className={s.TodoForm}
         onSubmit={addTodo}
         onBlur={() => onActiveChange(false)}
       >
@@ -28,7 +28,7 @@ export const TodoForm: FC = () => {
           onFocus={() => onActiveChange(true)}
           onClick={() => onActiveChange(true)}
           className={s.inputArea}
-          placeholder={TodoFormContent.textholder}
+          placeholder={DropDownInputContent.textholder}
           type="text"
           onChange={onInputChange}
           value={value}
@@ -43,13 +43,15 @@ export const TodoForm: FC = () => {
         New To do
       </button>
       {
-        <SubForm
+        <MenuDropInput
           activeForm={activeForm}
           onActiveChange={onActiveChange}
+          takeValueToInput={takeValueToInput}
           value={value}
         />
       }
+    </div>
       <SortedButtons />
-    </>
+      </>
   );
 };

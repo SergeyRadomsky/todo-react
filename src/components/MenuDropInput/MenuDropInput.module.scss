@@ -1,19 +1,26 @@
-.SubForm {
+.MenuDropInput {
   overflow-y: scroll;
-  background-color: #0f48f3;
+  background-color: white;
+  color: grey;
   opacity: 1;
   display: flex;
   flex-direction: column;
+  margin-right: 79px;
+  border-radius: 5px;
   word-wrap: break-word;
   max-height: 150px;
   max-width: 200px;
   transition: 0.5s;
 }
 
-.SubFormActive {
+.MenuDropInputActive {
   max-height: 200px;
 }
 
-.SubFormClose {
+.MenuDropInputClose {
   max-height: 0;
+}
+
+.TodosItem {
+  border-top: 1px solid grey; 
 }

@@ -3,7 +3,7 @@ import { SortTypes } from '../constants';
 import { addTodoAction, sortTodosAction } from '../../../store/todos/reducer';
 import { ThunkAppDispath } from '../../../store/store';
 
-const useForm = (
+const useDropDownInput = (
   setSortType: (type: SortTypes) => void,
   dispatch: ThunkAppDispath
 ) => {
@@ -13,6 +13,11 @@ const useForm = (
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setActiveForm(true);
+  };
+
+  const takeValueToInput = (value: string) => {
+    setValue(value);
+    setActiveForm(false);
   };
 
   const addTodo = (
@@ -40,7 +45,8 @@ const useForm = (
     value,
     activeForm,
     onActiveChange,
+    takeValueToInput,
   };
 };
 
-export default useForm;
+export default useDropDownInput;

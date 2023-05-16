@@ -5,7 +5,7 @@ import {
   SortTypes,
   ViewOfLists,
   ThemeVariants,
-} from '../../components/TodoForm/constants';
+} from '../../components/DropDownInput/constants';
 // import { postTodosThunk } from '../../components/UnderList/thunk';
 
 export type Todo = {

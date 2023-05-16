@@ -8,7 +8,7 @@ export enum SortTypes {
   active = 'active',
 }
 
-export enum TodoFormContent {
+export enum DropDownInputContent {
   textholder = 'What needs to be done',
 }
 export enum ViewOfLists {
