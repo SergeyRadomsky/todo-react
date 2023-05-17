@@ -5,26 +5,23 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.scss';
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
+// import { createBrowserRouter } from 'react-router-dom';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App /> 
-  },
-]);
+// const router = useRouter();
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <App />,
+//   },
+// ]);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <RouterProvider router={router} />
-      {/* <App /> */}
+      {/* <RouterProvider router={router} /> */}
+      <App />
     </Provider>
   </React.StrictMode>
 );

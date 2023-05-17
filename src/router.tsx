@@ -1,30 +1,49 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import { SVGComponent } from './components/SvgComp';
+// import { BrowserRouter, Routes, Route, createBrowserRouter } from 'react-router-dom';
+// import { BrowserRouter, Routes, createBrowserRouter } from 'react-router-dom';
 import TodoList from './components/TodoList/TodoList';
 import UnderList from './components/UnderList/UnderList';
+// import { SVGComponent } from './components/SvgComp';
+import { createBrowserRouter } from 'react-router-dom';
+import Layout from './layout';
+import Home from './pages/Home/Home';
 
 const useRouter = () => {
   const router = createBrowserRouter([
     {
-      element: <App />,
+      path: '/',
+      element: <Layout />,
       children: [
         {
-          path: 'logoSVG/:logoSVG',
-          element: <SVGComponent />,
+          path: '/Home',
+          element: <Home />,
         },
         {
-          path: 'TodoList/:TodoList',
+          path: '/local-todos',
           element: <TodoList />,
         },
         {
-          path: 'TodoListAPI/:TodoListAPI',
+          path: '/api-todos',
           element: <UnderList />,
         },
+        
       ],
     },
   ]);
 
-  return router;
+
+// const useRouter = () => {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         {/* <Route path="logoSVG/:logoSVG" element={<SVGComponent />} /> */}
+//         <Route path="/" element={<App />} />
+//         <Route path="/local-todos" element={<TodoList />} />
+//         <Route path="/api-todos" element={<UnderList />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+return router;
 };
 export default useRouter;
