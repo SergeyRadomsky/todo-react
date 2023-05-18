@@ -1,4 +1,3 @@
-import React from 'react';
 import Button, { ButtonVariants } from '../../components/button';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { themeSelector } from '../../store/todos/selectors';
@@ -9,8 +8,6 @@ import { SVGComponent } from '../../components/SvgComp';
 import { Header } from '../../components/Header/Header';
 import { DropDownInput } from '../../components/DropDownInput/DropDownInput';
 import { Link } from 'react-router-dom';
-import TodoList from '../../components/TodoList/TodoList';
-import UnderList from '../../components/UnderList/UnderList';
 import s from './Home.module.scss';
 
 const Home = () => {
@@ -40,7 +37,7 @@ const Home = () => {
       <Header />
       <DropDownInput />
       <Link to="/"> Home </Link>
-      <Link to="/local-todos"> List of local Todo</Link>
+      <Link to="/local-todos" > List of local Todo</Link>
       <Link to="/api-todos">List of API Todo</Link>
     </div>
   );
