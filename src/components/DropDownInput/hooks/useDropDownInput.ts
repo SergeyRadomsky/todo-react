@@ -9,11 +9,15 @@ const useDropDownInput = (
 ) => {
   const [value, setValue] = useState('');
   const [activeForm, setActiveForm] = useState(false);
+  // сonst [DropList, SetDropList] = useState(todos);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setActiveForm(true);
+    // console.log(e.target.value);
+    
   };
+  // console.log(value);
 
   const takeValueToInput = (value: string) => {
     setValue(value);

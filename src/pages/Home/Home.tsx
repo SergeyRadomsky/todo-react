@@ -11,21 +11,24 @@ import { Link } from 'react-router-dom';
 import s from './Home.module.scss';
 
 const Home = () => {
-    const dispatch = useAppDispatch();
-    const theme = useAppSelector(themeSelector);
-  
-    const changeTheme = () => {
-      dispatch(toggleThemeAction());
-    };
+  const dispatch = useAppDispatch();
+  const theme = useAppSelector(themeSelector);
+
+  const changeTheme = () => {
+    dispatch(toggleThemeAction());
+  };
 
   return (
-
     <div
-      className={classNames(s.App, {
+      className={classNames(s.Home, {
         [s.dark]: theme === ThemeVariants.dark,
         [s.light]: theme === ThemeVariants.light,
       })}
     >
+      <div className={s.Menu}>
+        <Link to="/" className={s.Links}> Home </Link>
+        <Link to="/local-todos" className={s.Links}> List of local Todo</Link>
+        <Link to="/api-todos" className={s.Links}>List of API Todo</Link>
       <Button
         onClick={changeTheme}
         variant={ButtonVariants.defaultTheme}
@@ -33,12 +36,10 @@ const Home = () => {
       >
         {theme}
       </Button>
+      </div>
       <SVGComponent className={s.helllo} />
       <Header />
       <DropDownInput />
-      <Link to="/"> Home </Link>
-      <Link to="/local-todos" > List of local Todo</Link>
-      <Link to="/api-todos">List of API Todo</Link>
     </div>
   );
 };

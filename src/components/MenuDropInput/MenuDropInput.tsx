@@ -4,10 +4,10 @@ import { todosSelector } from '../../store/todos/selectors';
 import { useAppSelector } from '../../store/store';
 
 interface MenuDropInputProps {
+  value: string;
   activeForm?: boolean;
   onActiveChange: (value: boolean) => void;
   takeValueToInput: (value: string) => void;
-  value: string;
 }
 
 export const MenuDropInput: FC<MenuDropInputProps> = ({

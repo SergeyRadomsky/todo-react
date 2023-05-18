@@ -6,6 +6,7 @@ import { ThemeVariants } from '../components/DropDownInput/constants';
 import { useAppSelector } from '../store/store';
 import { themeSelector } from '../store/todos/selectors';
 import s from '../App.module.scss';
+// import InputFilter from '../components/InputFilter/InputFilter';
 
 const Layout: FC = () => {
 
@@ -19,8 +20,8 @@ const Layout: FC = () => {
         [s.light]: theme === ThemeVariants.light,
       })}
     >
+      {/* <InputFilter /> */}
       <Home />
-
       <Outlet />
     </div>
   );
