@@ -12,46 +12,51 @@ export const DropDownInput: FC = () => {
 
   const { setSortType } = useSortTodos(dispatch);
 
-  const { addTodo, value, onInputChange, activeForm, onActiveChange, takeValueToInput } = useDropDownInput(
-    setSortType,
-    dispatch
-  );
-  
+  const {
+    addTodo,
+    changeValueOfFilter,
+    value,
+    onInputChange,
+    activeForm,
+    onActiveChange,
+    takeValueToInput,
+    filteredArr,
+  } = useDropDownInput(setSortType, dispatch);
+
   return (
     <>
-    <div className={s.DropDownInput}>
-      <form
-        onSubmit={addTodo}
-        onBlur={() => onActiveChange(false)}
-      >
-        <input
-          onFocus={() => onActiveChange(true)}
-          onClick={() => onActiveChange(true)}
-          className={s.inputArea}
-          placeholder={DropDownInputContent.textholder}
-          type="text"
-          onChange={onInputChange}
-          value={value}
-        />
-      </form>
-      <button
-        className={s.btnInput}
-        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-          addTodo(e)
+      <div className={s.DropDownInput}>
+        <form onSubmit={addTodo} onBlur={() => onActiveChange(false)}>
+          <input
+            onFocus={() => onActiveChange(true)}
+            onClick={() => onActiveChange(true)}
+            className={s.inputArea}
+            placeholder={DropDownInputContent.textholder}
+            type="text"
+            onChange={onInputChange}
+            value={value}
+          />
+        </form>
+        <button
+          className={s.btnInput}
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            addTodo(e)
+          }
+        >
+          New To do
+        </button>
+        {
+          <MenuDropInput
+            activeForm={activeForm}
+            onActiveChange={onActiveChange}
+            takeValueToInput={takeValueToInput}
+            value={value}
+            changeValueOfFilter={changeValueOfFilter}
+            filteredArr={filteredArr}
+          />
         }
-      >
-        New To do
-      </button>
-      {
-        <MenuDropInput
-          activeForm={activeForm}
-          onActiveChange={onActiveChange}
-          takeValueToInput={takeValueToInput}
-          value={value}
-        />
-      }
-    </div>
+      </div>
       <SortedButtons />
-      </>
+    </>
   );
 };

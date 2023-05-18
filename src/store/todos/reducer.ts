@@ -22,6 +22,7 @@ export type Todo = {
 
 export type TodoState = {
   todosState: Todo[];
+  dropFilterArr: Todo[];
   filteredTodosState: Todo[];
   viewTodos: string;
   ThemeApp: string;
@@ -47,6 +48,7 @@ const initialTodosList = JSON.parse(
 
 const initialState: TodoState = {
   filteredTodosState: initialTodosList,
+  dropFilterArr: initialTodosList,
   todosState: initialTodosList,
   viewTodos: initialViewTodos,
   ThemeApp: initialThemeApp,

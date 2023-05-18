@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { SortTypes } from '../constants';
 import { addTodoAction, sortTodosAction } from '../../../store/todos/reducer';
-import { ThunkAppDispath } from '../../../store/store';
+import { ThunkAppDispath, useAppSelector } from '../../../store/store';
+import { todosSelector } from '../../../store/todos/selectors';
 
 const useDropDownInput = (
   setSortType: (type: SortTypes) => void,
@@ -9,15 +10,45 @@ const useDropDownInput = (
 ) => {
   const [value, setValue] = useState('');
   const [activeForm, setActiveForm] = useState(false);
-  // сonst [DropList, SetDropList] = useState(todos);
+  const todos = useAppSelector(todosSelector);
+  const [filteredArr, setFilteredArr] = useState(todos);
+
+  const changeValueOfFilter = (value: string) => {
+    const trimValue = value.trim();
+    const typeFirstSymb = trimValue[0];
+
+    if (
+      typeFirstSymb.match(/[а-я]/i) ||
+      todos.some((todo) => todo.text.includes(trimValue))
+    ) {
+      setActiveForm(true);
+      setFilteredArr(
+        todos.filter((todo) =>
+          todo.text.toLocaleLowerCase().includes(trimValue.toLocaleLowerCase())
+        )
+      );
+
+      return filteredArr;
+    }
+
+    if (
+      typeFirstSymb.match(/[0-9]/) ||
+      todos.some((todo) => todo.id.includes(trimValue))
+    ) {
+      setActiveForm(true);
+      setFilteredArr(todos.filter((todo) => todo.id.includes(trimValue)));
+
+      return filteredArr;
+    }
+    setFilteredArr([]);
+    setActiveForm(false);
+  };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    setActiveForm(true);
-    // console.log(e.target.value);
-    
+    changeValueOfFilter(e.target.value);
+    console.log(changeValueOfFilter(e.target.value));
   };
-  // console.log(value);
 
   const takeValueToInput = (value: string) => {
     setValue(value);
@@ -50,6 +81,8 @@ const useDropDownInput = (
     activeForm,
     onActiveChange,
     takeValueToInput,
+    changeValueOfFilter,
+    filteredArr,
   };
 };
 
