@@ -7,9 +7,9 @@ import { Todo } from '../../store/todos/reducer';
 interface MenuDropInputProps {
   value: string | number;
   activeForm?: boolean;
-  onActiveChange: (value: boolean) => void;
+  // onActiveChange: (value: boolean) => void;
   takeValueToInput: (value: string) => void;
-  changeValueOfFilter: (value: string) => void;
+  // changeValueOfFilter: (value: string) => void;
   filteredArr: Todo[];
 }
 
@@ -18,7 +18,7 @@ export const MenuDropInput: FC<MenuDropInputProps> = ({
   takeValueToInput,
   filteredArr,
 }) => {
-  
+
   const className = `${s.MenuDropInput} ${
     activeForm ? s.MenuDropInputActive : s.MenuDropInputClose
   }`;

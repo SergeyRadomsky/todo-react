@@ -1,61 +1,75 @@
 import { FC } from 'react';
 import s from './DropDownInput.module.scss';
 import { DropDownInputContent } from './constants';
-import useSortTodos from '../sortedButton/hooks/useSortTodos';
-import { useAppDispatch } from '../../store/store';
-import { SortedButtons } from '../sortedButton/SortedButtons';
-import { MenuDropInput } from '../MenuDropInput/MenuDropInput';
-import useDropDownInput from './hooks/useDropDownInput';
+// import useSortTodos from '../sortedButton/hooks/useSortTodos';
+// import { useAppDispatch } from '../../store/store';
+// import { SortedButtons } from '../sortedButton/SortedButtons';
+// import { MenuDropInput } from '../MenuDropInput/MenuDropInput';
+// import useDropDownInput from './hooks/useDropDownInput';
 
-export const DropDownInput: FC = (/* value, onchange?, filtered */) => {
-  const dispatch = useAppDispatch();
+type DropDownInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+  onSubmit: () => void;
+};
 
-  const { setSortType } = useSortTodos(dispatch);
+const DropDownInput: FC<DropDownInputProps> = ({
+  value,
+  onChange,
+  options,
+  onSubmit,
+}) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
-  const {
-    addTodo, // remote
-    changeValueOfFilter, // remote
-    value,
-    onInputChange,
-    onActiveChange,
-    activeForm, //????? т.к. у меня доп стили я оставляю статус
-    takeValueToInput, // remote
-    filteredArr,
-  } = useDropDownInput(setSortType, dispatch);
+  const onOptionClick = (value: string) => {
+    onChange(value);
+  };
 
   return (
     <>
       <div className={s.DropDownInput}>
-        <form onSubmit={addTodo} onBlur={() => onActiveChange(false)}>
+        <form onSubmit={onSubmit}>
           <input
-            onFocus={() => onActiveChange(true)}
-            onClick={() => onActiveChange(true)}
+            // onFocus={() => onActiveChange(true)}
+            // onClick={() => onActiveChange(true)}
             className={s.inputArea}
-            placeholder={DropDownInputContent.textholder} // создать отдельный динамичный enum
+            placeholder={DropDownInputContent.textholder}
             type="text"
             onChange={onInputChange}
             value={value}
           />
         </form>
-        <button
-          className={s.btnInput}
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-            addTodo(e)
-          }
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            zIndex: 10,
+            color: 'red',
+          }}
         >
-          New To do
-        </button>
-          <MenuDropInput
-            value={value}
-            activeForm={activeForm}
-            filteredArr={filteredArr} //
-            onActiveChange={onActiveChange}
-            
-            takeValueToInput={takeValueToInput}
-            changeValueOfFilter={changeValueOfFilter}
-          />
+          {options.map((option, index) => (
+            <p onClick={() => onOptionClick(option)} key={index}>
+              {option}
+            </p>
+          ))}
+        </div>
+
+        {/* <MenuDropInput
+          value={value} //
+          activeForm={activeForm} //
+          filteredArr={filteredArr} //
+          onActiveChange={onActiveChange} ///////
+          takeValueToInput={takeValueToInput} ///////
+          changeValueOfFilter={changeValueOfFilter} /////// где много, их в отделный комп и оттуда использовать
+        /> */}
       </div>
-      <SortedButtons />
+      {/* <SortedButtons /> */}
     </>
   );
 };
+
+export default DropDownInput;

@@ -5,12 +5,12 @@ import { ThunkAppDispath, useAppSelector } from '../../../store/store';
 import { todosSelector } from '../../../store/todos/selectors';
 
 const useDropDownInput = (
-  
   setSortType: (type: SortTypes) => void,
   dispatch: ThunkAppDispath
 ) => {
-  const [value, setValue] = useState('');
   const todos = useAppSelector(todosSelector);
+
+  const [value, setValue] = useState('');
   const [activeForm, setActiveForm] = useState(false);
   const [filteredArr, setFilteredArr] = useState(todos);
 
@@ -45,21 +45,6 @@ const useDropDownInput = (
     setActiveForm(false);
   };
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    changeValueOfFilter(e.target.value);
-/*     console.log(changeValueOfFilter(e.target.value)); */
-  };
-
-  const takeValueToInput = (value: string) => {
-    setValue(value);
-    setActiveForm(false);
-  };
-  
-  const onActiveChange = (value: boolean) => {
-    setActiveForm(value);
-  };
-
   const addTodo = (
     e:
       | React.FormEvent<HTMLFormElement>
@@ -75,6 +60,20 @@ const useDropDownInput = (
     }
   };
 
+  const onActiveChange = (value: boolean) => {
+    setActiveForm(value);
+  };
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    changeValueOfFilter(e.target.value);
+    /*     console.log(changeValueOfFilter(e.target.value)); */
+  };
+
+  const takeValueToInput = (value: string) => {
+    setValue(value);
+    setActiveForm(false);
+  };
 
   return {
     onInputChange,
