@@ -7,19 +7,19 @@ import { SortedButtons } from '../sortedButton/SortedButtons';
 import { MenuDropInput } from '../MenuDropInput/MenuDropInput';
 import useDropDownInput from './hooks/useDropDownInput';
 
-export const DropDownInput: FC = () => {
+export const DropDownInput: FC = (/* value, onchange?, filtered */) => {
   const dispatch = useAppDispatch();
 
   const { setSortType } = useSortTodos(dispatch);
 
   const {
-    addTodo,
-    changeValueOfFilter,
+    addTodo, // remote
+    changeValueOfFilter, // remote
     value,
     onInputChange,
-    activeForm,
     onActiveChange,
-    takeValueToInput,
+    activeForm, //????? т.к. у меня доп стили я оставляю статус
+    takeValueToInput, // remote
     filteredArr,
   } = useDropDownInput(setSortType, dispatch);
 
@@ -31,7 +31,7 @@ export const DropDownInput: FC = () => {
             onFocus={() => onActiveChange(true)}
             onClick={() => onActiveChange(true)}
             className={s.inputArea}
-            placeholder={DropDownInputContent.textholder}
+            placeholder={DropDownInputContent.textholder} // создать отдельный динамичный enum
             type="text"
             onChange={onInputChange}
             value={value}
@@ -45,16 +45,15 @@ export const DropDownInput: FC = () => {
         >
           New To do
         </button>
-        {
           <MenuDropInput
-            activeForm={activeForm}
-            onActiveChange={onActiveChange}
-            takeValueToInput={takeValueToInput}
             value={value}
+            activeForm={activeForm}
+            filteredArr={filteredArr} //
+            onActiveChange={onActiveChange}
+            
+            takeValueToInput={takeValueToInput}
             changeValueOfFilter={changeValueOfFilter}
-            filteredArr={filteredArr}
           />
-        }
       </div>
       <SortedButtons />
     </>

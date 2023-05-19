@@ -18,11 +18,7 @@ export const MenuDropInput: FC<MenuDropInputProps> = ({
   takeValueToInput,
   filteredArr,
 }) => {
-  // const todos = useAppSelector(todosSelector);
-
-  // const filteredArr = useAppSelector(DropFilterArrSelector);
-  // console.log(todos);
-
+  
   const className = `${s.MenuDropInput} ${
     activeForm ? s.MenuDropInputActive : s.MenuDropInputClose
   }`;
