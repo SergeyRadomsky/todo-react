@@ -1,9 +1,20 @@
 import Button, { ButtonVariants } from '../../components/button';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { themeSelector } from '../../store/todos/selectors';
-import { toggleThemeAction } from '../../store/todos/reducer';
+import {
+  DropFilterArrSelector,
+  themeSelector,
+  todosSelector,
+} from '../../store/todos/selectors';
+import {
+  addTodoAction,
+  sortTodosAction,
+  toggleThemeAction,
+} from '../../store/todos/reducer';
 import classNames from 'classnames';
-import { ThemeVariants } from '../../components/DropDownInput/constants';
+import {
+  SortTypes,
+  ThemeVariants,
+} from '../../components/DropDownInput/constants';
 import { SVGComponent } from '../../components/SvgComp';
 import { Header } from '../../components/Header/Header';
 import DropDownInput from '../../components/DropDownInput/DropDownInput';
@@ -12,32 +23,66 @@ import s from './Home.module.scss';
 import { useState } from 'react';
 import { SortedButtons } from '../../components/sortedButton/SortedButtons';
 
-const Home = () => {
-  const dispatch = useAppDispatch();
-  const theme = useAppSelector(themeSelector);
+const Home = (
+  ) => {
+    const dispatch = useAppDispatch();
+    const todos = useAppSelector(todosSelector);
+    const dropTodos = useAppSelector(DropFilterArrSelector);
+    const theme = useAppSelector(themeSelector);
 
   const changeTheme = () => {
     dispatch(toggleThemeAction());
   };
 
-  const initialOptions = ['1', '2', '3', '4'];
-
   const [value, setValue] = useState('');
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(dropTodos);
 
   const onChange = (value: string) => {
     setValue(value);
-    setOptions(initialOptions.filter((option) => option.includes(value)));
+    const trimValue = value.trim();
+    const typeFirstSymb = trimValue[0];
+
+    if (trimValue === '' || typeFirstSymb === undefined) {
+      setOptions(todos);
+
+      return options;
+    }
+
+    if (
+      typeFirstSymb.match(/[а-я]/i) ||
+      todos.some((todo) => todo.text.includes(trimValue))
+    ) {
+      setOptions(
+        todos.filter((todo) =>
+          todo.text.toLocaleLowerCase().includes(trimValue.toLocaleLowerCase())
+        )
+      );
+
+      return options;
+    }
+
+    if (
+      typeFirstSymb.match(/[0-9]/) ||
+      todos.some((todo) => todo.id.includes(trimValue))
+    ) {
+      setOptions(todos.filter((todo) => todo.id.includes(trimValue)));
+
+      return options;
+    }
+
+    setOptions([]);
+
+    return options;
   };
 
-  const initialOptions1 = ['11', '22', '33', '44'];
-
-  const [value1, setValue1] = useState('');
-  const [options1, setOptions1] = useState(initialOptions1);
-
-  const onChange1 = (value: string) => {
-    setValue1(value);
-    setOptions1(initialOptions1.filter((option) => option.includes(value)));
+  const onSubmit = () => {
+    if (!!value.trim()) {
+      dispatch(addTodoAction(value));
+      setValue('');
+      setOptions(todos);
+      // setSortType(SortTypes.all);
+      dispatch(sortTodosAction(SortTypes.all));
+    }
   };
 
   return (
@@ -73,17 +118,7 @@ const Home = () => {
         options={options}
         value={value}
         onChange={onChange}
-        onSubmit={() => {
-          console.log();
-        }}
-      />
-      <DropDownInput
-        options={options1}
-        value={value1}
-        onChange={onChange1}
-        onSubmit={() => {
-          console.log();
-        }}
+        onSubmit={onSubmit}
       />
       <SortedButtons />
     </div>

@@ -1,22 +1,18 @@
 import { FC } from 'react';
 import s from './MenuDropInput.module.scss';
-// import { DropFilterArrSelector, todosSelector } from '../../store/todos/selectors';
-// import { useAppSelector } from '../../store/store';
 import { Todo } from '../../store/todos/reducer';
 
 interface MenuDropInputProps {
   value: string | number;
   activeForm?: boolean;
-  // onActiveChange: (value: boolean) => void;
-  takeValueToInput: (value: string) => void;
-  // changeValueOfFilter: (value: string) => void;
-  filteredArr: Todo[];
+  options: Todo[];
+  onOptionClick: (value: string) => void;
 }
 
 export const MenuDropInput: FC<MenuDropInputProps> = ({
   activeForm,
-  takeValueToInput,
-  filteredArr,
+  onOptionClick,
+  options,
 }) => {
 
   const className = `${s.MenuDropInput} ${
@@ -25,14 +21,14 @@ export const MenuDropInput: FC<MenuDropInputProps> = ({
 
   return (
     <div className={className}>
-      {filteredArr.map(({ id, text }) => {
+      {options.map((option, index) => {
         return (
           <div
             className={s.TodosItem}
-            key={id}
-            onClick={() => takeValueToInput(text)}
+            key={index}
+            onClick={() => onOptionClick(option.text)}
           >
-            {text}
+            {option.text}
           </div>
         );
       })}
