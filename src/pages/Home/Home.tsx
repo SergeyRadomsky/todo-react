@@ -20,7 +20,7 @@ import { Header } from '../../components/Header/Header';
 import DropDownInput from '../../components/DropDownInput/DropDownInput';
 import { Link } from 'react-router-dom';
 import s from './Home.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SortedButtons } from '../../components/sortedButton/SortedButtons';
 
 const Home = (
@@ -39,6 +39,7 @@ const Home = (
 
   const onChange = (value: string) => {
     setValue(value);
+    setOptions(todos);
     const trimValue = value.trim();
     const typeFirstSymb = trimValue[0];
 
@@ -74,17 +75,29 @@ const Home = (
 
     return options;
   };
+  
+  useEffect(() => {
+    onChange(value);
+  }, [todos]);
+
 
   const onSubmit = () => {
     if (!!value.trim()) {
       dispatch(addTodoAction(value));
       setValue('');
-      setOptions(todos);
       // setSortType(SortTypes.all);
       dispatch(sortTodosAction(SortTypes.all));
+      setOptions(todos);
     }
+    // setOptions(todos);
+
+    // if (options.length === 0 && options) {
+    // }
   };
 
+  // console.log(todos);
+  // console.log(options);
+  
   return (
     <div
       className={classNames(s.Home, {

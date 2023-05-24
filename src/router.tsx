@@ -11,7 +11,7 @@ const useRouter = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout classNa/>,
+      element: <Layout />,
       children: [
         {
           path: '/Home',
