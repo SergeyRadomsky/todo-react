@@ -80,23 +80,14 @@ const Home = (
     onChange(value);
   }, [todos]);
 
-
   const onSubmit = () => {
     if (!!value.trim()) {
       dispatch(addTodoAction(value));
       setValue('');
-      // setSortType(SortTypes.all);
       dispatch(sortTodosAction(SortTypes.all));
       setOptions(todos);
     }
-    // setOptions(todos);
-
-    // if (options.length === 0 && options) {
-    // }
   };
-
-  // console.log(todos);
-  // console.log(options);
   
   return (
     <div
