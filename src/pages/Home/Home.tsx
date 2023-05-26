@@ -108,6 +108,9 @@ const Home = (
         <Link to="/api-todos" className={s.Links}>
           List of API Todo
         </Link>
+        <Link to="/page-antd" className={s.Links}>
+          Antd-page
+        </Link>
         <Button
           onClick={changeTheme}
           variant={ButtonVariants.defaultTheme}

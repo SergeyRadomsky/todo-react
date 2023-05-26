@@ -6,6 +6,7 @@ import UnderList from './components/UnderList/UnderList';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './layout';
 import Home from './pages/Home/Home';
+import Antdpage from './pages/antd-page/Antdpage';
 
 const useRouter = () => {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const useRouter = () => {
         {
           path: '/api-todos',
           element: <UnderList />,
+        },
+        {
+          path: '/page-antd',
+          element: <Antdpage />,
         },
         
       ],
