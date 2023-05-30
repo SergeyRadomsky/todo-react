@@ -1,5 +1,7 @@
-import { Button, DatePicker, Space, Carousel } from 'antd';
+// import { Button } from 'antd';
+// import { Button, DatePicker, Space, Carousel, Image } from 'antd';
 // import { Button, DatePicker, Space, Menu, Carousel } from 'antd';
+import CustomCarousel from '../../components/CustomCarousel/CustomCarousel';
 import * as S from './styles';
 
 // import {
@@ -8,25 +10,23 @@ import * as S from './styles';
 //   SettingOutlined,
 // } from '@ant-design/icons';
 // import type { MenuProps } from 'antd';
-import styled from 'styled-components';
 // import classNames from 'classnames';
 
 // type MenuItem = Required<MenuProps>['items'][number];
 
-const StyledButton = styled(Button)`
-  background-color: red;
-  color: white;
-`;
+// const TestCarousel = styled(Carousel)`
+//   margin-top: 20px;
+// `;
 
-const contentStyle: React.CSSProperties = {
-  // height: '160px',
-  width: '300px',
-  color: '#fff',
-  // lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-  // marginBottom: '100px',
-};
+// const contentStyle: React.CSSProperties = {
+//   // height: '160px',
+//   // width: '300px',
+//   color: '#fff',
+//   lineHeight: '160px',
+//   textAlign: 'center',
+//   background: '#364d79',
+//   // marginBottom: '100px',
+// };
 
 // function getItem(
 //   label: React.ReactNode,
@@ -88,37 +88,61 @@ const Antdpage: React.FC = () => {
 
   return (
     <S.AntdpageS>
-      <S.Scanner id={'qr-reader'}>Barcode Scanner</S.Scanner>
-      <Button>fuck</Button>
-      <Space>
-        <DatePicker />
-        <StyledButton type="primary">Primary Button</StyledButton>
-      </Space>
-      {/* <Menu
-        className={S.Menuu}
-        onClick={onClick}
-        style={{ width: 256 }}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        items={items}
-      /> */}
-      <Carousel effect="fade">
-        <div>
-          <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel>
+      <S.Scanner id={'qr-reader'}>Carousel</S.Scanner>
+      <CustomCarousel />
     </S.AntdpageS>
   );
 };
 
 export default Antdpage;
+
+
+      // {/* <Menu
+      //   className={S.Menuu}
+      //   onClick={onClick}
+      //   style={{ width: 256 }}
+      //   defaultSelectedKeys={['1']}
+      //   defaultOpenKeys={['sub1']}
+      //   mode="inline"
+      //   items={items}
+      // /> */}
+      // {/* <TestCarousel effect="fade" className={S.customSelect} dots>
+      //   <div>
+      //     <Image
+      //       width={200}
+      //       height={200}
+      //       src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+      //     />
+      //     <Image
+      //       height={200}
+      //       width={200}
+      //       src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+      //     />
+      //     <Image
+      //       height={200}
+      //       width={200}
+      //       src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+      //     />
+      //   </div>
+      //   <div>
+      //     <Image
+      //       height={200}
+      //       width={200}
+      //       src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+      //     />
+      //   </div>
+      //   <div>
+      //     <Image
+      //       height={200}
+      //       width={200}
+      //       src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+      //     />
+      //   </div>
+      //   <div>
+      //     <Image
+      //       height={200}
+      //       width={200}
+      //       src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+      //     />
+      //   </div>
+      // </TestCarousel> */}
