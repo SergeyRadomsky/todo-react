@@ -1,26 +1,57 @@
-import { Button, Carousel, Image } from 'antd';
-import React from 'react';
+import { Button, } from 'antd';
+import React, { useRef } from 'react';
 import * as S from './styles';
+import { CarouselRef } from 'antd/es/carousel';
 
 const CustomCarousel = () => {
+    const carouselRef = useRef<CarouselRef>(null);
+
+    const handleNext = () => {
+        if (carouselRef.current) {
+            carouselRef.current.next();
+        }
+    };
+
+    const handlePrev = () => {
+        if (carouselRef.current) {
+            carouselRef.current.prev();
+        }
+    };
+
   return (
     <S.customCarousel>
-      <Button>{'<'}</Button>
-      <Carousel >
+      <Button onClick={handlePrev}>{'<'}</Button>
+      <S.changedStyleCarousel ref={carouselRef}>
         <div>
-          <p>wrnbewneyn</p>
-          <Image src="" />
+          <p>1111111111111111111111</p>
+          {/* <Image src="" /> */}
         </div>
         <div>
-          <p>wrnbewneyn</p>
-          <Image src="" />
+          <p>2222222222222222222222</p>
+          {/* <Image src="" /> */}
         </div>
         <div>
-          <p>wrnbewneyn</p>
-          <Image src="" />
+          <p>3333333333333333333333</p>
+          {/* <Image src="" /> */}
         </div>
-      </Carousel>
-      <Button>{'>'}</Button>
+        <div>
+          <p>3333yyyyyyyyyyyyyyy333</p>
+          {/* <Image src="" /> */}
+        </div>
+        <div>
+          <p>333333adfbvqerb3333333</p>
+          {/* <Image src="" /> */}
+        </div>
+        <div>
+          <p>3SDVBTNBERA33333333333</p>
+          {/* <Image src="" /> */}
+        </div>
+        <div>
+          <p>333337777 3333</p>
+          {/* <Image src="" /> */}
+        </div>
+      </S.changedStyleCarousel>
+      <Button onClick={handleNext}>{'>'}</Button>
     </S.customCarousel>
   );
 };
