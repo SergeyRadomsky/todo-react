@@ -2,6 +2,7 @@
 // import { Button, DatePicker, Space, Carousel, Image } from 'antd';
 // import { Button, DatePicker, Space, Menu, Carousel } from 'antd';
 import CustomCarousel from '../../components/CustomCarousel/CustomCarousel';
+import LoginComp from '../../components/LoginComp/LoginComp';
 import * as S from './styles';
 
 // import {
@@ -91,7 +92,9 @@ const Antdpage: React.FC = () => {
     <S.AntdpageS>
       <S.Scanner id={'qr-reader'}>Carousel</S.Scanner>
       <CustomCarousel />
+      <LoginComp />
     </S.AntdpageS>
+    
   );
 };
 
