@@ -8,11 +8,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { todos } from './todos/reducer';
 import { todosAPI } from './todosAPI/reducer';
+import { auth } from './auth/reducer';
 
 export const store = configureStore({
   reducer: {
     todos: todos.reducer,
     todosAPI: todosAPI.reducer,
+    auth: auth.reducer,
   },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

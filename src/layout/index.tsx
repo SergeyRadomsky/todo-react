@@ -19,7 +19,6 @@ const Layout: FC = () => {
 
   const theme = useAppSelector(themeSelector);
 
-
   return (
     <div
       className={classNames(s.App, {

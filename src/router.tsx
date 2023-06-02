@@ -24,13 +24,8 @@ const useRouter = () => {
           path: '/api-todos',
           element: <UnderList />,
         },
-        // {
-        //   path: '/page-antd',
-        //   element: <Antdpage />,
-        // },
         {
           path: '/local-todos',
-          // element: <LoginComp />,
           element: (
             <RequireAuth >
               <TodoList />

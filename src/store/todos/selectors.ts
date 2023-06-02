@@ -8,3 +8,4 @@ export const viewSelector = (state: RootState) =>
   state.todos.viewTodos;
 export const themeSelector = (state: RootState) => 
   state.todos.ThemeApp;
+

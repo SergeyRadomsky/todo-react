@@ -18,17 +18,17 @@ import {
 import { SVGComponent } from '../../components/SvgComp';
 import { Header } from '../../components/Header/Header';
 import DropDownInput from '../../components/DropDownInput/DropDownInput';
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import s from './Home.module.scss';
 import { useEffect, useState } from 'react';
 import { SortedButtons } from '../../components/sortedButton/SortedButtons';
 
-const Home = (
-  ) => {
-    const dispatch = useAppDispatch();
-    const todos = useAppSelector(todosSelector);
-    const dropTodos = useAppSelector(DropFilterArrSelector);
-    const theme = useAppSelector(themeSelector);
+const Home = () => {
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector(todosSelector);
+  const dropTodos = useAppSelector(DropFilterArrSelector);
+  const theme = useAppSelector(themeSelector);
+
 
   const changeTheme = () => {
     dispatch(toggleThemeAction());
@@ -75,7 +75,7 @@ const Home = (
 
     return options;
   };
-  
+
   useEffect(() => {
     onChange(value);
   }, [todos]);
@@ -88,7 +88,7 @@ const Home = (
       setOptions(todos);
     }
   };
-  
+
   return (
     <div
       className={classNames(s.Home, {

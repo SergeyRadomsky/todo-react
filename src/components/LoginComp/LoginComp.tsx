@@ -1,20 +1,28 @@
-import React, { useState } from 'react'; 
-// import React from 'react';
-// import { Button, Checkbox, Form, Input } from 'antd';
-import { useLocation } from 'react-router-dom';
+import React from 'react'; 
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/store';
+import { auth, changeStatusOfLoginAction } from '../../store/auth/reducer';
 
 
 const LoginComp = () => {
-    // const navigate = useNavigate();
     const location = useLocation();
-
     const formPage = location.state?.from?.pathname || '/';
-    const [login, setLogin] = useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
+    const handleChange = () => {
+      dispatch(changeStatusOfLoginAction());
+
+      if (auth) {
+        navigate('/local-todos');
+      }
+      // navigate('/login');
+    };
+    
 
   return (
     <>
-    <button onClick={() => setLogin(true)}>login?</button>
+    <button onClick={handleChange}>login?</button>
     <p>{formPage}</p>
     </>
   );

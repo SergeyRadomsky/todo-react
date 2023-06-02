@@ -1,15 +1,26 @@
-import React, { FC } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import React, { FC, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../store/store';
+import { authSelector } from '../store/auth/selectors';
+import LoginComp from '../components/LoginComp/LoginComp';
 
-const RequireAuth: FC = ({ children }) => {
-  const location = useLocation();
-  const auth = false;
+type RequireAuthProps = {
+  children: ReactNode;
+};
+
+const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
+  const navigate = useNavigate();
+  // const location = useLocation();
+  const auth = useAppSelector(authSelector);
 
   if (!auth) {
-    return <Navigate to="/login" state={{ from: location }} />;
-  }
+    navigate('/login');
 
-  return children;
+    return <LoginComp />;
+  }
+  console.log('auth');
+  
+  return <>{children}</>;
 };
 
 export default RequireAuth;

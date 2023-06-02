@@ -31,9 +31,10 @@ export type TodoState = {
   error: string | null;
 };
 export enum peremLS {
-  todosLS = 'todosLS',
-  viewTodosLS = 'viewTodosLS',
-  ActualThemeLS = 'ActualThemeLS',
+    todosLS = 'todosLS',
+    viewTodosLS = 'viewTodosLS',
+    ActualThemeLS = 'ActualThemeLS',
+    AuthLS = 'AuthLS',
 }
 
 const initialViewTodos =
