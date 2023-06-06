@@ -1,41 +1,125 @@
-// import Button, { ButtonVariants } from '../../components/button';
-// import { useAppDispatch, useAppSelector } from '../../store/store';
-// import {
-//   DropFilterArrSelector,
-//   themeSelector,
-//   todosSelector,
-// } from '../../store/todos/selectors';
-// import {
-//   addTodoAction,
-//   sortTodosAction,
-//   toggleThemeAction,
-// } from '../../store/todos/reducer';
-// import classNames from 'classnames';
-// import {
-//   SortTypes,
-//   ThemeVariants,
-// } from '../../components/DropDownInput/constants';
-// import { SVGComponent } from '../../components/SvgComp';
-// import { Header } from '../../components/Header/Header';
-// import DropDownInput from '../../components/DropDownInput/DropDownInput';
-// import { Link, } from 'react-router-dom';
-// import s from './Home.module.scss';
-// import { useEffect, useState } from 'react';
-// import { SortedButtons } from '../../components/sortedButton/SortedButtons';
+// import { ReactComponent as LogoE } from '../../assets/logoE.svg';
+import { Layout, Space } from 'antd';
+import { Content, Footer } from 'antd/es/layout/layout';
+import * as S from './styles';
+import { Table } from 'antd';
+import type { ColumnsType, TableProps } from 'antd/es/table';
 
-import { Input, Layout, Space } from 'antd';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
 
-const headerStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  textAlign: 'center',
-  color: '#fff',
-  height: 64,
-  paddingInline: 50,
-  lineHeight: '64px',
-  backgroundColor: '#7dbcea',
+const columns: ColumnsType<DataType> = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    filters: [
+      {
+        text: 'Joe',
+        value: 'Joe',
+      },
+      {
+        text: 'Jim',
+        value: 'Jim',
+      },
+      {
+        text: 'Submenu',
+        value: 'Submenu',
+        children: [
+          {
+            text: 'Green',
+            value: 'Green',
+          },
+          {
+            text: 'Black',
+            value: 'Black',
+          },
+        ],
+      },
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value: string, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => a.name.length - b.name.length,
+    sortDirections: ['descend'],
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.age - b.age,
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    filters: [
+      {
+        text: 'London',
+        value: 'London',
+      },
+      {
+        text: 'New York',
+        value: 'New York',
+      },
+    ],
+    onFilter: (value: string, record) => record.address.indexOf(value) === 0,
+  },
+];
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Jim Red',
+    age: 32,
+    address: 'London No. 2 Lake Park',
+  },
+];
+
+const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra);
 };
+
+// import styled from 'styled-components';
+// const headerStyle: React.CSSProperties = {
+//   display: 'flex',
+//   alignItems: 'center',
+//   textAlign: 'center',
+//   color: '#fff',
+//   height: 64,
+//   paddingInline: 50,
+//   lineHeight: '64px',
+//   backgroundColor: '#7dbcea',
+// };
+
+// const StyledLogo = styled(LogoE1)<{ rotated?: boolean }>`
+//   transform: rotate(${({ rotated }) => (rotated ? '90deg' : 0)});
+//   width: 30px;
+//   height: 30px;
+//   path {
+//     fill: red;
+//   }
+// `;
 
 const contentStyle: React.CSSProperties = {
   textAlign: 'center',
@@ -52,90 +136,17 @@ const footerStyle: React.CSSProperties = {
 };
 
 const Home = () => {
-  // const dispatch = useAppDispatch();
-  // const todos = useAppSelector(todosSelector);
-  // const dropTodos = useAppSelector(DropFilterArrSelector);
-  // const theme = useAppSelector(themeSelector);
-
-  // const changeTheme = () => {
-  //   dispatch(toggleThemeAction());
-  // };
-
-  // const [value, setValue] = useState('');
-  // const [options, setOptions] = useState(dropTodos);
-
-  // const onChange = (value: string) => {
-  //   setValue(value);
-  //   setOptions(todos);
-  //   const trimValue = value.trim();
-  //   const typeFirstSymb = trimValue[0];
-
-  //   if (trimValue === '' || typeFirstSymb === undefined) {
-  //     setOptions(todos);
-
-  //     return options;
-  //   }
-
-  //   if (
-  //     typeFirstSymb.match(/[а-я]/i) ||
-  //     todos.some((todo) => todo.text.includes(trimValue))
-  //   ) {
-  //     setOptions(
-  //       todos.filter((todo) =>
-  //         todo.text.toLocaleLowerCase().includes(trimValue.toLocaleLowerCase())
-  //       )
-  //     );
-
-  //     return options;
-  //   }
-
-  //   if (
-  //     typeFirstSymb.match(/[0-9]/) ||
-  //     todos.some((todo) => todo.id.includes(trimValue))
-  //   ) {
-  //     setOptions(todos.filter((todo) => todo.id.includes(trimValue)));
-
-  //     return options;
-  //   }
-
-  //   setOptions([]);
-
-  //   return options;
-  // };
-
-  // useEffect(() => {
-  //   onChange(value);
-  // }, [todos]);
-
-  // const onSubmit = () => {
-  //   if (!!value.trim()) {
-  //     dispatch(addTodoAction(value));
-  //     setValue('');
-  //     dispatch(sortTodosAction(SortTypes.all));
-  //     setOptions(todos);
-  //   }
-  // };
 
   return (
-    <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
+    <Space direction="vertical" size={[0, 48]}>
       <Layout>
-        <Header style={headerStyle}>
-          <div>E</div>
-          <Input placeholder="Basic usage" />
-          {/* <RedoOutlined rev={undefined} style={{transform: 'rotate(218deg)'}} /> */}
-          {/* <Avatar
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'inherit',
-              border: '1px solid white',
-              minWidth: '32px',
-              minHeight: '40px',
-            }}
-            icon={<UserOutlined style={{ width: '29px' }} rev={undefined} />}
-          /> */}
-        </Header>
+        <S.HeaderStyle>
+          <S.StyledLogo  />
+          <S.StyledInput placeholder="ФИО" />
+          <S.StyledReload />
+          <S.StyledProfile />
+        </S.HeaderStyle>
+        <Table columns={columns} dataSource={data} onChange={onChange} />;
         <Content style={contentStyle}>Content</Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
@@ -144,43 +155,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// <div
-//   className={classNames(s.Home, {
-//     [s.dark]: theme === ThemeVariants.dark,
-//     [s.light]: theme === ThemeVariants.light,
-//   })}
-// >
-//   <div className={s.Menu}>
-//     <Link to="/" className={s.Links}>
-//       {' '}
-//       Home{' '}
-//     </Link>
-//     <Link to="/local-todos" className={s.Links}>
-//       {' '}
-//       List of local Todo
-//     </Link>
-//     <Link to="/api-todos" className={s.Links}>
-//       List of API Todo
-//     </Link>
-//     <Link to="/page-antd" className={s.Links}>
-//       Antd-page
-//     </Link>
-//     <Button
-//       onClick={changeTheme}
-//       variant={ButtonVariants.defaultTheme}
-//       activeTheme={ThemeVariants.dark === theme ? true : false}
-//     >
-//       {theme}
-//     </Button>
-//   </div>
-//   <SVGComponent className={s.helllo} />
-//   <Header />
-//   <DropDownInput
-//     options={options}
-//     value={value}
-//     onChange={onChange}
-//     onSubmit={onSubmit}
-//   />
-//   <SortedButtons />
-// </div>
