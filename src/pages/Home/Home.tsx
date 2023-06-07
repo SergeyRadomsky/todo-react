@@ -2,101 +2,179 @@
 import { Layout, Space } from 'antd';
 import { Content, Footer } from 'antd/es/layout/layout';
 import * as S from './styles';
-import { Table } from 'antd';
+// import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
+// import s from '../../App.module.scss';
 
 interface DataType {
   key: React.Key;
-  name: string;
+  gender: string;
   age: number;
-  address: string;
+  fio: string;
+  room: number;
+  departament: string;
+  consultation: string;
 }
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    filters: [
-      {
-        text: 'Joe',
-        value: 'Joe',
-      },
-      {
-        text: 'Jim',
-        value: 'Jim',
-      },
-      {
-        text: 'Submenu',
-        value: 'Submenu',
-        children: [
-          {
-            text: 'Green',
-            value: 'Green',
-          },
-          {
-            text: 'Black',
-            value: 'Black',
-          },
-        ],
-      },
-    ],
+    title: 'ФИО',
+    dataIndex: 'fio',
+    // filters: [
+    //   {
+    //     text: 'Joe',
+    //     value: 'Joe',
+    //   },
+    //   {
+    //     text: 'Jim',
+    //     value: 'Jim',
+    //   },
+    //   {
+    //     text: 'Submenu',
+    //     value: 'Submenu',
+    //     children: [
+    //       {
+    //         text: 'Green',
+    //         value: 'Green',
+    //       },
+    //       {
+    //         text: 'Black',
+    //         value: 'Black',
+    //       },
+    //     ],
+    //   },
+    // ],
     // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value: string, record) => record.name.indexOf(value) === 0,
-    sorter: (a, b) => a.name.length - b.name.length,
+    // here is that finding the fio started with `value`
+    // onFilter: (value: string, record) => record.fio.indexOf(value) === 0,
+    sorter: (a, b) => a.fio.length - b.fio.length,
+    sortDirections: ['descend'],
+    render: (_, record) => (
+      <>
+        <div className='gender-fio-age'>
+          <span>{record.gender} </span>
+          <span>{record.age} </span>
+        </div>
+        <div>{record.fio}</div>
+      </>
+    ),
+  },
+
+  {
+    title: '№ ПАЛАТЫ',
+    dataIndex: 'room',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.room - b.room,
     sortDirections: ['descend'],
   },
+
   {
-    title: 'Age',
-    dataIndex: 'age',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.age - b.age,
+    title: 'ОТДЕЛЕНИЕ',
+    dataIndex: 'departament',
+    sorter: (a, b) => a.room - b.room,
+    sortDirections: ['descend'],
+    // filters: [
+    //   {
+    //     text: 'London',
+    //     value: 'London',
+    //   },
+    //   {
+    //     text: 'New York',
+    //     value: 'New York',
+    //   },
+    // ],
+    // onFilter: (value: string, record) => record.departament.indexOf(value) === 0,
   },
+
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'КОНСУЛЬТАЦИЯ',
+    dataIndex: 'consultation',
     filters: [
       {
-        text: 'London',
-        value: 'London',
+        text: 'суставы1',
+        value: 'суставы1',
       },
       {
-        text: 'New York',
-        value: 'New York',
+        text: 'суставы2',
+        value: 'суставы2',
+      },
+      {
+        text: 'суставы3',
+        value: 'суставы3',
+      },
+      {
+        text: 'суставы4',
+        value: 'суставы4',
       },
     ],
-    onFilter: (value: string, record) => record.address.indexOf(value) === 0,
+    onFilter: (value: string, record) =>
+      record.consultation.indexOf(value) === 0,
   },
 ];
 
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    gender: 'man',
+    age: '25',
+    fio: 'Радомский Сергей Сергеевич',
+    room: 16,
+    departament: 'Реабилитация1',
+    consultation: 'суставы1',
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    gender: 'female',
+    age: '26',
+    fio: 'Ири Ирина Ириновна',
+    room: 367,
+    departament: 'Реабилитация1',
+    consultation: 'суставы1',
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
+    gender: 'man',
+    age: '37',
+    fio: 'Виталь Виталий Витальевич',
+    room: 314,
+    departament: 'Реабилитация2',
+    consultation: 'суставы2',
   },
   {
     key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
+    gender: 'man',
+    age: '48',
+    fio: 'Павлу Павел Павлович',
+    room: 1004,
+    departament: 'Реабилитация3',
+    consultation: 'суставы3',
+  },
+  {
+    key: '5',
+    gender: 'female',
+    age: '48',
+    fio: 'Крис Кристина Кристиновна',
+    room: 1004,
+    departament: 'Реабилитация3',
+    consultation: 'суставы3',
+  },
+  {
+    key: '6',
+    gender: 'man',
+    age: '19',
+    fio: 'Дени Денис Денисович',
+    room: 202,
+    departament: 'Реабилитация4',
+    consultation: 'суставы4',
   },
 ];
 
-const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+const onChange: TableProps<DataType>['onChange'] = (
+  pagination,
+  filters,
+  sorter,
+  extra
+) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
@@ -136,17 +214,20 @@ const footerStyle: React.CSSProperties = {
 };
 
 const Home = () => {
-
   return (
     <Space direction="vertical" size={[0, 48]}>
       <Layout>
         <S.HeaderStyle>
-          <S.StyledLogo  />
+          <S.StyledLogo />
           <S.StyledInput placeholder="ФИО" />
           <S.StyledReload />
           <S.StyledProfile />
         </S.HeaderStyle>
-        <Table columns={columns} dataSource={data} onChange={onChange} />;
+        <S.StyledTable
+          columns={columns}
+          dataSource={data}
+          onChange={onChange}
+        />
         <Content style={contentStyle}>Content</Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
