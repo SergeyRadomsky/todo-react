@@ -1,9 +1,10 @@
 // import { ReactComponent as LogoE } from '../../assets/logoE.svg';
-import { Layout, Space } from 'antd';
-import { Content, Footer } from 'antd/es/layout/layout';
+import { Space, Table } from 'antd';
 import * as S from './styles';
 // import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
+import WomanIconComp from '../../components/WomanIconComp';
+import ManIconComp from '../../components/ManIconComponent';
 // import s from '../../App.module.scss';
 
 interface DataType {
@@ -50,13 +51,21 @@ const columns: ColumnsType<DataType> = [
     sorter: (a, b) => a.fio.length - b.fio.length,
     sortDirections: ['descend'],
     render: (_, record) => (
-      <>
-        <div className='gender-fio-age'>
-          <span>{record.gender} </span>
-          <span>{record.age} </span>
+      <div className="gender-age-fio">
+        <div className="gender-age">
+          {/* <span>{record.gender} </span> */}
+          {record.gender == 'm' ? <ManIconComp /> : <WomanIconComp />}
+          {/* <WomanIconComp /> */}
+          <span
+            className={`age-container ${
+              record.gender == 'm' ? 'age-containerM' : 'age-containerW'
+            }`}
+          >
+            {record.age}
+          </span>
         </div>
-        <div>{record.fio}</div>
-      </>
+        <span className="fio">{record.fio}</span>
+      </div>
     ),
   },
 
@@ -71,7 +80,10 @@ const columns: ColumnsType<DataType> = [
   {
     title: 'ОТДЕЛЕНИЕ',
     dataIndex: 'departament',
-    sorter: (a, b) => a.room - b.room,
+    // sorter: (a, b) => a.room - b.room,
+    onFilter: (value: string, record) =>
+    record.consultation.toLowerCase().includes(value.toLowerCase()),
+    sorter: (a, b) => a.consultation.localeCompare(b.consultation),
     sortDirections: ['descend'],
     // filters: [
     //   {
@@ -107,64 +119,66 @@ const columns: ColumnsType<DataType> = [
         value: 'суставы4',
       },
     ],
-    onFilter: (value: string, record) =>
-      record.consultation.indexOf(value) === 0,
+
+    // FIIIIIIIIIIIIIIIIIIIIIIILLLLLLLLLLLTER
+    // onFilter: (value: string, record) =>
+    //   record.consultation.sort((a, b) => a.localeCompare(b)),
   },
 ];
 
 const data = [
   {
     key: '1',
-    gender: 'man',
-    age: '25',
-    fio: 'Радомский Сергей Сергеевич',
+    gender: 'm',
+    age: 25,
+    fio: 'Аджармягубидян Сергей Сергеевич',
     room: 16,
-    departament: 'Реабилитация1',
+    departament: 'Реабилитации',
     consultation: 'суставы1',
   },
   {
     key: '2',
-    gender: 'female',
-    age: '26',
+    gender: 'f',
+    age: 26,
     fio: 'Ири Ирина Ириновна',
     room: 367,
-    departament: 'Реабилитация1',
+    departament: 'Аэробики',
     consultation: 'суставы1',
   },
   {
     key: '3',
-    gender: 'man',
-    age: '37',
+    gender: 'm',
+    age: 37,
     fio: 'Виталь Виталий Витальевич',
     room: 314,
-    departament: 'Реабилитация2',
+    departament: 'Гиброфатики',
     consultation: 'суставы2',
   },
   {
     key: '4',
-    gender: 'man',
-    age: '48',
+    gender: 'm',
+    age: 48,
     fio: 'Павлу Павел Павлович',
     room: 1004,
-    departament: 'Реабилитация3',
+    departament: 'Хирургии',
     consultation: 'суставы3',
   },
   {
     key: '5',
-    gender: 'female',
-    age: '48',
+    gender: 'f',
+    age: 48,
     fio: 'Крис Кристина Кристиновна',
     room: 1004,
-    departament: 'Реабилитация3',
+    departament: 'Ординаторской',
     consultation: 'суставы3',
   },
   {
     key: '6',
-    gender: 'man',
-    age: '19',
+    gender: 'm',
+    age: 19,
     fio: 'Дени Денис Денисович',
     room: 202,
-    departament: 'Реабилитация4',
+    departament: 'Реабилитации2',
     consultation: 'суставы4',
   },
 ];
@@ -199,38 +213,22 @@ const onChange: TableProps<DataType>['onChange'] = (
 //   }
 // `;
 
-const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
-  minHeight: 120,
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#108ee9',
-};
-
-const footerStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-  backgroundColor: '#7dbcea',
-};
-
 const Home = () => {
   return (
     <Space direction="vertical" size={[0, 48]}>
-      <Layout>
+      <S.LayoutStyled>
         <S.HeaderStyle>
           <S.StyledLogo />
           <S.StyledInput placeholder="ФИО" />
           <S.StyledReload />
           <S.StyledProfile />
         </S.HeaderStyle>
-        <S.StyledTable
+        <Table
           columns={columns}
           dataSource={data}
           onChange={onChange}
         />
-        <Content style={contentStyle}>Content</Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
+      </S.LayoutStyled>
     </Space>
   );
 };

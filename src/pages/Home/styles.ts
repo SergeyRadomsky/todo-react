@@ -1,11 +1,103 @@
-// import { Input, Layout, Space } from 'antd';
-// import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Input, Table } from 'antd';
+import { Input, Layout, Table } from 'antd';
 import { ReactComponent as LogoE } from '../../assets/logoE.svg';
 import { ReactComponent as Reload } from '../../assets/Reload.svg';
 import { ReactComponent as Profile } from '../../assets/Profile.svg';
 import { Header } from 'antd/es/layout/layout';
 import styled from 'styled-components';
+
+export const LayoutStyled = styled(Layout)`
+  min-height: 880px;
+
+  .ant-table {
+    max-width: 600px;
+    .ant-table-cell::before {
+      display: none;
+    }
+
+    .ant-table-row {
+      height: 80px;
+    }
+
+    .ant-table-cell:nth-child(2) {
+      width: 100px;
+      padding: 0 15px 0 15px;
+      .ant-table-column-sorters {
+        display: flex;
+        .ant-table-column-title {
+          line-height: 14px;
+        }
+      }
+    }
+
+    .ant-table-cell:nth-child(4) {
+      width: 100px;
+      padding: 0 15px 0 15px;
+    }
+
+    .ant-table-cell {
+      font-style: normal;
+      font-weight: 550;
+      font-size: 16px;
+      color: #545864;
+      padding: 0 0 0 15px;
+    }
+
+    .gender-age-fio {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100px;
+      width: 160px;
+      margin-right: -10px;
+
+      .gender-age {
+        width: 35px;
+        display: flex;
+        align-items: flex-end;
+        padding-right: 8px;
+
+        .age-container {
+          font-family: 'Segoe UI';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 13px;
+          line-height: 15px;
+        }
+        .age-containerW {
+          color: #f386bb;
+        }
+        .age-containerM {
+          color: #63bbe0;
+        }
+      }
+      .fio {
+        word-wrap: break-word;
+        width: 120px;
+      }
+    }
+  }
+
+  .ant-table-thead {
+    height: 40px !important;
+  }
+
+  .ant-table-filter-trigger {
+    margin-inline: 0;
+  }
+
+  .ant-table-column-sorters {
+    display: block;
+  }
+  .ant-pagination {
+    display: none;
+  }
+
+  .ant-table-tbody {
+    .ant-table-cell {
+      color: #263942;
+    }
+  }
+`;
 
 export const HeaderStyle = styled(Header)`
   display: flex;
@@ -30,7 +122,6 @@ export const StyledLogo = styled(LogoE)`
 `;
 
 export const StyledInput = styled(Input)`
-  /* margin: 20px; */
   border: 1px solid #42687b;
   border-radius: 3px;
   margin: 0 20px 0 20px;
@@ -56,69 +147,4 @@ export const StyledProfile = styled(Profile)`
   }
 `;
 
-export const StyledTable = styled(Table)`
-  .ant-table {
-    max-width: 600px;
-    /* height: 50px; */
-
-    .ant-table-row {
-    /* width: 110px; */
-    /* padding:  */
-    height: 80px;
-    .ant-table-cell {
-        padding: 0 0 0 15px;
-    .gender-fio-age {
-        display: flex;
-    }
-    }
-  }
-
-  }
-
-  .ant-table-thead {
-    height: 40px !important;
-    padding: 15px 20px !important;
-  }
-
-  /* .ant-table-cell {
-    padding: 0 10px 0 10px !important;
-    width: 60px !important;
-  } */
-
-  
-
-  .ant-table-filter-trigger {
-    margin-inline: 0;
-  }
-
-  .ant-table-column-sorters {
-    display: block;
-    /* width: 70px; */
-  }
-
-  /* .ant-table-column-sorters:nth-of-type(1) {
-    width: 130px !important;
-    margin-right: 0px;
-  }
-  .ant-table-column-sorters:nth-of-type(2) {
-    width: 82px !important;
-    margin-right: 0px;
-  } */
-
-  /* .ant-table-cell {
-    width: 110px;
-  } */
-  /* .ant-table-cell:nth-child(1) ant-table-column-sorters {
-    width: 130px;
-  } */
-
-  /* .ant-table-column-sorters:nth-child(1) {
-    width: 100px !important;
-    margin-right: 0px;
-  } */
-
-  /* .ant-table-column-sorters:nth-child(2) {
-    width: 120px !important;
-    margin-right: 0px;
-  } */
-`;
+export const StyledTable = styled(Table)``;
