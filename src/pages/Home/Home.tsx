@@ -1,15 +1,17 @@
-// import { ReactComponent as LogoE } from '../../assets/logoE.svg';
 import { Space, Table } from 'antd';
 import * as S from './styles';
-// import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import WomanIconComp from '../../components/WomanIconComp';
 import ManIconComp from '../../components/ManIconComponent';
-// import s from '../../App.module.scss';
+import classNames from 'classnames';
 
+// const classes = classNames('age-container', {
+//   'age-containerM': record.sex == 1,
+//   'age-containerW': record.sex == 0});
+  
 interface DataType {
   key: React.Key;
-  gender: string;
+  sex: number;
   age: number;
   fio: string;
   room: number;
@@ -48,19 +50,26 @@ const columns: ColumnsType<DataType> = [
     // specify the condition of filtering result
     // here is that finding the fio started with `value`
     // onFilter: (value: string, record) => record.fio.indexOf(value) === 0,
-    sorter: (a, b) => a.fio.length - b.fio.length,
+
+    // sorter: (a, b) => a.fio.length - b.fio.length,
+    sorter: (a, b) => b.fio.localeCompare(a.fio),
     sortDirections: ['descend'],
     render: (_, record) => (
-      <div className="gender-age-fio">
-        <div className="gender-age">
-          {/* <span>{record.gender} </span> */}
-          {record.gender == 'm' ? <ManIconComp /> : <WomanIconComp />}
+      <div className="sex-age-fio">
+        <div className="sex-age">
+          {/* <span>{record.sex} </span> */}
+          {record.sex == 1 ? <ManIconComp /> : <WomanIconComp />}
           {/* <WomanIconComp /> */}
           <span
-            className={`age-container ${
-              record.gender == 'm' ? 'age-containerM' : 'age-containerW'
-            }`}
+            className={classNames('age-container', {
+              'age-containerM': record.sex == 1,
+              'age-containerW': record.sex == 0})}
           >
+          {/* <span
+            className={`age-container ${
+              record.sex == 1 ? 'age-containerM' : 'age-containerW'
+            }`}
+          > */}
             {record.age}
           </span>
         </div>
@@ -73,7 +82,7 @@ const columns: ColumnsType<DataType> = [
     title: '№ ПАЛАТЫ',
     dataIndex: 'room',
     defaultSortOrder: 'descend',
-    sorter: (a, b) => a.room - b.room,
+    sorter: (a, b) => b.room - a.room,
     sortDirections: ['descend'],
   },
 
@@ -81,9 +90,9 @@ const columns: ColumnsType<DataType> = [
     title: 'ОТДЕЛЕНИЕ',
     dataIndex: 'departament',
     // sorter: (a, b) => a.room - b.room,
-    onFilter: (value: string, record) =>
-    record.consultation.toLowerCase().includes(value.toLowerCase()),
-    sorter: (a, b) => a.consultation.localeCompare(b.consultation),
+    // onFilter: (value: string, record) =>
+    // record.consultation.toLowerCase().includes(value.toLowerCase()),
+    sorter: (a, b) => b.departament.localeCompare(a.departament),
     sortDirections: ['descend'],
     // filters: [
     //   {
@@ -120,16 +129,15 @@ const columns: ColumnsType<DataType> = [
       },
     ],
 
-    // FIIIIIIIIIIIIIIIIIIIIIIILLLLLLLLLLLTER
-    // onFilter: (value: string, record) =>
-    //   record.consultation.sort((a, b) => a.localeCompare(b)),
+    onFilter: (value: string | number | boolean, record) =>
+      record.consultation === value,
   },
 ];
 
 const data = [
   {
     key: '1',
-    gender: 'm',
+    sex: 1,
     age: 25,
     fio: 'Аджармягубидян Сергей Сергеевич',
     room: 16,
@@ -138,7 +146,7 @@ const data = [
   },
   {
     key: '2',
-    gender: 'f',
+    sex: 0,
     age: 26,
     fio: 'Ири Ирина Ириновна',
     room: 367,
@@ -147,7 +155,7 @@ const data = [
   },
   {
     key: '3',
-    gender: 'm',
+    sex: 1,
     age: 37,
     fio: 'Виталь Виталий Витальевич',
     room: 314,
@@ -156,7 +164,7 @@ const data = [
   },
   {
     key: '4',
-    gender: 'm',
+    sex: 1,
     age: 48,
     fio: 'Павлу Павел Павлович',
     room: 1004,
@@ -165,7 +173,7 @@ const data = [
   },
   {
     key: '5',
-    gender: 'f',
+    sex: 0,
     age: 48,
     fio: 'Крис Кристина Кристиновна',
     room: 1004,
@@ -174,11 +182,11 @@ const data = [
   },
   {
     key: '6',
-    gender: 'm',
+    sex: 1,
     age: 19,
     fio: 'Дени Денис Денисович',
     room: 202,
-    departament: 'Реабилитации2',
+    departament: 'Реабилитации',
     consultation: 'суставы4',
   },
 ];
@@ -192,42 +200,13 @@ const onChange: TableProps<DataType>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra);
 };
 
-// import styled from 'styled-components';
-// const headerStyle: React.CSSProperties = {
-//   display: 'flex',
-//   alignItems: 'center',
-//   textAlign: 'center',
-//   color: '#fff',
-//   height: 64,
-//   paddingInline: 50,
-//   lineHeight: '64px',
-//   backgroundColor: '#7dbcea',
-// };
-
-// const StyledLogo = styled(LogoE1)<{ rotated?: boolean }>`
-//   transform: rotate(${({ rotated }) => (rotated ? '90deg' : 0)});
-//   width: 30px;
-//   height: 30px;
-//   path {
-//     fill: red;
-//   }
-// `;
-
 const Home = () => {
   return (
-    <Space direction="vertical" size={[0, 48]}>
+    <Space>
       <S.LayoutStyled>
-        <S.HeaderStyle>
-          <S.StyledLogo />
-          <S.StyledInput placeholder="ФИО" />
-          <S.StyledReload />
-          <S.StyledProfile />
-        </S.HeaderStyle>
-        <Table
-          columns={columns}
-          dataSource={data}
-          onChange={onChange}
-        />
+        {/* <div > */}
+        <Table columns={columns} dataSource={data} onChange={onChange} />
+        {/* </div> */}
       </S.LayoutStyled>
     </Space>
   );

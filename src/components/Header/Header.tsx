@@ -1,11 +1,15 @@
 import { FC } from 'react';
-import styles from './Header.module.scss';
+// import styles from './Header.module.scss';
+import * as S from './styles';
 
 const Header: FC = () => {
   return (
-      <header className={styles.Header}>
-        <h1>To do List</h1>
-      </header>
+    <S.HeaderStyle>
+    <S.StyledLogo />
+    <S.StyledInput placeholder="ФИО" />
+    <S.StyledReload />
+    <S.StyledProfile />
+  </S.HeaderStyle>
   );
 };
 
