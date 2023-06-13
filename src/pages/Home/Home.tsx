@@ -57,19 +57,12 @@ const columns: ColumnsType<DataType> = [
     render: (_, record) => (
       <div className="sex-age-fio">
         <div className="sex-age">
-          {/* <span>{record.sex} </span> */}
           {record.sex == 1 ? <ManIconComp /> : <WomanIconComp />}
-          {/* <WomanIconComp /> */}
           <span
             className={classNames('age-container', {
               'age-containerM': record.sex == 1,
               'age-containerW': record.sex == 0})}
           >
-          {/* <span
-            className={`age-container ${
-              record.sex == 1 ? 'age-containerM' : 'age-containerW'
-            }`}
-          > */}
             {record.age}
           </span>
         </div>

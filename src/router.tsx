@@ -5,26 +5,28 @@ import Layout from './layout';
 import Home from './pages/Home/Home';
 import LoginComp from './components/LoginComp/LoginComp';
 import RequireAuth from './hoc/RequireAuth';
+import TestPsyho from './pages/Test-psyho/Test-psyho';
 
 const useRouter = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <>
-          <Layout />
-        </>
-      ),
+      element: <Layout />,
       children: [
         {
           path: '/Home',
           element: <Home />,
-          children: [
-            {
-              path: 'lists',
-              element: <Home />,
-            },
-          ],
+          // children: [
+          //   {
+          //     path: 'lists',
+          //     element: <TestPsyho />,
+          //   },
+          // ],
+        },
+
+        {
+          path: 'lists',
+          element: <TestPsyho />,
         },
         {
           path: '/api-todos',
