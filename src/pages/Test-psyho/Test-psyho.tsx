@@ -1,8 +1,15 @@
 import { FC } from 'react';
 import WomanIconComp from '../../components/WomanIconComp';
 import InvalidIconComponent from '../../components/InvalidIconComponent';
-import { StyledPersonalBlock, StyledPersonalItems } from './styles';
+import {
+  StyledCollapse,
+  StyledPanel,
+  StyledPersonalBlock,
+  StyledPersonalItems,
+  StyledTestPsyhoText,
+} from './styles';
 import { Checkbox, Collapse } from 'antd';
+import RollUpComp from '../../components/RollUpComp';
 
 const { Panel } = Collapse;
 
@@ -15,7 +22,7 @@ const TestPsyho: FC = () => {
   };
 
   return (
-    <>
+    <div style={{ width: '600px' }}>
       <StyledPersonalBlock>
         <StyledPersonalItems>
           <WomanIconComp />
@@ -27,30 +34,103 @@ const TestPsyho: FC = () => {
           <span>ф. № 042/У</span>
         </StyledPersonalItems>
       </StyledPersonalBlock>
-      <div style={{display:'flex',}}>Тестирование пациента психологом</div>
-      <Collapse onChange={onChange}>
-        <Panel header="This is panel header 1" key="1">
-          <Collapse >
-            <Panel header="This is panel nest panel" key="1">
+      <StyledTestPsyhoText>
+        Тестирование пациента психологом
+      </StyledTestPsyhoText>
+
+      <StyledCollapse onChange={onChange} expandIcon={() => <RollUpComp />}>
+        <StyledPanel
+          header={
+            <div className="text-in-panel">
+              <span>This is header 1</span>
+              <span>-/-</span>
+            </div>
+          }
+          key="1"
+        >
+          <StyledCollapse expandIcon={() => <RollUpComp />}>
+            <Panel header="Заголовок теста" key="1">
+              <StyledCollapse expandIcon={() => <RollUpComp />}>
+                <Panel header="Заголовок теста" key="1">
+                  <form>
+                    <label>
+                      <input type="radio" name="option" value="1" />
+                      varinat 1
+                    </label>
+                    <label>
+                      <input type="radio" name="option" value="2" />
+                      varinat 2
+                    </label>
+                    <label>
+                      <input type="radio" name="option" value="3" />
+                      varinat 3
+                    </label>
+                  </form>
+                </Panel>
+                <Panel header="Заголовок теста" key="2">
+                  <StyledCollapse expandIcon={() => <RollUpComp />}>
+                    <Panel header="Заголовок теста" key="1">
+                      <form>
+                        <label>
+                          <input type="radio" name="option" value="1" />
+                          varinat 1
+                        </label>
+                        <label>
+                          <input type="radio" name="option" value="2" />
+                          varinat 2
+                        </label>
+                        <label>
+                          <input type="radio" name="option" value="3" />
+                          varinat 3
+                        </label>
+                      </form>
+                    </Panel>
+                    <Panel header="Заголовок теста" key="2">
+                      <p>{text}</p>
+                    </Panel>
+                    <Panel header="Заголовок теста" key="3">
+                      <p>{text}</p>
+                    </Panel>
+                  </StyledCollapse>
+                </Panel>
+                <Panel header="Заголовок теста" key="3">
+                  <p>{text}</p>
+                </Panel>
+              </StyledCollapse>{' '}
+            </Panel>
+            <Panel header="Заголовок теста" key="2">
               <p>{text}</p>
             </Panel>
-            <Panel header="This is panel nest panel" key="2">
+            <Panel header="Заголовок теста" key="3">
               <p>{text}</p>
             </Panel>
-            <Panel header="This is panel nest panel" key="3">
-              <p>{text}</p>
-            </Panel>
-          </Collapse>
-        </Panel>
-        <Panel header="This is panel header 2" key="2">
+          </StyledCollapse>
+        </StyledPanel>
+        <StyledPanel
+          header={
+            <div className="text-in-panel">
+              <span>This is header 2</span>
+              <span>-/-</span>
+            </div>
+          }
+          key="2"
+        >
           <p>{text}</p>
-        </Panel>
-        <Panel header="This is panel header 3" key="3">
+        </StyledPanel>
+        <StyledPanel
+          header={
+            <div className="text-in-panel">
+              <span>This is header 3</span>
+              <span>-/-</span>
+            </div>
+          }
+          key="3"
+        >
           <p>{text}</p>
           <Checkbox>{text}</Checkbox>
-        </Panel>
-      </Collapse>
-    </>
+        </StyledPanel>
+      </StyledCollapse>
+    </div>
   );
 };
 
