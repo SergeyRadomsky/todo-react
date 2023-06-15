@@ -6,10 +6,12 @@ import {
   StyledPanel,
   StyledPersonalBlock,
   StyledPersonalItems,
+  StyledTestPsyho,
   StyledTestPsyhoText,
 } from './styles';
-import { Checkbox, Collapse } from 'antd';
+import { Collapse } from 'antd';
 import RollUpComp from '../../components/RollUpComp';
+import FormInTest from '../../components/FormInTest/FormInTest';
 
 const { Panel } = Collapse;
 
@@ -22,7 +24,7 @@ const TestPsyho: FC = () => {
   };
 
   return (
-    <div style={{ width: '600px' }}>
+    <StyledTestPsyho>
       <StyledPersonalBlock>
         <StyledPersonalItems>
           <WomanIconComp />
@@ -52,38 +54,12 @@ const TestPsyho: FC = () => {
             <Panel header="Заголовок теста" key="1">
               <StyledCollapse expandIcon={() => <RollUpComp />}>
                 <Panel header="Заголовок теста" key="1">
-                  <form>
-                    <label>
-                      <input type="radio" name="option" value="1" />
-                      varinat 1
-                    </label>
-                    <label>
-                      <input type="radio" name="option" value="2" />
-                      varinat 2
-                    </label>
-                    <label>
-                      <input type="radio" name="option" value="3" />
-                      varinat 3
-                    </label>
-                  </form>
+                  <FormInTest/>
                 </Panel>
                 <Panel header="Заголовок теста" key="2">
                   <StyledCollapse expandIcon={() => <RollUpComp />}>
                     <Panel header="Заголовок теста" key="1">
-                      <form>
-                        <label>
-                          <input type="radio" name="option" value="1" />
-                          varinat 1
-                        </label>
-                        <label>
-                          <input type="radio" name="option" value="2" />
-                          varinat 2
-                        </label>
-                        <label>
-                          <input type="radio" name="option" value="3" />
-                          varinat 3
-                        </label>
-                      </form>
+                      <FormInTest/>
                     </Panel>
                     <Panel header="Заголовок теста" key="2">
                       <p>{text}</p>
@@ -115,7 +91,7 @@ const TestPsyho: FC = () => {
           }
           key="2"
         >
-          <p>{text}</p>
+          <FormInTest/>
         </StyledPanel>
         <StyledPanel
           header={
@@ -126,11 +102,10 @@ const TestPsyho: FC = () => {
           }
           key="3"
         >
-          <p>{text}</p>
-          <Checkbox>{text}</Checkbox>
+          <FormInTest/>
         </StyledPanel>
       </StyledCollapse>
-    </div>
+    </StyledTestPsyho>
   );
 };
 

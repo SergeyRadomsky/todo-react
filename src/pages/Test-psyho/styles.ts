@@ -1,6 +1,11 @@
 import { Collapse } from 'antd';
 import styled from 'styled-components';
 
+
+export const StyledTestPsyho = styled.div`
+ width: 600px;
+`;
+
 export const StyledPersonalBlock = styled.div`
   margin-top: 64px;
   height: 100%;
@@ -35,61 +40,94 @@ export const StyledTestPsyhoText = styled.div`
 
 export const StyledCollapse = styled(Collapse)`
   width: 100%;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   color: #545864;
   border-radius: 0px;
   border: 0px;
+  svg {
+    z-index: 2;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+  }
 
   .ant-collapse-item {
-    /* РАБОТАЮТ В ПАРЕ СНИЗУ С ТАКИМ ------------------------------- */
+    position: relative;
+    /* РАБОТАЮТ В ПАРЕ СНИЗУ С ТАКИМ */
     border-bottom: 0px;
   }
-  & > .ant-collapse-item {
+  & .ant-collapse-item {
     background-color: white;
+  }
+
+  & > .ant-collapse-item-active {
+    /* position: relative; */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      /* width: 30px;
+      height: 49px; */
+      width: 10%;
+      height: 49px;
+      background-color: #e9f8ff;
+      /* ---------------------------- */
+      z-index: 1;
+    }
+
+    > .ant-collapse-header {
+      font-weight: bold;
+      color: #545864;
+      background-color: #e9f8ff;
+
+      svg {
+        transform: rotate(90deg);
+        transition: transform 0.3s ease-in-out;
+      }
+    }
   }
 
   .ant-collapse-content {
     border-top: 0px;
+    border-left: 10px solid #f0f0f0;
+    .ant-collapse-content {
+      border-left: 0px;
+    }
   }
 
-  /* .ant-collapse-item {
-   border-bottom: 1px solid red; 
-  } */
   /* Выбираем все иконки SVG внутри элементов с классом ant-collapse-header */
   .ant-collapse-header {
-    /* border-bottom: 1px solid red; */
-    /* РАБОТАТЬ ДОЛЖНЫ В ПАРЕ С ТАКИМ СВЕРХУ ------------------------------- */
+    /* РАБОТАТЬ ДОЛЖНЫ В ПАРЕ С ТАКИМ СВЕРХУ ----- */
     border-bottom: 1px solid rgb(0 0 0 / 10%);
-
     /* box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 19px 0px !important; */
     svg {
       width: 32px;
     }
   }
 
-  
   /* Возвращаем значение ширины иконок первого уровня к исходному значению (32px) */
   .ant-collapse > .ant-collapse-item {
     border-bottom: 0px;
-    margin-left: 10px;
-    padding-left: 20px;
+    position: relative;
+    /* margin-left: 10px; */
+    /* padding-left: 30px; */
     border-radius: 0;
-    background-color: white;
+    /* background-color: white; */
 
-    & > .ant-collapse-item {
-      margin-left: 0px;
+    .ant-collapse-item {
+      /* margin-left: 0px; */
+      /* border-left: 0; */
       padding-left: 30px;
+      border-left: 0;
+      /* третий и далее уровень вложенности -------------------------*/
     }
-    /* > .ant-collapse-item {
-      margin-left: 0px;
-      padding-left: 30px;
-    } */
 
-    /* Тут обращаюсь к вложенным пунктам */
-    .ant-collapse-content {
-      /* background-color: green; */
-      /* border-top: 1px solid red; */
+    .ant-collapse-header-text {
+      /* color: red; */
+      line-height: 15px;
+      font-size: 16px;
     }
+
     & > .ant-collapse-header {
       border-bottom: 0;
       box-shadow: 0;
@@ -99,9 +137,13 @@ export const StyledCollapse = styled(Collapse)`
       /* box-shadow: -1.4876px -1.4876px 2.9752px rgba(0, 0, 0, 0.1),
       1.4876px 1.4876px 2.9752px rgba(0, 0, 0, 0.1); */
       /* background-color: red; */
+      display: flex;
+      align-items: center;
       border-radius: 0px;
-      /* border-right-width: 10px solid #545864; */
-
+      .ant-collapse-header-text {
+        display: flex;
+        justify-content: start;
+      }
       svg {
         width: 28px;
       }
@@ -124,14 +166,15 @@ export const StyledPanel = styled(Collapse.Panel)`
     display: flex;
     justify-content: space-between;
     font-size: 16px;
+    /* font-weight: 600; */
   }
   .ant-collapse-content-box {
     padding: 0 !important;
-    /* margin: 0 15px;  */
-    /* background-clip: padding-box; */
+    /* display: flex;
+    flex-direction: column;
+    align-items: start; */
+    .ant-collapse-content-box  {
+      /* border-left: 10px solid #f0f0f0; */
+    }
   }
-
-  /* svg {
-  width: 28px;
- } */
 `;
