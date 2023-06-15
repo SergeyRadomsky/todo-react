@@ -68,7 +68,7 @@ export const StyledCollapse = styled(Collapse)`
       left: 0;
       /* width: 30px;
       height: 49px; */
-      width: 10%;
+      width: 7%;
       height: 49px;
       background-color: #e9f8ff;
       /* ---------------------------- */
