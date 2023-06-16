@@ -15,8 +15,7 @@ import FormInTest from '../../components/FormInTest/FormInTest';
 
 const { Panel } = Collapse;
 
-const text = `
-  A dog`;
+const text = 'A dog';
 
 const TestPsyho: FC = () => {
   const onChange = (key: string | string[]) => {
@@ -25,6 +24,7 @@ const TestPsyho: FC = () => {
 
   return (
     <StyledTestPsyho>
+      
       <StyledPersonalBlock>
         <StyledPersonalItems>
           <WomanIconComp />
@@ -36,6 +36,7 @@ const TestPsyho: FC = () => {
           <span>ф. № 042/У</span>
         </StyledPersonalItems>
       </StyledPersonalBlock>
+
       <StyledTestPsyhoText>
         Тестирование пациента психологом
       </StyledTestPsyhoText>
@@ -105,6 +106,7 @@ const TestPsyho: FC = () => {
           <FormInTest/>
         </StyledPanel>
       </StyledCollapse>
+
     </StyledTestPsyho>
   );
 };

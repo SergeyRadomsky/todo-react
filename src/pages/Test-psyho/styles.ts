@@ -34,6 +34,7 @@ export const StyledTestPsyhoText = styled.div`
   padding-left: 20px;
   align-items: center;
   color: #545864;
+  font-size: 18px;
   font-weight: bold;
   height: 50px;
 `;

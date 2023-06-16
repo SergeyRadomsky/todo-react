@@ -5,7 +5,7 @@ import Layout from './layout';
 import Home from './pages/Home/Home';
 import LoginComp from './components/LoginComp/LoginComp';
 import RequireAuth from './hoc/RequireAuth';
-import TestPsyho from './pages/Test-psyho/Test-psyho';
+import TestPsyho from './pages/Test-psyho/TestPsyho';
 
 const useRouter = () => {
   const router = createBrowserRouter([
@@ -23,11 +23,14 @@ const useRouter = () => {
           //   },
           // ],
         },
-
         {
           path: 'lists',
           element: <TestPsyho />,
         },
+        // {
+        //   path: 'appointment',
+        //   element: <  />,
+        // },
         {
           path: '/api-todos',
           element: <UnderList />,

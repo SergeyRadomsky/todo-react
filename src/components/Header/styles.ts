@@ -1,16 +1,16 @@
 import { Header } from 'antd/es/layout/layout';
 import styled from 'styled-components';
 import { Input } from 'antd';
-import { ReactComponent as LogoE  } from '../../assets/logoE.svg';
+import { ReactComponent as LogoE } from '../../assets/logoE.svg';
 import { ReactComponent as Reload } from '../../assets/Reload.svg';
 import { ReactComponent as Profile } from '../../assets/Profile.svg';
-
+import { ReactComponent as Close } from '../../assets/CloseIcon.svg';
 
 export const HeaderStyle = styled(Header)`
-	position: fixed;
-	z-index:44;
-	/* top: auto; */
-	/* left: 0; */
+  position: fixed;
+  z-index: 44;
+  /* top: auto; */
+  /* left: 0; */
   display: flex;
   align-items: center;
   text-align: center;
@@ -21,6 +21,10 @@ export const HeaderStyle = styled(Header)`
   line-height: 64px;
   background-color: #7dbcea;
   box-shadow: inset 0px -2.5px 2.5px rgba(66, 104, 123, 0.2);
+  justify-content: space-between;
+  .reload-close-profile {
+    display: flex;
+  }
 `;
 
 export const StyledLogo = styled(LogoE)`
@@ -44,6 +48,15 @@ export const StyledReload = styled(Reload)`
   margin: 0 20px 0 5px;
   width: 50px;
   height: 50px;
+  path {
+    fill: #fafafa;
+  }
+`;
+
+export const StyledClose = styled(Close)`
+  margin: 2px 20px 0 5px;
+  width: 45px;
+  height: 45px;
   path {
     fill: #fafafa;
   }

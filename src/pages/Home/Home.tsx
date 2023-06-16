@@ -4,11 +4,12 @@ import type { ColumnsType, TableProps } from 'antd/es/table';
 import WomanIconComp from '../../components/WomanIconComp';
 import ManIconComp from '../../components/ManIconComponent';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 // const classes = classNames('age-container', {
 //   'age-containerM': record.sex == 1,
 //   'age-containerW': record.sex == 0});
-  
+
 interface DataType {
   key: React.Key;
   sex: number;
@@ -61,7 +62,8 @@ const columns: ColumnsType<DataType> = [
           <span
             className={classNames('age-container', {
               'age-containerM': record.sex == 1,
-              'age-containerW': record.sex == 0})}
+              'age-containerW': record.sex == 0,
+            })}
           >
             {record.age}
           </span>
@@ -74,7 +76,7 @@ const columns: ColumnsType<DataType> = [
   {
     title: '№ ПАЛАТЫ',
     dataIndex: 'room',
-    defaultSortOrder: 'descend',
+    // defaultSortOrder: 'descend',
     sorter: (a, b) => b.room - a.room,
     sortDirections: ['descend'],
   },
@@ -194,11 +196,32 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (record: DataType, rowIndex: number | undefined) => {
+    navigate('/lists');
+    console.log(record);
+    console.log(rowIndex);
+    
+  };
+
   return (
     <Space>
       <S.LayoutStyled>
         {/* <div > */}
-        <Table columns={columns} dataSource={data} onChange={onChange} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          onChange={onChange}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: () => {
+                handleRowClick(record, rowIndex);
+                console.log(record);
+              },
+            };
+          }}
+        />
         {/* </div> */}
       </S.LayoutStyled>
     </Space>
