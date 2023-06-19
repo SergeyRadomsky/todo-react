@@ -12,6 +12,7 @@ import {
 import { Collapse } from 'antd';
 import RollUpComp from '../../components/RollUpComp';
 import FormInTest from '../../components/FormInTest/FormInTest';
+import TableInside from '../../components/TableInside/TableInside';
 
 const { Panel } = Collapse;
 
@@ -24,7 +25,6 @@ const TestPsyho: FC = () => {
 
   return (
     <StyledTestPsyho>
-      
       <StyledPersonalBlock>
         <StyledPersonalItems>
           <WomanIconComp />
@@ -55,12 +55,12 @@ const TestPsyho: FC = () => {
             <Panel header="Заголовок теста" key="1">
               <StyledCollapse expandIcon={() => <RollUpComp />}>
                 <Panel header="Заголовок теста" key="1">
-                  <FormInTest/>
+                  <FormInTest />
                 </Panel>
                 <Panel header="Заголовок теста" key="2">
                   <StyledCollapse expandIcon={() => <RollUpComp />}>
                     <Panel header="Заголовок теста" key="1">
-                      <FormInTest/>
+                      <FormInTest />
                     </Panel>
                     <Panel header="Заголовок теста" key="2">
                       <p>{text}</p>
@@ -92,7 +92,7 @@ const TestPsyho: FC = () => {
           }
           key="2"
         >
-          <FormInTest/>
+          <FormInTest />
         </StyledPanel>
         <StyledPanel
           header={
@@ -103,10 +103,9 @@ const TestPsyho: FC = () => {
           }
           key="3"
         >
-          <FormInTest/>
+          <TableInside />
         </StyledPanel>
       </StyledCollapse>
-
     </StyledTestPsyho>
   );
 };

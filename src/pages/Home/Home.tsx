@@ -5,6 +5,8 @@ import WomanIconComp from '../../components/WomanIconComp';
 import ManIconComp from '../../components/ManIconComponent';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import SearchContext from '../../components/SearchContext';
 
 // const classes = classNames('age-container', {
 //   'age-containerM': record.sex == 1,
@@ -197,12 +199,19 @@ const onChange: TableProps<DataType>['onChange'] = (
 
 const Home = () => {
   const navigate = useNavigate();
+  const { searchValue } = useContext(SearchContext);
+
+  const filteredData = data.filter((item) =>
+    item.fio.toLowerCase().includes(searchValue.toLowerCase())
+  );
+  // const filteredData = data.filter((item) =>
+  //   item.fio.toLowerCase().includes(searchValue.toLowerCase())
+  // );
 
   const handleRowClick = (record: DataType, rowIndex: number | undefined) => {
     navigate('/lists');
     console.log(record);
     console.log(rowIndex);
-    
   };
 
   return (
@@ -211,7 +220,7 @@ const Home = () => {
         {/* <div > */}
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={filteredData}
           onChange={onChange}
           onRow={(record, rowIndex) => {
             return {

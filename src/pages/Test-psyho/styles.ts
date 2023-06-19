@@ -91,6 +91,7 @@ export const StyledCollapse = styled(Collapse)`
   .ant-collapse-content {
     border-top: 0px;
     border-left: 10px solid #f0f0f0;
+    border-right: 10px solid #f0f0f0;
     .ant-collapse-content {
       border-left: 0px;
     }
