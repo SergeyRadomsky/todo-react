@@ -92,15 +92,28 @@ export const StyledCollapse = styled(Collapse)`
     border-top: 0px;
     border-left: 10px solid #f0f0f0;
     border-right: 10px solid #f0f0f0;
+    border-radius: 0;
     .ant-collapse-content {
       border-left: 0px;
     }
+  }
+
+  
+  .ant-collapse > .ant-collapse-item:last-child {
+    border-radius: 0;
+    /* &.ant-collapse-header {
+      border-radius: 0;
+    } */
+		&.ant-collapse-content {
+				border-radius: 0;
+			}
   }
 
   /* Выбираем все иконки SVG внутри элементов с классом ant-collapse-header */
   .ant-collapse-header {
     /* РАБОТАТЬ ДОЛЖНЫ В ПАРЕ С ТАКИМ СВЕРХУ ----- */
     border-bottom: 1px solid rgb(0 0 0 / 10%);
+    border-radius: 0 !important;
     /* box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 19px 0px !important; */
     svg {
       width: 32px;
@@ -113,7 +126,7 @@ export const StyledCollapse = styled(Collapse)`
     position: relative;
     /* margin-left: 10px; */
     /* padding-left: 30px; */
-    border-radius: 0;
+    border-radius: 0 !important;
     /* background-color: white; */
 
     .ant-collapse-item {
