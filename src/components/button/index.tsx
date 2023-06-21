@@ -6,7 +6,7 @@ export enum ButtonVariants {
   green = 'green',
   red = 'red',
   blue = 'blue',
-  light = 'lignht',
+  light = 'light',
   dark = 'dark',
   default = 'default',
   defaultTheme = 'defaultTheme',
