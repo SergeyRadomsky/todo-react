@@ -1,64 +1,60 @@
-// import { Story } from '@storybook/react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-// import { Meta, Canvas } from '@storybook/blocks';
-// import * as ComponentStories from './some-component.stories';
-import Button, { ButtonVariants } from './index';
+import type { Meta, StoryObj } from '@storybook/react';
+import Button from '.';
 
-export default {
+const meta = {
   title: 'Components/Button',
   component: Button,
   argTypes: {
-    variant: {
-      options: Object.values(ButtonVariants),
-      control: { type: 'select' },
+    onClick: { action: 'clicked'},
+    
+    children: {
+      description: '(props: {className: string}) => React.ReactNode',
     },
-    active: { control: 'boolean' },
-    activeTheme: { control: 'boolean' },
-    onClick: { action: 'clicked' },
+
+    variant: {
+      // type: 'string',
+      description: 'Как вариант',
+      defaultValue: 'primary',
+      control: {
+        type: 'radio',
+      },
+      options: ['red', 'green', 'blue', 'light'],
+    },
+
+    active: {
+      activeStatus: true,
+      control: {
+        type: 'boolean',
+      }
+    },
+
+    // spinner: {
+    //   description: 'JSX.Element',
+    //   type: 'function',
+    // },
+    // className: { type: 'string' },
   },
-} as ComponentMeta<typeof Button>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Template: ComponentStory<typeof Button> = (args: any) => <Button {...args} />;
-export const Default = Template.bind({});
-Default.args = {
-  children: 'Button',
-};
-export const Green = Template.bind({});
-Green.args = {
-  children: 'Green Button',
-  variant: ButtonVariants.green,
-};
-export const Red = Template.bind({});
-Red.args = {
-  children: 'Red Button',
-  variant: ButtonVariants.red,
-};
-export const Blue = Template.bind({});
-Blue.args = {
-  children: 'Blue Button',
-  variant: ButtonVariants.blue,
-};
-export const Light = Template.bind({});
-Light.args = {
-  children: 'Light Button',
-  variant: ButtonVariants.light,
-};
-export const Dark = Template.bind({});
-Dark.args = {
-  children: 'Dark Button',
-  variant: ButtonVariants.dark,
-};
-export const DefaultTheme = Template.bind({});
-DefaultTheme.args = {
-  children: 'Default Theme Button',
-  variant: ButtonVariants.defaultTheme,
+} satisfies Meta<typeof Button>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+export const Default: Story = {
+  args: {
+    children: 'Press me',
+    variant: 'red',
+    active: true,
+  },
 };
 
+
+// СТАРЫЙ СИНТАКСИС------------------------------------------------------------------------
 // import Button from '.';
 // import '../button/index.module.scss';
 
-// export default {
-//   title: 'UI/Button',
+// const meta {
+//   title: 'Components/Button',
 //   component: Button,
 //   argTypes: {
 //     variant: {
@@ -86,4 +82,50 @@ DefaultTheme.args = {
 // Large.args = {
 //   children: 'Press me',
 //   variant: 'primary',
+// };
+
+// ВАРИАНТ ВЕРНОГО СИТАКСИСА--------------------------------------------------------------
+// import type { Meta, StoryObj } from '@storybook/react';
+// import Loader from 'src/components/loader';
+
+// // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
+// const meta = {
+//   title: 'Components/Loader',
+//   component: Loader,
+//   tags: ['autodocs'],
+//   argTypes: {
+//     minLoaderTime: {
+//       table: {
+//         defaultValue: { summary: 300 },
+//       },
+//       type: 'number',
+//     },
+//     isLoading: { defaultValue: { summary: false } },
+//     children: {
+//       description: '(props: {className: string}) => React.ReactNode',
+//     },
+//     spinner: {
+//       description: 'JSX.Element',
+//       type: 'function'
+//     },
+//     className: { type: 'string' },
+//   },
+// } satisfies Meta<typeof Loader>;
+
+// export default meta;
+// type Story = StoryObj<typeof meta>;
+
+// // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+// export const Default: Story = {
+//   args: {
+//     isLoading: true,
+//     children: () => (
+//       <>
+//         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum
+//         facilis quae? Sit nesciunt natus tempora suscipit explicabo, recusandae
+//         fugiat beatae! Facere totam exercitationem architecto dolor cumque
+//         tempore modi nostrum.
+//       </>
+//     ),
+//   },
 // };
