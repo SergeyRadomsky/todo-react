@@ -1,9 +1,8 @@
 import { Collapse } from 'antd';
 import styled from 'styled-components';
 
-
 export const StyledTestPsyho = styled.div`
- width: 600px;
+  width: 600px;
 `;
 
 export const StyledPersonalBlock = styled.div`
@@ -95,18 +94,18 @@ export const StyledCollapse = styled(Collapse)`
     border-radius: 0;
     .ant-collapse-content {
       border-left: 0px;
+      border-right: 0px;
     }
   }
 
-  
   .ant-collapse > .ant-collapse-item:last-child {
     border-radius: 0;
     /* &.ant-collapse-header {
       border-radius: 0;
     } */
-		&.ant-collapse-content {
-				border-radius: 0;
-			}
+    &.ant-collapse-content {
+      border-radius: 0;
+    }
   }
 
   /* Выбираем все иконки SVG внутри элементов с классом ant-collapse-header */
@@ -128,6 +127,11 @@ export const StyledCollapse = styled(Collapse)`
     /* padding-left: 30px; */
     border-radius: 0 !important;
     /* background-color: white; */
+    > .ant-collapse-header {
+      /* margin-left: -60px;
+      padding-left: 76px;
+      width: 581px; */
+    }
 
     .ant-collapse-item {
       /* margin-left: 0px; */
@@ -185,11 +189,5 @@ export const StyledPanel = styled(Collapse.Panel)`
   }
   .ant-collapse-content-box {
     padding: 0 !important;
-    /* display: flex;
-    flex-direction: column;
-    align-items: start; */
-    .ant-collapse-content-box  {
-      /* border-left: 10px solid #f0f0f0; */
-    }
   }
 `;

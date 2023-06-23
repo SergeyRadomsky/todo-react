@@ -11,7 +11,7 @@ export const StyledForm = styled.form`
     height: 40px;
     font-size: 16px;
     line-height: 15px;
-    padding-left: 30px;
+    padding-left: 43px;
   }
   .StyledInput {
     width: 24px;
