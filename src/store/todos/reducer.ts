@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-
 import {
   SortTypes,
   ViewOfLists,
@@ -30,11 +29,12 @@ export type TodoState = {
   isLoading: boolean;
   error: string | null;
 };
+
 export enum peremLS {
-    todosLS = 'todosLS',
-    viewTodosLS = 'viewTodosLS',
-    ActualThemeLS = 'ActualThemeLS',
-    AuthLS = 'AuthLS',
+  todosLS = 'todosLS',
+  viewTodosLS = 'viewTodosLS',
+  ActualThemeLS = 'ActualThemeLS',
+  AuthLS = 'AuthLS',
 }
 
 const initialViewTodos =
@@ -191,7 +191,7 @@ export const todos = createSlice({
           return todo.completed === false;
         });
       }
-      
+
       localStorage.setItem(peremLS.todosLS, JSON.stringify(state.todosState));
     },
 
@@ -226,7 +226,6 @@ export const todos = createSlice({
       );
     },
   },
-
 });
 
 export const {

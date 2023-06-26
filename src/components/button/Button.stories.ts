@@ -4,35 +4,10 @@ import Button from '.';
 const meta = {
   title: 'Components/Button',
   component: Button,
-  argTypes: {
-    onClick: { action: 'clicked'},
-    
-    children: {
-      description: '(props: {className: string}) => React.ReactNode',
-    },
-
-    variant: {
-      // type: 'string',
-      description: 'Как вариант',
-      defaultValue: 'primary',
-      control: {
-        type: 'radio',
-      },
-      options: ['red', 'green', 'blue', 'light'],
-    },
-
-    active: {
-      activeStatus: true,
-      control: {
-        type: 'boolean',
-      }
-    },
-
-    // spinner: {
-    //   description: 'JSX.Element',
-    //   type: 'function',
-    // },
-    // className: { type: 'string' },
+  tags: ['autodocs'],
+  args: {
+    children: 'Press me',
+    active: true,
   },
 } satisfies Meta<typeof Button>;
 
@@ -42,12 +17,9 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    children: 'Press me',
     variant: 'red',
-    active: true,
   },
 };
-
 
 // СТАРЫЙ СИНТАКСИС------------------------------------------------------------------------
 // import Button from '.';
@@ -129,3 +101,4 @@ export const Default: Story = {
 //     ),
 //   },
 // };
+ 
